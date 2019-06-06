@@ -1,0 +1,39 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>安装界面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/vendor/vendor_main/static/layui/css/layui.css"  th:href="@{/layui/css/layui.css}" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<ul class="layui-nav">
+    <li class="layui-nav-item"><a href="">用户×××</a></li>
+    <li class="layui-nav-item" style="float: right"><a href="">返回主界面</a></li>
+</ul>
+
+<form action="">
+    请选择安装时间：
+    <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+        <input type="text" class="layui-input" id="test1">
+    </div>
+    <td><button  type="submit" class="layui-btn">提交</button></td>
+</form>
+
+
+<script src="/vendor/vendor_main/static/layui/layui.js" th:src="@{/layui/layui.js}" ></script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+    });
+</script>
+</body>
+</html>

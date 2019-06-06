@@ -1,0 +1,22 @@
+#设置国际化路径
+spring:
+  messages:
+    basename: i18n.login
+#    禁用模板引擎缓存
+  thymeleaf:
+    cache: false
+#    配置日期格式
+  mvc:
+    date-format: yyyy-MM-dd
+  datasource:
+    username: root
+    password: hwy79868058
+    url: jdbc:mysql://localhost:3306/vendor?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+#    更新或创建数据表
+      ddl-auto: update
+#      控制台显示SQL
+    show-sql: true
+

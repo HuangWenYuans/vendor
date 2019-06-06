@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>安装人员界面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/vendor/vendor_main/static/layui/css/layui.css" th:href="@{/layui/css/layui.css}"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<ul class="layui-nav">
+    <li class="layui-nav-item"><a href="">欢迎安装人员×××</a></li>
+    <li class="layui-nav-item"><a href="">按时间排序</a></li>
+    <li class="layui-nav-item" style="float: right"><a href="">返回主界面</a></li>
+</ul>
+<table class="layui-table">
+    <colgroup>
+        <col width="200">
+        <col width="200">
+        <col width="200">
+        <col width="200">
+        <col width="200">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>售货机ID</th>
+        <th>用户名</th>
+        <th>联系方式</th>
+        <th>预期安装时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1000</td>
+        <td>张三</td>
+        <td>15620943812</td>
+        <td>2019-07-23</td>
+        <td><button class="layui-btn">安装</button></td>
+    </tr>
+    <tr>
+        <td>1001</td>
+        <td>李四</td>
+        <td>15620943812</td>
+        <td>2019-08-24</td>
+        <td><button class="layui-btn">安装</button></td>
+    </tr>
+    <tr>
+        <td>1002</td>
+        <td>张三</td>
+        <td>15620943812</td>
+        <td>2019-10-01</td>
+        <td><button class="layui-btn">安装</button></td>
+    </tr>
+    <tr>
+        <td>1003</td>
+        <td>李四</td>
+        <td>15620943812</td>
+        <td>2019-10-01</td>
+        <td><button class="layui-btn">安装</button></td>
+    </tr>
+    </tbody>
+</table>
+<div id="demo1" style="text-align: center"></div>
+<script src="/vendor/vendor_main/static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+<script>
+    layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+            ,layer = layui.layer;
+
+        //总页数大于页码总数
+        laypage.render({
+            elem: 'demo1'
+            ,count: 70 //数据总数
+            ,jump: function(obj){
+                console.log(obj)
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
