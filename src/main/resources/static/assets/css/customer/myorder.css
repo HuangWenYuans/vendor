@@ -120,7 +120,7 @@
 	width: 40px;
 	height: 40px;
 	border-left: 1px solid #e0e0e0;
-	background: url(../img/ds.png) no-repeat center center;
+	background: url(/assets/img/customer/ds.png) no-repeat center center;
 }
 .Bott .you .dkuang{
 	border: 1px solid #b0b0b0;
@@ -320,7 +320,7 @@
 	font-weight: normal;
 }
 .wuliu ul li{
-	background: url(../img/dian2.png) no-repeat 0 7px;
+	background: url(/assets/img/customer/dian2.png) no-repeat 0 7px;
 	padding-left: 10px;
 	margin-bottom: 5px;
 }
@@ -423,7 +423,7 @@
  } 
 
 .logistic .bb{
-	background: url(../img/bg.png) no-repeat 0 0;
+	background: url(/assets/img/customer/bg.png) no-repeat 0 0;
 	position: absolute;
 	left: -20px;
 	top: 10px;

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+    <meta charset="utf-8"/>
+    <title>冰淇淋</title>
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/customer/public.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/proList.css}"/>
+</head>
+<body>
+<!------------------------------head------------------------------>
+<!--引入页面头部-->
+<div th:replace="commons/bar::headbar"></div>
+<!-----------------banner------------------------------->
+<div class="banner">
+    <a href="#">
+        <img th:src="@{/assets/img/customer/temp/perfume_Banner.jpg}"/>
+    </a>
+</div>
+<!-----------------address------------------------------->
+<div class="address">
+    <div class="wrapper clearfix">
+        <a href="index.html" th:href="@{/index}">首页</a>
+        <span>/</span>
+        <a href="icecream.html" th:href="@{/icecream}" class="on">冰淇淋机</a>
+    </div>
+</div>
+<!-----------------paintCon------------------------------->
+<div class="paintCon">
+    <section class="wrapper">
+        <h3><img th:src="@{/assets/img/customer/ih4.png}"></h3>
+        <img src="/vendor/vendor_main/static/assets/img/customer/temp/xxB01.jpg"
+             th:src="@{/assets/img/customer/temp/xxB01.jpg}"/>
+        <div class="paintList">
+            <a href="detail.html" th:href="@{/detail}" th:each="iceCreamVendor,n:${session.iceCreamVendors}">
+                <dl>
+                    <dt>
+                        <img width="374px" height="374px" th:src="@{${iceCreamVendor.pricture1}}">
+                    </dt>
+                    <dd th:text="${iceCreamVendor.vendorName}"></dd>
+                    <dd><span>[[${iceCreamVendor.price}]]</span></dd>
+                </dl>
+            </a>
+
+        </div>
+    </section>
+</div>
+<!--引入返回顶部工具栏-->
+<div th:replace="commons/bar::gotobar"></div>
+<div class="msk"></div>
+<!--引入页面底部-->
+<div th:replace="commons/bar::footerbar"></div>
+<script src="/vendor/vendor_main/static/assets/js/customer/jquery-1.12.4.min.js"
+        th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+<script src="/vendor/vendor_main/static/assets/js/customer/public.js" th:src="@{/assets/js/customer/public.js}"
+        type="text/javascript" charset="utf-8"></script>
+<script src="/vendor/vendor_main/static/assets/js/customer/nav.js" th:src="@{/assets/js/customer/nav.js}"
+        type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

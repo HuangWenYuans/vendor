@@ -13,21 +13,19 @@
 <div class="head ding">
     <div class="wrapper clearfix">
         <div class="clearfix" id="top">
-            <h1 class="fl"><a href="index.html"><img src="/vendor/vendor_main/static/assets/img/customer/logo.png"
-                                                     th:src="@{/assets/img/customer/logo.png}"/></a>
+            <h1 class="fl"><a href="index.html">
+                <img src="/vendor/vendor_main/static/assets/img/customer/logo.png"
+                     th:src="@{/assets/img/customer/logo.png}"/></a>
             </h1>
             <div class="fr clearfix" id="top1">
-                <p class="fl">
-                    <a href="login.html" id="login">登录</a>
-                    <a href="reg.html" id="reg">注册</a>
-                </p>
+
                 <form action="#" method="get" class="fl">
                     <input type="text" placeholder="搜索"/>
                     <input type="button"/>
                 </form>
                 <div class="btn fl clearfix">
-                    <a href="mygxin.html"><img src="/vendor/vendor_main/static/assets/img/customer/grzx.png"
-                                               th:src="@{/assets/img/customer/grzx.png}"/></a>
+                    <a href="personalcenter.html"><img src="/vendor/vendor_main/static/assets/img/customer/grzx.png"
+                                                       th:src="@{/assets/img/customer/grzx.png}"/></a>
                     <a href="#" class="er1"><img src="/vendor/vendor_main/static/assets/img/customer/ewm.png"
                                                  th:src="@{/assets/img/customer/ewm.png}"/></a>
                     <a href="cart.html"><img src="/vendor/vendor_main/static/assets/img/customer/gwc.png"
@@ -38,48 +36,21 @@
             </div>
         </div>
         <ul class="clearfix" id="bott">
-            <li><a href="index.html">首页</a></li>
+            <li><a href="index.html" th:href="@{/index}">首页</a></li>
             <li>
-                <a href="#">所有商品</a>
-                <div class="sList">
-                    <div class="wrapper  clearfix">
-                        <a href="paint.html">
-                            <dl>
-                                <dt><img src="/vendor/vendor_main/static/assets/img/customer/nav1.jpg"/></dt>
-                                <dd>浓情欧式</dd>
-                            </dl>
-                        </a>
-                        <a href="paint.html">
-                            <dl>
-                                <dt><img src="/vendor/vendor_main/static/assets/img/customer/nav2.jpg"/></dt>
-                                <dd>浪漫美式</dd>
-                            </dl>
-                        </a>
-                    </div>
-                </div>
+                <a href="index.html" th:href="@{/index}">所有商品</a>
             </li>
             <li>
-                <a href="flowerDer.html">装饰摆件</a>
-                <div class="sList2">
-                    <div class="clearfix">
-                        <a href="proList.html">干花花艺</a>
-                        <a href="vase_proList.html">花瓶花器</a>
-                    </div>
-                </div>
+                <a href="drink.html" th:href="@{/drink}">饮料机</a>
             </li>
             <li>
-                <a href="decoration.html">布艺软饰</a>
-                <div class="sList2">
-                    <div class="clearfix">
-                        <a href="zbproList.html">桌布罩件</a>
-                        <a href="bzproList.html">抱枕靠垫</a>
-                    </div>
-                </div>
+                <a href="yogurt.html" th:href="@{/yogurt}">酸奶机</a>
             </li>
-            <li><a href="paint.html">墙式壁挂</a></li>
-            <li><a href="perfume.html">蜡艺香薰</a></li>
-            <li><a href="idea.html">创意家居</a></li>
+            <li><a href="lunch.html" th:href="@{/lunch}">盒饭机</a></li>
+            <li><a href="ice_cream.html" th:href="@{/icecream}">冰淇淋机</a></li>
+            <li><a href="multiple.html" th:href="@{/multiple}">综合机</a></li>
         </ul>
+
     </div>
 </div>
 <div class="cart mt">
@@ -94,7 +65,8 @@
     <div class="site">
         <p class=" wrapper clearfix">
             <span class="fl">购物车</span>
-            <img class="top" src="/vendor/vendor_main/static/assets/img/customer/temp/cartTop01.png">
+            <img class="top" src="/vendor/vendor_main/static/assets/img/customer/temp/cartTop01.png"
+                 th:src="@{/assets/img/customer/temp/cartTop01.png}">
             <a href="index.html" class="fr">继续购物&gt;</a>
         </p>
     </div>
@@ -130,9 +102,11 @@
             <div class="price">￥20.00</div>
             <div class="number">
                 <p class="num clearfix">
-                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg">
+                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg"
+                         th:src="@{/assets/img/customer/temp/sub.jpg}">
                     <span class="fl">1</span>
-                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg">
+                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg"
+                         th:src="@{/assets/img/customer/temp/add.jpg}">
                 </p>
             </div>
             <div class="price sAll">￥20.00</div>
@@ -161,9 +135,11 @@
             <div class="price">￥20.00</div>
             <div class="number">
                 <p class="num clearfix">
-                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg">
+                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg"
+                         th:src="@{/assets/img/customer/temp/sub.jpg}">
                     <span class="fl">1</span>
-                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg">
+                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg"
+                         th:src="@{/assets/img/customer/temp/add.jpg}">
                 </p>
             </div>
             <div class="price sAll">￥20.00</div>
@@ -192,9 +168,44 @@
             <div class="price">￥20.00</div>
             <div class="number">
                 <p class="num clearfix">
-                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg">
+                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg"
+                         th:src="@{/assets/img/customer/temp/sub.jpg}">
                     <span class="fl">1</span>
-                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg">
+                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg"
+                         th:src="@{/assets/img/customer/temp/add.jpg}">
+                </p>
+            </div>
+            <div class="price sAll">￥20.00</div>
+            <div class="price"><a class="del" href="#2">删除</a></div>
+        </div>
+        <div class="th">
+            <div class="pro clearfix">
+                <label class="fl">
+                    <input type="checkbox"/>
+                    <span></span>
+                </label>
+                <a class="fl" href="#">
+                    <dl class="clearfix">
+                        <dt class="fl">
+                            <img src="/vendor/vendor_main/static/assets/img/customer/sf1.jpg" width="120px"
+                                 height="120px" th:src="@{/assets/img/customer/sf1.jpg}">
+                        </dt>
+                        <dd class="fl">
+                            <p>创意现代简约干花花瓶摆件</p>
+                            <p>颜色分类:</p>
+                            <p>白色瓷瓶+白色串枚</p>
+                        </dd>
+                    </dl>
+                </a>
+            </div>
+            <div class="price">￥20.00</div>
+            <div class="number">
+                <p class="num clearfix">
+                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg"
+                         th:src="@{/assets/img/customer/temp/sub.jpg}">
+                    <span class="fl">1</span>
+                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg"
+                         th:src="@{/assets/img/customer/temp/add.jpg}">
                 </p>
             </div>
             <div class="price sAll">￥20.00</div>
@@ -214,7 +225,7 @@
             <p class="fr">
                 <span>共<small id="sl">0</small>件商品</span>
                 <span>合计:&nbsp;<small id="all">￥0.00</small></span>
-                <a href="order.html" class="count">结算</a>
+                <a href="order.html" th:href="@{/order}" class="count">结算</a>
             </p>
         </div>
     </div>
@@ -243,7 +254,7 @@
             <dd>联系<br/>客服</dd>
         </dl>
     </a>
-    <a href="mygxin.html">
+    <a href="personalcenter.html">
         <dl>
             <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt3.png"
                      th:src="@{/assets/img/customer/gt3.png}"/></dt>
@@ -292,18 +303,24 @@
 <div class="mask"></div>
 <!-------------------mask内容------------------->
 <div class="proDets">
-    <img class="off" src="/vendor/vendor_main/static/assets/img/customer/temp/off.jpg"/>
+    <img class="off" src="/vendor/vendor_main/static/assets/img/customer/temp/off.jpg"
+         th:src="@{/assets/img/customer/temp/off.jpg}"/>
     <div class="proCon clearfix">
         <div class="proImg fr">
-            <img class="list" src="/vendor/vendor_main/static/assets/img/customer/temp/proDet.jpg"/>
+            <img class="list" src="/vendor/vendor_main/static/assets/img/customer/temp/proDet.jpg"
+                 th:src="@{/assets/img/customer/temp/proDet.jpg}"/>
             <div class="smallImg clearfix">
                 <img src="/vendor/vendor_main/static/assets/img/customer/temp/proDet01.jpg"
+                     th:src="@{/assets/img/customer/temp/proDet01.jpg}"
                      data-src="img/temp/proDet01_big.jpg">
                 <img src="/vendor/vendor_main/static/assets/img/customer/temp/proDet02.jpg"
+                     th:src="@{/assets/img/customer/temp/proDet02.jpg}"
                      data-src="/vendor/vendor_main/static/assets/img/customer/temp/proDet02_big.jpg">
                 <img src="/vendor/vendor_main/static/assets/img/customer/temp/proDet03.jpg"
+                     th:src="@{/assets/img/customer/temp/proDet03.jpg}"
                      data-src="/vendor/vendor_main/static/assets/img/customer/temp/proDet03_big.jpg">
                 <img src="/vendor/vendor_main/static/assets/img/customer/temp/proDet04.jpg"
+                     th:src="@{/assets/img/customer/temp/proDet03_big.jpg}"
                      data-src="/vendor/vendor_main/static/assets/img/customer/temp/proDet04_big.jpg">
             </div>
         </div>

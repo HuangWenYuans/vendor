@@ -48,7 +48,8 @@ $(function () {
         $(this).parent("p").removeClass('on');
     });
     $(".proIntro .smallImg img").click(function () {
-        var offset = $(this).attr("data-src");
+        // var offset = $(this).attr("data-src");
+        var offset = [[${vendor.pricture1}]];
         //小弹框和详情页图片大小不一样
         $(this).parents(".proCon").find('.proImg').children(".det").attr("src", offset).css({
             'width': '580px',
@@ -82,7 +83,8 @@ $(function () {
     /*************************小图切换大图*****************************/
     $(".smallImg > img").mouseover(function () {
         $(this).css("border", "1px solid #c10000").siblings("img").css("border", "none");
-        var src = $(this).attr("data-src");
+        // var src = $(this).attr("data-src");
+        var src = [[${vendor.pricture1}]];
         $(this).parent().siblings(".det").attr("src", src).css({'width': '580px', 'height': '580px'});
         $(this).parent().siblings(".list").attr("src", src).css({'width': '360px', 'height': '360px'});
     })
@@ -118,7 +120,7 @@ $(function () {
         seconds--;
         $(".ok span").text(seconds);
         if (seconds == 0) {
-            window.location.href = ("myorderq.html")
+            window.location.href = ("myorder.html")
         }
     }
 

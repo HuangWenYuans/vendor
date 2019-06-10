@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+    <meta charset="utf-8"/>
+    <title>盒饭机</title>
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/public.css"
+          th:href="@{/assets/css/customer/public.css}"/>
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/proList.css"
+          th:href="@{/assets/css/customer/proList.css}"/>
+</head>
+<body>
+<!------------------------------head------------------------------>
+<!--引入页面头部-->
+<div th:replace="commons/bar::headbar"></div>
+<!-----------------banner------------------------------->
+<div class="banner">
+    <a href="#"><img th:src="@{/assets/img/customer/temp/banner2.jpg}"/></a>
+</div>
+<!-----------------address------------------------------->
+<div class="address">
+    <div class="wrapper clearfix">
+        <a href="index.html" th:href="@{/index}">首页</a>
+        <span>/</span>
+        <a href="lunch.html" th:href="@{/lunch}" class="on">盒饭机</a>
+    </div>
+</div>
+<!-----------------paintCon------------------------------->
+<div class="paintCon">
+    <section class="wrapper">
+        <h3><img th:src="@{/assets/img/customer/ih3.png}"></h3>
+        <img th:src="@{/assets/img/customer/temp/paint01.jpg}"/>
+        <div class="paintList">
+            <a href="detail.html" th:href="@{/detail}" th:each="lunchVendor,n:${session.lunchVendors}">
+                <dl>
+                    <dt>
+                        <img width="374px" height="374px" th:src="@{${lunchVendor.pricture1}}">
+                    </dt>
+                    <dd th:text="${lunchVendor.vendorName}"></dd>
+                    <dd><span>[[${lunchVendor.price}]]</span></dd>
+                </dl>
+            </a>
+
+        </div>
+    </section>
+</div>
+
+<!--引入返回顶部工具栏-->
+<div th:replace="commons/bar::gotobar"></div>
+<div class="msk"></div>
+<!--引入页面底部-->
+<div th:replace="commons/bar::footerbar"></div>
+
+<script th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/assets/js/customer/public.js}"
+        type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/assets/js/customer/nav.js}"
+        type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

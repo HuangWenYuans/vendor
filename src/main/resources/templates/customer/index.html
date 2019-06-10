@@ -3,425 +3,365 @@
 
 <head lang="en">
     <meta charset="utf-8"/>
-    <title>最家</title>
-    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/public.css"
-          th:href="@{/assets/css/customer/public.css}"/>
-    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/index.css"
-          th:href="@{/assets/css/customer/index.css}"/>
+    <title>机你太美</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/public.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/index.css}"/>
 </head>
 <body>
-<!------------------------------head------------------------------>
-<div class="head">
-    <div class="wrapper clearfix">
-        <div class="clearfix" id="top">
-            <h1 class="fl"><a href="index.html"><img src="/vendor/vendor_main/static/assets/img/customer/logo.png"
-                                                     th:src="@{/assets/img/customer/logo.png}"/></a></h1>
-            <div class="fr clearfix" id="top1">
-                <p class="fl">
-                    <a href="#" id="login">登录</a>
-                    <a href="#" id="reg">注册</a>
-                </p>
-                <form action="#" method="get" class="fl">
-                    <input type="text" placeholder="热门搜索：干花花瓶"/>
-                    <input type="button"/>
-                </form>
-                <div class="btn fl clearfix">
-                    <a href="mygxin.html">
-                        <img src="/vendor/vendor_main/static/assets/img/customer/grzx.png"
-                             th:src="@{/assets/img/customer/grzx.png}"/>
-                    </a>
-                    <a href="cart.html">
-                        <img src="/vendor/vendor_main/static/assets/img/customer/gwc.png"
-                             th:src="@{/assets/img/customer/grzx.png}"/>
-                    </a>
-                    <p>
-                        <a href="#">
-                            <img src="/vendor/vendor_main/static/assets/img/customer/smewm.png"
-                                 th:src="@{/assets/img/customer/smewm.png}"/>
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <ul class="clearfix" id="bott">
-            <li><a href="index.html">首页</a></li>
-            <li>
-                <a href="#">所有商品</a>
-            </li>
-            <li>
-                <a href="flowerDer.html">饮料机</a>
-            </li>
-            <li>
-                <a href="decoration.html">酸奶机</a>
-            </li>
-            <li><a href="paint.html">盒饭机</a></li>
-            <li><a href="perfume.html">冰淇淋机</a></li>
-            <li><a href="idea.html">综合机</a></li>
-        </ul>
-    </div>
-</div>
-
+<!--引入页面头部-->
+<div th:replace="commons/bar::headbar"></div>
 <!-------------------------banner--------------------------->
 <div class="block_home_slider">
     <div id="home_slider" class="flexslider">
         <ul class="slides">
             <li>
                 <div class="slide">
-                    <img src="/vendor/vendor_main/static/assets/img/customer/sb1.jpg"
-                         th:src="@{/assets/img/customer/ss1.jpg}" width="2400px" height="826px"/>
+                    <img th:src="@{/assets/img/customer/banner1.png}"/>
                 </div>
             </li>
             <li>
                 <div class="slide">
-                    <img src="/vendor/vendor_main/static/assets/img/customer/sb2.jpg"
-                         th:src="@{/assets/img/customer/banner1.jpg}" width="2400px" height="826px"/>
+                    <img th:src="@{/assets/img/customer/banner2.png}"/>
+                </div>
+            </li>
+            <li>
+                <div class="slide">
+                    <img th:src="@{/assets/img/customer/banner3.png}"/>
                 </div>
             </li>
         </ul>
     </div>
 </div>
 
-<!------------------------------news------------------------------>
-<div class="news">
-    <div class="wrapper">
-        <h2><img src="/vendor/vendor_main/static/assets/img/customer/ih1.jpg" th:src="@{/assets/img/customer/ih1.jpg}"/>
-        </h2>
-        <div class="top clearfix">
-            <a href="proDetail.html"><img src="/vendor/vendor_main/static/assets/img/customer/n1.jpg"
-                                          th:src="@{/assets/img/customer/n1.jpg}"/>
-                <p></p></a>
-            <a href="proDetail.html"><img src="/vendor/vendor_main/static/assets/img/customer/n2.jpg"
-                                          th:src="@{/assets/img/customer/n2.jpg}"/>
-                <p></p></a>
-            <a href="proDetail.html"><img src="/vendor/vendor_main/static/assets/img/customer/n3.jpg"
-                                          th:src="@{/assets/img/customer/n3.jpg}"/>
-                <p></p></a>
-        </div>
-        <div class="bott clearfix">
-            <a href="proDetail.html"><img src="/vendor/vendor_main/static/assets/img/customer/n4.jpg"
-                                          th:src="@{/assets/img/customer/n4.jpg}"/>
-                <p></p></a>
-            <a href="proDetail.html"><img src="/vendor/vendor_main/static/assets/img/customer/n5.jpg"
-                                          th:src="@{/assets/img/customer/n5.jpg}"/>
-                <p></p></a>
-            <a href="proDetail.html"><img src="/vendor/vendor_main/static/assets/img/customer/n6.jpg"
-                                          th:src="@{/assets/img/customer/n6.jpg}"/>
-                <p></p></a>
-        </div>
-        <h2><img src="/vendor/vendor_main/static/assets/img/customer/ih2.jpg" th:src="@{/assets/img/customer/ih2.jpg}"/>
-        </h2>
-        <div class="flower clearfix tran">
-            <a href="proDetail.html" class="clearfix">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/sb1.jpg"
-                             th:src="@{/assets/img/customer/sb1.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【花艺】七头美丽玫瑰仿真花束</dd>
-                    <dd><span>¥ 79.00</span></dd>
-                </dl>
-            </a>
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/sb2.jpg"
-                             th:src="@{/assets/img/customer/sb2.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【花艺】七头美丽玫瑰仿真花束</dd>
-                    <dd><span>¥ 79.00</span></dd>
-                </dl>
-            </a>
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/sb1.jpg"
-                             th:src="@{/assets/img/customer/sf1.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【花艺】七头美丽玫瑰仿真花束</dd>
-                    <dd><span>¥ 79.00</span></dd>
-                </dl>
-            </a>
-        </div>
-        <div class="flower clearfix tran">
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/sf2.jpg"
-                             th:src="@{/assets/img/customer/sf2.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【花艺】七头美丽玫瑰仿真花束</dd>
-                    <dd><span>¥ 79.00</span></dd>
-                </dl>
-            </a>
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/sn1.jpg"
-                             th:src="@{/assets/img/customer/sn1.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【花艺】七头美丽玫瑰仿真花束</dd>
-                    <dd><span>¥ 79.00</span></dd>
-                </dl>
-            </a>
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/sn2.jpg"
-                             th:src="@{/assets/img/customer/sn2.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【花艺】七头美丽玫瑰仿真花束</dd>
-                    <dd><span>¥ 79.00</span></dd>
-                </dl>
-            </a>
-        </div>
-    </div>
-</div>
-
-<!------------------------------ad------------------------------>
-<a href="#" class="ad"><img src=/vendor/vendor_main/static/assets/img/customer/id1.jpg"
-                            th:src="@{/assets/img/customer/id1.jpg}"/></a>
-
-<!------------------------------people------------------------------>
+<!--此div每行四个-->
 <div class="people">
     <div class="wrapper">
-        <h2><img src="/vendor/vendor_main/static/assets/img/customer/ih3.jpg" th:src="@{/assets/img/customer/ih3.jpg}"/>
+        <!--饮料机-->
+        <h2><img th:src="@{/assets/img/customer/ih1.png}"/>
         </h2>
-        <div class="pList clearfix tran">
-            <a href="proDetail.html">
+        <!--每行有4个的行-->
+        <div class="pList clearfix tran" th:each="drinkVendor,n:${session.drinkVendors}" th:if="${n.count % 4 == 0}">
+            <!--每行第一个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.drinkVendors[n.count - 4].vendorId}">
                 <dl>
                     <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss7.jpg"
-                             th:src="@{/assets/img/customer/s7.jpg}"/>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.drinkVendors[n.count - 4].pricture1}}"/>
                         <span class="abr"></span>
                     </dt>
-                    <dd>【最家】不锈钢壁饰墙饰软装</dd>
-                    <dd><span>￥688.00</span></dd>
+                    <dd th:text="${session.drinkVendors[n.count - 4].vendorName}"></dd>
+                    <dd><span>[[${session.drinkVendors[n.count - 4].price}]]</span></dd>
                 </dl>
             </a>
-            <a href="proDetail.html">
+            <!--每行第二个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.drinkVendors[n.count - 3].vendorId}">
                 <dl>
                     <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss10.jpg"
-                             th:src="@{/assets/img/customer/s10.jpg}"/>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.drinkVendors[n.count - 3].pricture1}}"/>
                         <span class="abr"></span>
                     </dt>
-                    <dd>【最家】小城动物木板画壁挂北欧</dd>
-                    <dd><span>￥188.00</span></dd>
+                    <dd th:text="${session.drinkVendors[n.count - 3].vendorName}"></dd>
+                    <dd><span>[[${session.drinkVendors[n.count - 3].price}]]</span></dd>
                 </dl>
             </a>
-            <a href="proDetail.html">
+            <!--每行第三个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.drinkVendors[n.count - 2].vendorId}">
+
                 <dl>
                     <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss4.jpg"
-                             th:src="@{/assets/img/customer/s4.jpg}"/>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.drinkVendors[n.count - 2].pricture1}}"/>
                         <span class="abr"></span>
                     </dt>
-                    <dd>【最家】玄关假山水壁饰背景墙饰挂件创意</dd>
-                    <dd><span>￥599.00</span></dd>
+                    <dd th:text="${session.drinkVendors[n.count - 2].vendorName}"></dd>
+                    <dd><span>[[${session.drinkVendors[n.count - 2].price}]]</span></dd>
                 </dl>
             </a>
-            <a href="proDetail.html">
+            <!--每行第四个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.drinkVendors[n.count - 1].vendorId}">
                 <dl>
                     <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss9.jpg"
-                             th:src="@{/assets/img/customer/s9.jpg}"/>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.drinkVendors[n.count - 1].pricture1}}"/>
                         <span class="abr"></span>
                     </dt>
-                    <dd>【最家】金属树枝壁饰铜鸟装饰品</dd>
-                    <dd><span>￥928.00</span></dd>
-                </dl>
-            </a>
-        </div>
-        <div class="pList clearfix tran">
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss6.jpg"
-                             th:src="@{/assets/img/customer/s6.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【最家】金属壁饰创意背景墙面挂件创意</dd>
-                    <dd><span>￥228.00</span></dd>
-                </dl>
-            </a>
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss8.jpg"
-                             th:src="@{/assets/img/customer/s8.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【最家】小城动物木板画壁挂北欧</dd>
-                    <dd><span>￥199.00</span></dd>
-                </dl>
-            </a>
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss12.jpg"
-                             th:src="@{/assets/img/customer/s12.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【最家】欧式复古挂钟创意餐厅钟表家居挂件</dd>
-                    <dd><span>￥666.00</span></dd>
-                </dl>
-            </a>
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss1.jpg"
-                             th:src="@{/assets/img/customer/s1.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【最家】客厅地中海欧式现代相片墙创意</dd>
-                    <dd><span>￥59.80</span></dd>
+                    <dd th:text="${session.drinkVendors[n.count - 1].vendorName}"></dd>
+                    <dd><span>[[${session.drinkVendors[n.count - 1].price}]]</span></dd>
                 </dl>
             </a>
         </div>
+
+        <!--不足4个的那一行-->
         <div class="pList clearfix tran">
-            <a href="proDetail.html">
+            <a href="detail.html" th:href="@{/detail}+${drinkVendor.vendorId}"
+               th:each="drinkVendor,i:${session.drinkVendors}"
+               th:if="${i.count > ((session.drinkVendors.size()/4)*4) && i.count <=session.drinkVendors.size()}">
                 <dl>
                     <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss5.jpg"
-                             th:src="@{/assets/img/customer/s5.jpg}"/>
+                        <span class=" abl"></span>
+                        <img th:src="@{${drinkVendor.pricture1}}"/>
                         <span class="abr"></span>
                     </dt>
-                    <dd>【最家】铁艺荷叶壁挂软装背景墙上装饰品</dd>
-                    <dd><span>￥800.00</span></dd>
-                </dl>
-            </a>
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss3.jpg"
-                             th:src="@{/assets/img/customer/s3.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【最家】欧式照片墙 创意组合结婚礼物</dd>
-                    <dd><span>￥189.00</span></dd>
-                </dl>
-            </a>
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss2.jpg"
-                             th:src="@{/assets/img/customer/s2.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【最家】欧式钟表相框墙挂墙创意组合</dd>
-                    <dd><span>￥148.00</span></dd>
-                </dl>
-            </a>
-            <a href="proDetail.html">
-                <dl>
-                    <dt>
-                        <span class="abl"></span>
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ss11.jpg"
-                             th:src="@{/assets/img/customer/s11.jpg}"/>
-                        <span class="abr"></span>
-                    </dt>
-                    <dd>【最家】小城动物木板画壁挂北欧</dd>
-                    <dd><span>￥188.00</span></dd>
+                    <dd th:text="${drinkVendor.vendorName}"></dd>
+                    <dd><span>[[${drinkVendor.price}]]</span></dd>
                 </dl>
             </a>
         </div>
     </div>
 </div>
-<!--返回顶部-->
-<div class="gotop">
-    <a href="cart.html">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt1.png"
-                     th:src="@{/assets/img/customer/gt1.png}"/></dt>
-            <dd>去购<br/>物车</dd>
-        </dl>
-    </a>
-    <a href="#" class="dh">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt2.png"
-                     th:src="@{/assets/img/customer/gt2.png}"/></dt>
-            <dd>联系<br/>客服</dd>
-        </dl>
-    </a>
-    <a href="mygxin.html">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt3.png"
-                     th:src="@{/assets/img/customer/gt3.png}"/></dt>
-            <dd>个人<br/>中心</dd>
-        </dl>
-    </a>
-    <a href="#" class="toptop" style="display: none">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt4.png"
-                     th:src="@{/assets/img/customer/gt4.png}"/></dt>
-            <dd>返回<br/>顶部</dd>
-        </dl>
-    </a>
-    <p>400-800-8200</p>
-</div>
 
-<!-------------------login-------------------------->
-<!--footer-->
-<div class="footer">
-    <div class="top">
-        <div class="wrapper">
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot1.png"
-                                             th:src="@{/assets/img/customer/foot1.png}"/></a>
-                <span class="fl">7天内发货</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot2.png"
-                                             th:src="@{/assets/img/customer/foot2.png}"/></a>
-                <span class="fl">15天送达</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot3.png"
-                                             th:src="@{/assets/img/customer/foot3.png}"/></a>
-                <span class="fl">送货上门</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot4.png"
-                                             th:src="@{/assets/img/customer/foot4.png}"/></a>
-                <span class="fl">免费安装</span>
-            </div>
+<!--此div每行三个-->
+<div class="news">
+    <div class="wrapper">
+        <!--酸奶机-->
+        <h2><img th:src="@{/assets/img/customer/ih2.png}"/></h2>
+        <!--每行有3个的行-->
+        <div class="flower clearfix tran" th:each="yogurtVendor,n:${session.yogurtVendors}" th:if="${n.count % 3 == 0}">
+            <!--每行第一个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.yogurtVendors[n.count - 3].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.yogurtVendors[n.count - 3].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.yogurtVendors[n.count - 3].vendorName}"></dd>
+                    <dd><span>[[${session.yogurtVendors[n.count - 3].price}]]</span></dd>
+                </dl>
+            </a>
+            <!--每行第二个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.yogurtVendors[n.count - 2].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.yogurtVendors[n.count - 2].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.yogurtVendors[n.count - 2].vendorName}"></dd>
+                    <dd><span>[[${session.yogurtVendors[n.count - 2].price}]]</span></dd>
+                </dl>
+            </a>
+            <!--每行第三个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.yogurtVendors[n.count - 1].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.yogurtVendors[n.count - 1].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.yogurtVendors[n.count - 1].vendorName}"></dd>
+                    <dd><span>[[${session.yogurtVendors[n.count - 1].price}]]</span></dd>
+                </dl>
+            </a>
         </div>
+        <!--不足3个的那一行-->
+        <div class="pList clearfix tran">
+            <a href="detail.html" th:href="@{/detail/}+${yogurtVendor.vendorId}"
+               th:each="yogurtVendor,i:${session.yogurtVendors}"
+               th:if="${i.count > ((session.yogurtVendors.size()/3)*3) && i.count <=session.yogurtVendors.size()}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${yogurtVendor.pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${yogurtVendor.vendorName}"></dd>
+                    <dd><span>[[${yogurtVendor.price}]]</span></dd>
+                </dl>
+            </a>
+        </div>
+
+        <!--盒饭机-->
+        <h2><img th:src="@{/assets/img/customer/ih3.png}"/></h2>
+        <!--每行有3个的行-->
+        <div class="flower clearfix tran" th:each="lunchVendor,n:${session.lunchVendors}" th:if="${n.count % 3 == 0}">
+            <!--每行第一个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.lunchVendors[n.count - 3].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.lunchVendors[n.count - 3].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.lunchVendors[n.count - 3].vendorName}"></dd>
+                    <dd><span>[[${session.lunchVendors[n.count - 3].price}]]</span></dd>
+                </dl>
+            </a>
+            <!--每行第二个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.lunchVendors[n.count - 2].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.lunchVendors[n.count - 2].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.lunchVendors[n.count - 2].vendorName}"></dd>
+                    <dd><span>[[${session.lunchVendors[n.count - 2].price}]]</span></dd>
+                </dl>
+            </a>
+            <!--每行第三个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.lunchVendors[n.count - 1].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.lunchVendors[n.count - 1].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.lunchVendors[n.count - 1].vendorName}"></dd>
+                    <dd><span>[[${session.lunchVendors[n.count - 1].price}]]</span></dd>
+                </dl>
+            </a>
+        </div>
+        <!--不足3个的那一行-->
+        <div class="pList clearfix tran">
+            <a href="detail.html" th:href="@{/detail/}+${lunchVendor.vendorId}"
+               th:each="lunchVendor,i:${session.lunchVendors}"
+               th:if="${i.count > ((session.lunchVendors.size()/3)*3) && i.count <=session.lunchVendors.size()}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${lunchVendor.pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${lunchVendor.vendorName}"></dd>
+                    <dd><span>[[${lunchVendor.price}]]</span></dd>
+                </dl>
+            </a>
+        </div>
+
+        <!--冰淇淋机-->
+        <h2><img th:src="@{/assets/img/customer/ih4.png}"/></h2>
+        <!--每行有3个的行-->
+        <div class="flower clearfix tran" th:each="iceCreamVendor,n:${session.iceCreamVendors}"
+             th:if="${n.count % 3 == 0}">
+            <!--每行第一个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.iceCreamVendors[n.count - 3].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.iceCreamVendors[n.count - 3].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.iceCreamVendors[n.count - 3].vendorName}"></dd>
+                    <dd><span>[[${session.iceCreamVendors[n.count - 3].price}]]</span></dd>
+                </dl>
+            </a>
+            <!--每行第二个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.iceCreamVendors[n.count - 2].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.iceCreamVendors[n.count - 2].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.iceCreamVendors[n.count - 2].vendorName}"></dd>
+                    <dd><span>[[${session.iceCreamVendors[n.count - 2].price}]]</span></dd>
+                </dl>
+            </a>
+            <!--每行第三个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.iceCreamVendors[n.count - 1].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.iceCreamVendors[n.count - 1].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.iceCreamVendors[n.count - 1].vendorName}"></dd>
+                    <dd><span>[[${session.iceCreamVendors[n.count - 1].price}]]</span></dd>
+                </dl>
+            </a>
+        </div>
+        <!--不足3个的那一行-->
+        <div class="pList clearfix tran">
+            <a href="detail.html" th:href="@{/detail/}+${iceCreamVendor.vendorId}"
+               th:each="iceCreamVendor,i:${session.iceCreamVendors}"
+               th:if="${i.count > ((session.iceCreamVendors.size()/3)*3) && i.count <=session.iceCreamVendors.size()}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${iceCreamVendor.pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${iceCreamVendor.vendorName}"></dd>
+                    <dd><span>[[${iceCreamVendor.price}]]</span></dd>
+                </dl>
+            </a>
+        </div>
+
+        <!--综合机-->
+        <h2><img th:src="@{/assets/img/customer/ih5.png}"/></h2>
+        <!--每行有3个的行-->
+        <div class="flower clearfix tran" th:each="multipleVendor,n:${session.multipleVendors}"
+             th:if="${n.count % 3 == 0}">
+            <!--每行第一个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.multipleVendors[n.count - 3].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.multipleVendors[n.count - 3].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.multipleVendors[n.count - 3].vendorName}"></dd>
+                    <dd><span>[[${session.multipleVendors[n.count - 3].price}]]</span></dd>
+                </dl>
+            </a>
+            <!--每行第二个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.multipleVendors[n.count - 2].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.multipleVendors[n.count - 2].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.multipleVendors[n.count - 2].vendorName}"></dd>
+                    <dd><span>[[${session.multipleVendors[n.count - 2].price}]]</span></dd>
+                </dl>
+            </a>
+            <!--每行第三个-->
+            <a href="detail.html" th:href="@{/detail/}+${session.multipleVendors[n.count - 1].vendorId}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${session.multipleVendors[n.count - 1].pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${session.multipleVendors[n.count - 1].vendorName}"></dd>
+                    <dd><span>[[${session.multipleVendors[n.count - 1].price}]]</span></dd>
+                </dl>
+            </a>
+        </div>
+        <!--不足3个的那一行-->
+        <div class="pList clearfix tran">
+            <a href="detail.html" th:href="@{/detail/}+${multipleVendor.vendorId}"
+               th:each="multipleVendor,i:${session.multipleVendors}"
+               th:if="${i.count > ((session.multipleVendors.size()/3)*3) && i.count <=session.multipleVendors.size()}">
+                <dl>
+                    <dt>
+                        <span class=" abl"></span>
+                        <img th:src="@{${multipleVendor.pricture1}}"/>
+                        <span class="abr"></span>
+                    </dt>
+                    <dd th:text="${multipleVendor.vendorName}"></dd>
+                    <dd><span>[[${multipleVendor.price}]]</span></dd>
+                </dl>
+            </a>
+        </div>
+
     </div>
-    <p class="dibu">最家家居&copy;2013-2017公司版权所有 京ICP备080100-44备0000111000号<br/>
-        违法和不良信息举报电话：400-800-8200，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</p>
 </div>
 
-<script src="/vendor/vendor_main/static/assets/js/customer/jquery-1.12.4.min.js"
-        th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
-<script src="/vendor/vendor_main/static/assets/js/customer/public.js" th:src="@{/assets/js/customer/public.js}"
+<!--引入返回顶部工具栏-->
+<div th:replace="commons/bar::gotobar"></div>
+<!--引入页面底部-->
+<div th:replace="commons/bar::footerbar"></div>
+
+<script th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/assets/js/customer/public.js}"
         type="text/javascript" charset="utf-8"></script>
-<script src="/vendor/vendor_main/static/assets/js/customer/nav.js" th:src="@{/assets/js/customer/nav.js}"
+<script th:src="@{/assets/js/customer/nav.js}"
         type="text/javascript" charset="utf-8"></script>
-<script src="/vendor/vendor_main/static/assets/js/customer/jquery.flexslider-min.js"
-        th:src="@{/assets/js/customer/jquery.flexslider-min.js}" type="text/javascript"
+<script th:src="@{/assets/js/customer/jquery.flexslider-min.js}" type="text/javascript"
         charset="utf-8"></script>
 <script type="text/javascript">
     $(function () {

@@ -5,13 +5,14 @@ html,body{
 .reg{
 	width:100%;
 	height:100%;
-	background: url(/vendor/vendor_main/static/assets/img/customer/temp/19.jpg) no-repeat;
+	background: url(/assets/img/customer/temp/19.jpg) no-repeat;
+
 	background-size: 100% 100%;
 }
 .login{
 	width:100%;
 	height:100%;
-	background: url(/vendor/vendor_main/static/assets/img/customer/temp/20.jpg) no-repeat;
+	background: url(/assets/img/customer/temp/20.jpg) no-repeat;
 	background-size: 100% 100%;
 }
 .login img,.reg img{
