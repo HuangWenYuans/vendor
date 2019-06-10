@@ -41,6 +41,11 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/modifypassword").setViewName("customer/modifypassword");
         registry.addViewController("/order").setViewName("customer/order");
         registry.addViewController("/detail").setViewName("customer/detail");
+
+        /*绑定厂家的网页 */
+        registry.addViewController("/replenishment").setViewName("manufacturer/replenishment.html");
+        registry.addViewController("/vending_machine").setViewName("manufacturer/vending_machine.html");
+
     }
 }
 
