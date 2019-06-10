@@ -12,7 +12,6 @@ package com.hwy.vendor.repository;
 import com.hwy.vendor.entity.Vendor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 
 /**
  * 功能描述: 售货机相关操作的数据库访问层

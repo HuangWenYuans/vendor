@@ -82,6 +82,12 @@ public class Vendor {
     @JoinColumn(name = "type_id")
     private VendorType vendorType;
 
+    /***
+     * 与购物车建立多对一的关系
+     */
+    @ManyToOne
+    @JoinColumn(name = "vendor_id")
+    private Cart cart;
 
     public int getVendorId() {
         return vendorId;
@@ -161,6 +167,14 @@ public class Vendor {
 
     public void setVendorType(VendorType vendorType) {
         this.vendorType = vendorType;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override

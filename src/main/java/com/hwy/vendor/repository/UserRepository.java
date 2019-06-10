@@ -4,9 +4,12 @@ import com.hwy.vendor.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-/***
- * 用户相关操作的数据库访问层
+/**
+ * 功能描述: 用户相关操作的数据库访问层
+ *
  * @author huangwenyuan
+ * @create 2019/06/08
+ * @since 1.0.0
  */
 public interface UserRepository extends JpaRepository<User, Integer> {
     /***

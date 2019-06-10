@@ -40,7 +40,6 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/information").setViewName("customer/information");
         registry.addViewController("/modifypassword").setViewName("customer/modifypassword");
         registry.addViewController("/order").setViewName("customer/order");
-        registry.addViewController("/detail").setViewName("customer/detail");
     }
 }
 

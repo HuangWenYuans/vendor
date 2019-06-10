@@ -84,7 +84,7 @@ $(function () {
     $(".smallImg > img").mouseover(function () {
         $(this).css("border", "1px solid #c10000").siblings("img").css("border", "none");
         // var src = $(this).attr("data-src");
-        var src = [[${vendor.pricture1}]];
+        var offset = [[${vendor.pricture1}]];
         $(this).parent().siblings(".det").attr("src", src).css({'width': '580px', 'height': '580px'});
         $(this).parent().siblings(".list").attr("src", src).css({'width': '360px', 'height': '360px'});
     })

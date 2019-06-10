@@ -9,12 +9,15 @@
 
 package com.hwy.vendor.controller;
 
+import com.hwy.vendor.entity.Cart;
 import com.hwy.vendor.entity.Vendor;
 import com.hwy.vendor.service.VendorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
@@ -35,11 +38,21 @@ public class VendorController {
      * @return 售货机详情页地址
      */
     @GetMapping("/detail/{vendorId}")
-    public String Detail(@PathVariable("vendorId") Integer vendorId, Model model) {
+    public String detail(@PathVariable("vendorId") Integer vendorId, Model model) {
         //根据id获取售货机信息
         Vendor vendor = vendorService.getVendorById(vendorId);
         model.addAttribute("vendor", vendor);
         return "customer/detail";
+    }
+
+    /***
+     *
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/addToCart")
+    public String addToCart( ) {
+
     }
 }
 

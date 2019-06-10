@@ -18,6 +18,7 @@
         <span>/</span>
         <a href="#" class="on">[[${vendor.vendorName}]]</a>
     </div>
+    <div th:text="${vendor}"></div>
 </div>
 <!-----------------------Detail------------------------------>
 <div class="detCon">
@@ -53,8 +54,8 @@
                     </div>
                 </div>
                 <div class="btns clearfix">
-                    <a href="#2"><p class="buy fl">立即购买</p></a>
-                    <a href="#2"><p class="cart fr">加入购物车</p></a>
+                    <a href="#"><p class="buy fl">立即购买</p></a>
+                    <a href="#"><p class="cart fr">加入购物车</p></a>
                 </div>
             </div>
         </div>
@@ -88,9 +89,13 @@
 <script th:src="@{/assets/js/customer/nav.js}"
         type="text/javascript" charset="utf-8"></script>
 <!--<script th:src="@{/assets/js/customer/pro.js}" th:inline="JavaScript"></script>-->
+<script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>
+<script src="/vendor/vendor_main/layer/layer.js" th:src="@{/layer/layer.js}" type="text/javascript"
+        charset="utf-8"></script>
 <script th:src="@{/assets/js/customer/cart.js}" type="text/javascript"
         charset="utf-8"></script>
-<script th:inline="JavaScript">
+
+<script th:inline="JavaScript" type="text/javascript">
     $(function () {
         /************商品筛选***************/
         $(".choice .default").click(function () {
@@ -164,7 +169,7 @@
         $(".btns a").click(function () {
             if ($(".categ p").hasClass("on")) {
                 if ($(this).children().hasClass("buy")) {
-                    $(this).attr("href", "order.html");
+                    $(this).attr("href", "/order");
                 }
                 $(".proIntro").css("border", "none");
                 $(".num .please").hide();
@@ -172,7 +177,7 @@
                 $(".proIntro").css("border", "1px solid #c10000");
                 $(".num .please").show();
             }
-        })
+        });
         /*************************小图切换大图*****************************/
         $(".smallImg > img").mouseover(function () {
             $(this).css("border", "1px solid #c10000").siblings("img").css("border", "none");
@@ -213,7 +218,7 @@
             seconds--;
             $(".ok span").text(seconds);
             if (seconds == 0) {
-                window.location.href = ("myorder.html")
+                window.location.href = ("/order")
             }
         }
 
@@ -224,7 +229,47 @@
             $(".one").hide();
             $(".forCon ul li").eq(1).addClass("on").siblings("li").removeClass("on");
         });
-    })
+
+        /****************************详情页中将商品加入购物车*******************************/
+        $(".btns .cart").click(function () {
+            if ($(".categ p").hasClass("on")) {
+                // var num = parseInt($(".num span").text());
+                // var num1 = parseInt($(".goCart span").text());
+                // $(".goCart span").text(num + num1);
+                // window.location.href = ("/cart")
+                addToCart();
+            }
+        });
+
+        //将商品加入购物车的方法
+        function addToCart() {
+            //    使用ajax提交表单数据
+            var loadingIndex = null;
+            $.ajax({
+                type: 'POST',
+                url: "/addToCart",
+                data: {
+                    "user": [[${session.user}]],
+                    "vendor": [[${vendor}]]
+                },
+                beforeSend: function () {
+                    loadingIndex = layer.msg('处理中', {icon: 16});
+                },
+                success: function (result) {
+                    //成功提交数据则将处理的图标关闭
+                    layer.close(loadingIndex);
+                    if (result.success) {
+                        window.location.href = "/index";
+                    } else {
+                        layer.msg("用户账号或密码错误！", {time: 2000, icon: 2, shift: 6}, function () {
+                        });
+                    }
+                }
+            });
+
+        }
+
+    });
 
 
 </script>

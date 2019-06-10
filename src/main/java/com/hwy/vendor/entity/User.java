@@ -58,16 +58,13 @@ public class User {
     @Column(name = "gender")
     private int gender;
 
-    public User(String username, String password, String realname, String birthday, int gender) {
-        this.username = username;
-        this.password = password;
-        this.realname = realname;
-        this.birthday = birthday;
-        this.gender = gender;
-    }
 
-    public User() {
-    }
+    /***
+     * 用户对应的购物车
+     */
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
+
 
     public Integer getUserid() {
         return userid;
@@ -115,6 +112,14 @@ public class User {
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override

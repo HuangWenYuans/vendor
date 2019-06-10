@@ -2,21 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="utf-8"/>
-    <title>order</title>
-    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/public.css"
-          th:href="@{/assets/css/customer/public.css}"/>
-    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/proList.css"
-          th:href="@{/assets/css/customer/proList.css}"/>
-    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/mygxin.css"
-          th:href="@{/assets/css/customer/proList.css}"/>
+    <title>订单</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/public.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/proList.css}"/>
 </head>
 <body>
 <!----------------------------------------order------------------>
 <div class="head ding">
     <div class="wrapper clearfix">
         <div class="clearfix" id="top">
-            <h1 class="fl"><a href="index.html"><img src="/vendor/vendor_main/static/assets/img/customer/logo.png"
-                                                     th:src="@{/assets/img/customer/logo.png}"/></a>
+            <h1 class="fl"><a href="index.html" th:href="@{/index}">
+                <img th:src="@{/assets/img/customer/logo.png}"/></a>
             </h1>
             <div class="fr clearfix" id="top1">
                 <p class="fl">
@@ -28,14 +24,14 @@
                     <input type="button"/>
                 </form>
                 <div class="btn fl clearfix">
-                    <a href="personalcenter.html"><img src="/vendor/vendor_main/static/assets/img/customer/grzx.png"
-                                                       th:src="@{/assets/img/customer/grzx.png}"/></a>
-                    <a href="#" class="er1"><img src="/vendor/vendor_main/static/assets/img/customer/ewm.png"
-                                                 th:src="@{/assets/img/customer/ewm.png}"/></a>
-                    <a href="cart.html"><img src="/vendor/vendor_main/static/assets/img/customer/gwc.png"
-                                             th:src="@{/assets/img/customer/gwc.png}"/></a>
-                    <p><a href="#"><img src="/vendor/vendor_main/static/assets/img/customer/smewm.png"
-                                        th:src="@{/assets/img/customer/smewm.png}"/></a></p>
+                    <a href="personalcenter.html">
+                        <img th:src="@{/assets/img/customer/grzx.png}"/>
+                    </a>
+                    <a href="#" class="er1">
+                        <img th:src="@{/assets/img/customer/ewm.png}"/>
+                    </a>
+                    <a href="cart.html"><img th:src="@{/assets/img/customer/gwc.png}"/></a>
+                    <p><a href="#"><img th:src="@{/assets/img/customer/smewm.png}"/></a></p>
                 </div>
             </div>
         </div>
@@ -90,15 +86,14 @@
     <div class="site">
         <p class="wrapper clearfix">
             <span class="fl">订单确认</span>
-            <img class="top" src="/vendor/vendor_main/static/assets/img/customer/temp/cartTop02.png">
+            <img class="top" th:src="@{/assets/img/customer/temp/cartTop02.png}">
         </p>
     </div>
     <!-----------------orderCon------------------->
     <div class="orderCon wrapper clearfix">
         <div class="orderL fl">
             <!--------h3---------------->
-            <h3>收件信息<a href="/vendor/vendor_main/templates/customer/address.html" th:href="@{/customer/address.html}"
-                       class="fr">新增地址</a></h3>
+            <h3>收件信息<a th:href="@{/address}" class="fr">新增地址</a></h3>
             <!--------addres---------------->
             <div class="addres clearfix">
                 <div class="addre fl on">
@@ -155,10 +150,10 @@
             <h3>支付方式</h3>
             <!--------way---------------->
             <div class="way clearfix">
-                <img class="on" src="/vendor/vendor_main/static/assets/img/customer/temp/way01.jpg">
-                <img src="/vendor/vendor_main/static/assets/img/customer/temp/way02.jpg">
-                <img src="/vendor/vendor_main/static/assets/img/customer/temp/way03.jpg">
-                <img src="/vendor/vendor_main/static/assets/img/customer/temp/way04.jpg">
+                <img class="on" th:src="@{/assets/img/customer/temp/way01.jpg}">
+                <img th:src="@{/assets/img/customer/temp/way02.jpg}">
+                <img th:src=" @{/assets/img/customer/temp/way03.jpg}">
+                <img th:src="@{/assets/img/customer/temp/way04.jpg}">
             </div>
             <h3>选择快递</h3>
             <!--------dis---------------->
@@ -171,7 +166,7 @@
         </div>
         <div class="orderR fr">
             <div class="msg">
-                <h3>订单内容<a href="cart.html" class="fr">返回购物车</a></h3>
+                <h3>订单内容<a href="cart.html"  th:href="@{/cart}" class="fr">返回购物车</a></h3>
                 <!--------ul---------------->
                 <ul class="clearfix">
                     <li class="fl">
@@ -225,96 +220,11 @@
         </div>
     </div>
 </div>
-<!--编辑弹框-->
-<!--遮罩-->
 <div class="mask"></div>
-<div class="adddz editAddre">
-    <form action="#" method="get">
-        <input type="text" placeholder="姓名" class="on"/>
-        <input type="text" placeholder="手机号"/>
-        <div class="city">
-            <select name="">
-                <option value="省份/自治区">省份/自治区</option>
-            </select>
-            <select>
-                <option value="城市/地区">城市/地区</option>
-            </select>
-            <select>
-                <option value="区/县">区/县</option>
-            </select>
-            <select>
-                <option value="配送区域">配送区域</option>
-            </select>
-        </div>
-        <textarea name="" rows="" cols="" placeholder="详细地址"></textarea>
-        <input type="text" placeholder="邮政编码"/>
-        <div class="bc">
-            <input type="button" value="保存"/>
-            <input type="button" value="取消"/>
-        </div>
-    </form>
-</div>
-<!--返回顶部-->
-<div class="gotop">
-    <a href="cart.html">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt1.png"
-                     th:src="@{/assets/img/customer/gt1.png}"/></dt>
-            <dd>去购<br/>物车</dd>
-        </dl>
-    </a>
-    <a href="#" class="dh">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt2.png"
-                     th:src="@{/assets/img/customer/gt2.png}"/></dt>
-            <dd>联系<br/>客服</dd>
-        </dl>
-    </a>
-    <a href="personalcenter.html">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt3.png"
-                     th:src="@{/assets/img/customer/gt3.png}"/></dt>
-            <dd>个人<br/>中心</dd>
-        </dl>
-    </a>
-    <a href="#" class="toptop" style="display: none">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt4.png"
-                     th:src="@{/assets/img/customer/gt4.png}"/></dt>
-            <dd>返回<br/>顶部</dd>
-        </dl>
-    </a>
-    <p>400-800-8200</p>
-</div>
-<!--footer-->
-<div class="footer">
-    <div class="top">
-        <div class="wrapper">
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot1.png"
-                                             th:src="@{/assets/img/customer/foot1.png}"/></a>
-                <span class="fl">7天内发货</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot2.png"
-                                             th:src="@{/assets/img/customer/foot2.png}"/></a>
-                <span class="fl">15天送达</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot3.png"
-                                             th:src="@{/assets/img/customer/foot3.png}"/></a>
-                <span class="fl">送货上门</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot4.png"
-                                             th:src="@{/assets/img/customer/foot4.png}"/></a>
-                <span class="fl">免费安装</span>
-            </div>
-        </div>
-    </div>
-    <p class="dibu">最家家居&copy;2013-2017公司版权所有 京ICP备080100-44备0000111000号<br/>
-        违法和不良信息举报电话：400-800-8200，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</p>
-</div>
+<!--引入返回顶部工具栏-->
+<div th:replace="commons/bar::gotobar"></div>
+<!--引入页面底部-->
+<div th:replace="commons/bar::footerbar"></div>
 <script src="js/user.js" type="text/javascript" charset="utf-8"></script>
 <script src="/vendor/vendor_main/static/assets/js/customer/jquery-1.12.4.min.js"
         th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
