@@ -9,10 +9,13 @@
 
 package com.hwy.vendor.zhj;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+import com.hwy.vendor.entity.Goods;
 import com.hwy.vendor.entity.User;
 import com.hwy.vendor.entity.VendorGoods;
 import com.hwy.vendor.repository.UserRepository;
 import com.hwy.vendor.repository.VendorGoodsRepository;
+import com.hwy.vendor.service.impl.GoodsServiceImpl;
 import com.hwy.vendor.service.impl.VendorGoodsServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,11 +45,21 @@ public class MyTests {
     VendorGoodsServiceImpl vendorGoodsServiceImpl;
 
     @Test
-    public void test(){
+    public void test1(){
         List<VendorGoods> vgs = vendorGoodsServiceImpl.getVendorGoodsById(1);
         for (VendorGoods vg : vgs){
             System.out.println("id:" + vg.getGoodsId() + "   Count:" + vg.getGoodsCount());
         }
+    }
+
+
+    @Autowired
+    GoodsServiceImpl goodsServiceImpl;
+
+    @Test
+    public void test2() {
+        Goods goods = goodsServiceImpl.getGoodsById(1);
+        System.out.println("ppppppp:" + goods.getGoodsPrice());
     }
 }
 
