@@ -23,6 +23,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VendorRepository extends JpaRepository<Vendor, Integer> {
 
+    /***
+     * 根据售货机编号获取售货机信息
+     * @param vendorId 售货机编号
+     * @return 售货机对象
+     */
+    Vendor findByVendorId(Integer vendorId);
 }
 
     

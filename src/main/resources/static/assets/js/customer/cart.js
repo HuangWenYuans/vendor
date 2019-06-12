@@ -1,33 +1,33 @@
 $(function () {
-    /**************数量加减***************/
-    $(".num .sub").click(function () {
-        var num = parseInt($(this).siblings("span").text());
-        if (num <= 1) {
-            $(this).attr("disabled", "disabled");
-        } else {
-            num--;
-            $(this).siblings("span").text(num);
-            //获取除了货币符号以外的数字
-            var price = $(this).parents(".number").prev().text().substring(1);
-            //单价和数量相乘并保留两位小数
-            $(this).parents(".th").find(".sAll").text('￥' + (num * price).toFixed(2));
-            jisuan();
-            zg();
-        }
-    });
-    $(".num .add").click(function () {
-        var num = parseInt($(this).siblings("span").text());
-        if (num >= 5) {
-            confirm("限购5件");
-        } else {
-            num++;
-            $(this).siblings("span").text(num);
-            var price = $(this).parents(".number").prev().text().substring(1);
-            $(this).parents(".th").find(".sAll").text('￥' + (num * price).toFixed(2));
-            jisuan();
-            zg();
-        }
-    });
+    // /**************数量加减***************/
+    // $(".num .sub").click(function () {
+    //     var num = parseInt($(this).siblings("span").text());
+    //     if (num <= 1) {
+    //         $(this).attr("disabled", "disabled");
+    //     } else {
+    //         num--;
+    //         $(this).siblings("span").text(num);
+    //         //获取除了货币符号以外的数字
+    //         var price = $(this).parents(".number").prev().text().substring(1);
+    //         //单价和数量相乘并保留两位小数
+    //         $(this).parents(".th").find(".sAll").text('￥' + (num * price).toFixed(2));
+    //         jisuan();
+    //         zg();
+    //     }
+    // });
+    // $(".num .add").click(function () {
+    //     var num = parseInt($(this).siblings("span").text());
+    //     if (num >= 5) {
+    //         confirm("限购5件");
+    //     } else {
+    //         num++;
+    //         $(this).siblings("span").text(num);
+    //         var price = $(this).parents(".number").prev().text().substring(1);
+    //         $(this).parents(".th").find(".sAll").text('￥' + (num * price).toFixed(2));
+    //         jisuan();
+    //         zg();
+    //     }
+    // });
 
     //计算总价
     function jisuan() {

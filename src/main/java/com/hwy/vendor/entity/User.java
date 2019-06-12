@@ -9,7 +9,11 @@
 
 package com.hwy.vendor.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 功能描述: 用户类
@@ -62,9 +66,21 @@ public class User {
     /***
      * 用户对应的购物车
      */
-    @OneToOne(mappedBy = "user")
-    private Cart cart;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Cart> carts = new ArrayList<>();
 
+    public User() {
+    }
+
+    public User(String username, String password, String realname, String birthday, int gender, List<Cart> carts) {
+        this.username = username;
+        this.password = password;
+        this.realname = realname;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.carts = carts;
+    }
 
     public Integer getUserid() {
         return userid;
@@ -114,12 +130,12 @@ public class User {
         this.gender = gender;
     }
 
-    public Cart getCart() {
-        return cart;
+    public List<Cart> getCarts() {
+        return carts;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
     }
 
     @Override

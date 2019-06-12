@@ -55,9 +55,14 @@ public class UserController {
         if (u != null) {
             logger.info("用户:" + u.getUsername() + "登录了");
             logger.info("登录用户信息：" + u.toString());
+
+            ////为当前用户创建一个购物车对象
+            //Cart cart = new Cart();
+            //u.setCart(cart);
+            //cart.setUser(u);
+
             //将登录的用户的信息存入session
             session.setAttribute("user", u);
-
             //查询出所有饮料机的信息
             List<Vendor> drinkVendors = vendorService.getVendorsByType(1);
             logger.info("饮料机的信息" + drinkVendors);
@@ -130,9 +135,11 @@ public class UserController {
     public Object doRegister(User user) {
         AjaxResult result = new AjaxResult();
         try {
+            //注册成功
             userService.register(user);
             result.setSuccess(true);
         } catch (Exception e) {
+            //注册失败
             e.printStackTrace();
             result.setSuccess(false);
         }

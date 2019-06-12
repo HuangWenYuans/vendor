@@ -9,6 +9,8 @@
 
 package com.hwy.vendor.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +34,19 @@ public class Cart {
     private Integer cartId;
 
     /***
-     * 顾客编号
+     * 与顾客建立多对一关系
      */
-    @OneToOne
+    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     /***
-     * 购物车中包含的售货机列表
+     * 与售货机建立多对对的关系
      */
-    @OneToMany(mappedBy = "cart")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "t_cart_vendor", joinColumns = {@JoinColumn(name = "cart_id")},
+            inverseJoinColumns = {@JoinColumn(name = "vendor_id")})
     private List<Vendor> vendors = new ArrayList<>();
 
     /***
@@ -49,6 +54,20 @@ public class Cart {
      */
     @Column(name = "count")
     private Integer count;
+
+
+    public Cart() {
+    }
+
+    public Cart(User user) {
+        this.user = user;
+    }
+
+    public Cart(User user, List<Vendor> vendors, Integer count) {
+        this.user = user;
+        this.vendors = vendors;
+        this.count = count;
+    }
 
     public Integer getCartId() {
         return cartId;
@@ -86,6 +105,7 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "cartId=" + cartId +
+                ", user=" + user +
                 ", count=" + count +
                 '}';
     }

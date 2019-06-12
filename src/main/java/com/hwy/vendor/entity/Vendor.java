@@ -9,8 +9,12 @@
 
 package com.hwy.vendor.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 功能描述: 自动售货机实体类
@@ -75,19 +79,36 @@ public class Vendor {
     @Column(name = "detail")
     private String detail;
 
+
     /***
-     * 售货机类型
+     * 与售货机类型建立多对一关系
      */
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "type_id")
     private VendorType vendorType;
 
     /***
-     * 与购物车建立多对一的关系
+     * 与购物车建立多对多关系
      */
-    @ManyToOne
-    @JoinColumn(name = "vendor_id")
-    private Cart cart;
+    @ManyToMany(mappedBy = "vendors")
+    private List<Cart> carts = new ArrayList<>();
+
+    public Vendor() {
+    }
+
+    public Vendor(String vendorName, String pricture1, String pricture2, String pricture3, String pricture4, BigDecimal price, Integer stock, String detail, VendorType vendorType, List<Cart> carts) {
+        this.vendorName = vendorName;
+        this.pricture1 = pricture1;
+        this.pricture2 = pricture2;
+        this.pricture3 = pricture3;
+        this.pricture4 = pricture4;
+        this.price = price;
+        this.stock = stock;
+        this.detail = detail;
+        this.vendorType = vendorType;
+        this.carts = carts;
+    }
 
     public int getVendorId() {
         return vendorId;
@@ -169,12 +190,12 @@ public class Vendor {
         this.vendorType = vendorType;
     }
 
-    public Cart getCart() {
-        return cart;
+    public List<Cart> getCarts() {
+        return carts;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
     }
 
     @Override
@@ -189,6 +210,7 @@ public class Vendor {
                 ", price=" + price +
                 ", stock=" + stock +
                 ", detail='" + detail + '\'' +
+                ", carts=" + carts +
                 '}';
     }
 }

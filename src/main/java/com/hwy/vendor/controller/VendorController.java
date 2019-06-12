@@ -9,9 +9,14 @@
 
 package com.hwy.vendor.controller;
 
+import com.hwy.vendor.entity.AjaxResult;
 import com.hwy.vendor.entity.Cart;
+import com.hwy.vendor.entity.User;
 import com.hwy.vendor.entity.Vendor;
+import com.hwy.vendor.service.UserService;
 import com.hwy.vendor.service.VendorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +37,9 @@ import javax.annotation.Resource;
 public class VendorController {
     @Resource
     private VendorService vendorService;
+    @Resource
+    private UserService userService;
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     /***
      * 根据售货机id，跳转到对应的详情页
@@ -46,13 +54,33 @@ public class VendorController {
     }
 
     /***
-     *
-     * @return
+     *  将售货机加入购物车
+     * @param userId 顾客编号
+     * @param vendorId 售货机编号
+     * @param count 购买数量
+     * @return ajax对象
      */
     @ResponseBody
     @PostMapping("/addToCart")
-    public String addToCart( ) {
+    public Object addToCart(Integer userId, Integer vendorId, Integer count) {
+        AjaxResult result = new AjaxResult();
 
+        //根据顾客编号获取顾客信息
+        User user = userService.getUserById(userId);
+        //根据售货机编号获取售货机信息
+        Vendor vendor = vendorService.getVendorById(vendorId);
+
+        logger.info("Controller层====user:" + user + "\tvendor:" + vendor + "count:" + count);
+        try {
+            //加入购物车成功
+            vendorService.addVendorsToCart(user, vendor, count);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            //加入购物车失败
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
     }
 }
 

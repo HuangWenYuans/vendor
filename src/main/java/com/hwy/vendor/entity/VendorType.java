@@ -9,6 +9,8 @@
 
 package com.hwy.vendor.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +45,17 @@ public class VendorType {
 
     //将默认的懒加载改成立即加载
 
-    @OneToMany(mappedBy = "vendorType",fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "vendorType", fetch = FetchType.EAGER)
     private List<Vendor> vendors = new ArrayList<>();
+
+    public VendorType() {
+    }
+
+    public VendorType(String typeName, List<Vendor> vendors) {
+        this.typeName = typeName;
+        this.vendors = vendors;
+    }
 
     public Integer getTypeId() {
         return typeId;

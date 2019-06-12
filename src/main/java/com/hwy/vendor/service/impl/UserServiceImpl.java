@@ -60,8 +60,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User checkUsername(String username) {
         Logger logger = LoggerFactory.getLogger(getClass());
-        logger.info("该用户名是否存在："+userRepository.findByUsername(username));
+        logger.info("该用户名是否存在：" + userRepository.findByUsername(username));
         return userRepository.findByUsername(username);
+    }
+
+    /***
+     * 根据用户编号获取用户信息
+     * @param userId 用户编号
+     * @return user对象
+     */
+    @Override
+    public User getUserById(Integer userId) {
+        return userRepository.findByUserid(userId);
     }
 }
 

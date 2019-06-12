@@ -9,6 +9,7 @@
 
 package com.hwy.vendor.service;
 
+import com.hwy.vendor.entity.User;
 import com.hwy.vendor.entity.Vendor;
 
 import java.util.List;
@@ -37,6 +38,15 @@ public interface VendorService {
      * @return 售货机对象
      */
     Vendor getVendorById(Integer vendorId);
+
+    /***
+     * 将售货机加入购物车的方法
+     * @param user 购买售货机的顾客
+     * @param vendor 购买的售货机
+     * @param count 购买数量
+     */
+
+    void addVendorsToCart(User user, Vendor vendor, Integer count);
 }
 
     

@@ -38,6 +38,13 @@ public interface UserService {
      * @return user对象
      */
     User checkUsername(String username);
+
+    /***
+     * 根据用户编号获取用户信息
+     * @param userId 用户编号
+     * @return user对象
+     */
+    User getUserById(Integer userId);
 }
 
     

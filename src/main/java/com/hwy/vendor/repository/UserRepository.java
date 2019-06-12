@@ -14,8 +14,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserRepository extends JpaRepository<User, Integer> {
     /***
      * 根据用户名密码查询用户
-     * @param username
-     * @param password
+     * @param username 用户名
+     * @param password 密码
      * @return User对象
      */
     User findByUsernameAndPassword(String username, String password);
@@ -23,8 +23,15 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     /***
      * 根据用户名查询用户
-     * @param username
+     * @param username 用户名
      * @return User对象
      */
     User findByUsername(String username);
+
+    /***
+     * 根据用户编号获取用户信息
+     * @param userId 用户编号
+     * @return
+     */
+    User findByUserid(Integer userId);
 }
