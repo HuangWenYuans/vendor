@@ -14,7 +14,6 @@ import com.hwy.vendor.repository.*;
 import com.hwy.vendor.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,8 +67,13 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public Vendor getVendorById(Integer vendorId) {
-        return vendorRepository.findByVendorId(vendorId);
+        Optional<Vendor> optional = vendorRepository.findById(vendorId);
+        if (!optional.isPresent()){
+            return null;
+        }
+        return optional.get();
     }
+
 
 
     /***
@@ -171,8 +175,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Cart> getVendorsByCartIds(Integer[] cartId) {
         List<Cart> cartList = new ArrayList<>();
-        for (int i = 0; i < cartId.length; i++) {
-            cartList.add(cartRepository.findCartByCartId(cartId[i]));
+        for (Integer aCartId : cartId) {
+            cartList.add(cartRepository.findCartByCartId(aCartId));
         }
         return cartList;
     }
@@ -191,10 +195,9 @@ public class CustomerServiceImpl implements CustomerService {
         User user = shoppingList.get(0).getUser();
         BigDecimal amount = new BigDecimal(0);
         Order order = new Order();
-        OrderItem orderItem = new OrderItem();
-        System.out.println("======================================================" + shoppingList.size());
         //计算订单总价
         for (Cart cart : shoppingList) {
+            OrderItem orderItem = new OrderItem();
             //获取订单详情的售货机信息
             Vendor vendor = cart.getVendors().get(0);
             //获取每台售货机的价格
@@ -210,26 +213,25 @@ public class CustomerServiceImpl implements CustomerService {
             order.getOrderItems().add(orderItem);
             System.out.println(orderItem.toString());
             orderItem.setOrder(order);
-
             for (int i = 0; i < orderItem.getCount(); i++) {
                 Symbol symbol = new Symbol();
                 //生成uuid用于唯一标识每台售货机
                 UUID uuid = UUID.randomUUID();
                 symbol.setSymbolId(uuid.toString());
-                //建立联系
+                //建立vendor表与symbol表的关系
                 vendor.getSymbols().add(symbol);
                 symbol.setVendor(vendor);
                 symbolRepository.save(symbol);
             }
-        }
-        //建立订单详情表与订单表的多对一关联
-        order.setUser(user);
-        order.setAmount(amount);
-        order.setOrderDate(sdf.format(date));
-        order.setStatus(0);
-        //往订单表中添加数据
-        orderRepository.save(order);
 
+            //建立订单详情表与订单表的多对一关联
+            order.setUser(user);
+            order.setAmount(amount);
+            order.setOrderDate(sdf.format(date));
+            order.setStatus(0);
+            //往订单表中添加数据
+            orderRepository.save(order);
+        }
     }
 
     /***

@@ -29,6 +29,7 @@ public interface VendorRepository extends JpaRepository<Vendor, Integer> {
      * @return 售货机对象
      */
     Vendor findByVendorId(Integer vendorId);
+
 }
 
     

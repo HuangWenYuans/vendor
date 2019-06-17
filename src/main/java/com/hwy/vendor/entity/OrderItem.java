@@ -44,8 +44,6 @@ public class OrderItem {
     @JoinColumn(name = "vendor_id")
     private Vendor vendor;
 
-
-
     /***
      * 购买数量
      */
