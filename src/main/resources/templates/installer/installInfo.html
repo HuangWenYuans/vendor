@@ -11,10 +11,13 @@
 </head>
 <body>
 <ul class="layui-nav">
-    <li class="layui-nav-item"><a href="">欢迎安装人员×××</a></li>
-    <li class="layui-nav-item"><a href="">按时间排序</a></li>
+    <li class="layui-nav-item"><a>欢迎编号为<span th:text="${session.installs.get(0).getInstallerId()}"></span>的安装人员</a></li>
+    <li class="layui-nav-item"><a href="/installer/index">安装任务</a></li>
+    <li class="layui-nav-item"><a href="/installer/log">安装历史</a></li>
     <li class="layui-nav-item" style="float: right"><a href="">返回主界面</a></li>
 </ul>
+<!----------------------------安装任务---------------------------->
+<div th:if="${session.flag} eq 1">
 <table class="layui-table">
     <colgroup>
         <col width="200">
@@ -25,44 +28,55 @@
     </colgroup>
     <thead>
     <tr>
-        <th>售货机ID</th>
+        <th >售货机ID</th>
         <th>用户名</th>
         <th>联系方式</th>
+        <th>默认地址</th>
         <th>预期安装时间</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>1000</td>
-        <td>张三</td>
-        <td>15620943812</td>
-        <td>2019-07-23</td>
-        <td><button class="layui-btn">安装</button></td>
-    </tr>
-    <tr>
-        <td>1001</td>
-        <td>李四</td>
-        <td>15620943812</td>
-        <td>2019-08-24</td>
-        <td><button class="layui-btn">安装</button></td>
-    </tr>
-    <tr>
-        <td>1002</td>
-        <td>张三</td>
-        <td>15620943812</td>
-        <td>2019-10-01</td>
-        <td><button class="layui-btn">安装</button></td>
-    </tr>
-    <tr>
-        <td>1003</td>
-        <td>李四</td>
-        <td>15620943812</td>
-        <td>2019-10-01</td>
-        <td><button class="layui-btn">安装</button></td>
+    <tr th:each="install:${session.installs}">
+        <td th:text="${install.getSymbol().getSymbolId()}"></td>
+        <td th:text="${install.getUser().getConsignees().get(0).getConsigneeName()}"</td>
+        <td th:text="${install.getUser().getConsignees().get(0).getConsigneePhone()}"</td>
+        <td th:text="${install.getUser().getConsignees().get(0).getConsigneeAddress()}"></td>
+        <td th:text="${install.installTime}"></td>
+        <td><a th:href="@{'/installer/install?installid='+${install.installId}}"><button class="layui-btn">安装</button></a></td>
     </tr>
     </tbody>
 </table>
+</div>
+<!----------------------------安装历史---------------------------->
+<div th:if="${session.flag eq 0 and session.installs.get(0) != null}">
+    <table class="layui-table">
+        <colgroup>
+            <col width="200">
+            <col width="200">
+            <col width="200">
+            <col width="200">
+        </colgroup>
+        <thead>
+        <tr>
+            <th >售货机ID</th>
+            <th>用户名</th>
+            <th>联系方式</th>
+            <th>默认地址</th>
+            <th>安装时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="install:${session.installs}">
+            <td th:text="${install.getSymbol().getSymbolId()}"></td>
+            <td th:text="${install.getUser().getConsignees().get(0).getConsigneeName()}"</td>
+            <td th:text="${install.getUser().getConsignees().get(0).getConsigneePhone()}"</td>
+            <td th:text="${install.getUser().getConsignees().get(0).getConsigneeAddress()}"></td>
+            <td th:text="${install.installTime}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <div id="demo1" style="text-align: center"></div>
 <script src="/vendor/vendor_main/static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
 <script>
@@ -79,6 +93,7 @@
             }
         });
     });
+
 </script>
 
 </body>

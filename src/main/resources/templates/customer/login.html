@@ -1,25 +1,74 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="UTF-8">
-		<title>登录</title>
-		<link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/public.css" th:href="@{/assets/css/customer/public.css}"/>
-		<link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/login.css" th:href="@{/assets/css/customer/login.css}"/>
-	</head>
-	<body background="">
-		<!-------------------login-------------------------->
-		<div class="login">
-			<form action="#" method="post">
-				<h1><a href="#"><img src="/vendor/vendor_main/static/assets/img/customer/temp/logo.png"></a></h1>
-				<p></p>
-				<div class="msg-warn hide"><b></b>公共场所不建议自动登录，以防账号丢失</div>
-				<p><input type="text" name="" value="" placeholder="昵称/邮箱/手机号"></p>
-				<p><input type="text" name="" value="" placeholder="密码"></p>
-				<p><input type="submit" name="" value="登  录"></p>
-				<p class="txt"><a class="" href="reg.html">免费注册</a><a href="forget.html">忘记密码？</a></p>
-			</form>
-		</div>
-		
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/public.css"
+          th:href="@{/assets/css/customer/public.css}"/>
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/login.css"
+          th:href="@{/assets/css/customer/login.css}"/>
+</head>
+<body background="">
+<!-------------------login-------------------------->
+<div class="login">
+    <form type="post">
+        <h1><a href="#"><img src="/vendor/vendor_main/static/assets/img/customer/logo.png"
+                             th:src="@{/assets/img/customer/logo.png}"></a></h1>
+        <p></p>
+        <div class="msg-warn hide"><b></b>请输入用户名和密码进行登录</div>
+        <p><input type="text" id="username" name="username" value="" placeholder="用户名"></p>
+        <p><input type="text" id="password" name="password" value="" placeholder="密码"></p>
+        <p><input type="button" name="loginBtn" style="background: #C10000;color: white" value="登  录" onclick="doLogin()"></p>
+        <p class="txt"><a class="" href="/register">免费注册</a></p>
+    </form>
+</div>
+<script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>
+<script src="/vendor/vendor_main/layer/layer.js" th:src="@{/layer/layer.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script type="text/javascript">
+    function doLogin() {
+        //用户名非空校验
+        var username = $("#username").val();
+        if (username == "") {
+            layer.msg("用户名不能为空！", {time: 2000, icon: 2, shift: 6}, function () {
+            });
+            return;
+        }
+
+        //密码非空校验
+        var password = $("#password").val();
+        if (password == "") {
+            layer.msg("密码不能为空！", {time: 2000, icon: 2, shift: 6}, function () {
+            });
+            return;
+        }
+
+        //    使用ajax提交表单数据
+        var loadingIndex = null;
+        $.ajax({
+            type: 'POST',
+            url: "/doLogin",
+            data: {
+                "username": username,
+                "password": password
+            },
+            beforeSend: function () {
+                loadingIndex = layer.msg('处理中', {icon: 16});
+            },
+            success: function (result) {
+                //成功提交数据则将处理的图标关闭
+                layer.close(loadingIndex);
+                if (result.success) {
+                    window.location.href = "/index";
+                } else {
+                    layer.msg("用户账号或密码错误！", {time: 2000, icon: 2, shift: 6}, function () {
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+</body>
 </html>

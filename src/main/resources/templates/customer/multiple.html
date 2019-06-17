@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="utf-8"/>
+    <title>综合机</title>
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/public.css"
+          th:href="@{/assets/css/customer/public.css}"/>
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/idea.css"
+          th:href="@{/assets/css/customer/idea.css}"/>
+</head>
+<body>
+<!------------------------------head------------------------------>
+<!--引入页面头部-->
+<div th:replace="commons/bar::headbar"></div>
+<!------------------------------idea------------------------------>
+<div class="address">
+    <div class="wrapper clearfix">
+        <a href="index.html" th:href="@{/index}" class="fl">首页</a>
+        <span>/</span>
+        <a href="multiple.html" th:href="@{/multiple}" class="on">综合机</a>
+    </div>
+</div>
+<!------------------------------imgList1------------------------------>
+<div class="imgList1">
+    <div class="wrapper">
+        <a href="detail.html" class="banner">
+            <img th:src="@{/assets/img/customer/idea1.jpg}"/></a>
+        <!--每个3个的行-->
+        <ul th:each="multipleVendor,n:${session.multipleVendors}" th:if="${n.count % 3 == 0}">
+            <!--每行第一个-->
+            <li>
+                <a href="detail.html" th:href="@{/detail}">
+                    <dl>
+                        <dt>
+                            <img th:src="@{${session.multipleVendors[n.count - 3].pricture1}}" width="374px"
+                                 height="374px"/>
+
+                        </dt>
+                        <dd th:text="${session.multipleVendors[n.count - 3].vendorName}"></dd>
+                        <dd><span>[[${session.multipleVendors[n.count - 3].price}]]</span></dd>
+                    </dl>
+                </a>
+            </li>
+            <!--每行第二个-->
+            <li>
+                <a href="detail.html" th:href="@{/detail}">
+                    <dl>
+                        <dt>
+                            <img th:src="@{${session.multipleVendors[n.count - 2].pricture1}}" width="374px"
+                                 height="374px"/>
+
+                        </dt>
+                        <dd th:text="${session.multipleVendors[n.count - 2].vendorName}"></dd>
+                        <dd><span>[[${session.multipleVendors[n.count - 2].price}]]</span></dd>
+                    </dl>
+                </a>
+            </li>
+            <!--每行第三个-->
+            <li>
+                <a href="detail.html" th:href="@{/detail}">
+                    <dl>
+                        <dt>
+                            <img th:src="@{${session.multipleVendors[n.count - 1].pricture1}}" width="374px"
+                                 height="374px"/>
+
+                        </dt>
+                        <dd th:text="${session.multipleVendors[n.count - 1].vendorName}"></dd>
+                        <dd><span>[[${session.multipleVendors[n.count - 1].price}]]</span></dd>
+                    </dl>
+                </a>
+            </li>
+        </ul>
+        <!--不足三个的那一行-->
+        <ul>
+            <li href="detail.html" th:href="@{/detail}" th:each="multipleVendor,i:${session.multipleVendors}"
+                th:if="${i.count > ((session.multipleVendors.size()/3)*3) && i.count <=session.multipleVendors.size()}">
+                <a>
+                    <dl>
+                        <dt>
+                            <span class=" abl"></span>
+                            <img th:src="@{${multipleVendor.pricture1}}"/>
+                            <span class="abr"></span>
+                        </dt>
+                        <dd th:text="${multipleVendor.vendorName}"></dd>
+                        <dd><span>[[${multipleVendor.price}]]</span></dd>
+                    </dl>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+<!--引入返回顶部工具栏-->
+<div th:replace="commons/bar::gotobar"></div>
+<div class="msk"></div>
+<!--引入页面底部-->
+<div th:replace="commons/bar::footerbar"></div>
+<script src="/vendor/vendor_main/static/assets/js/customer/jquery-1.12.4.min.js"
+        th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+<script src="/vendor/vendor_main/static/assets/js/customer/public.js" th:src="@{/assets/js/customer/public.js}"
+        type="text/javascript" charset="utf-8"></script>
+<script src="/vendor/vendor_main/static/assets/js/customer/nav.js" th:src="@{/assets/js/customer/nav.js}"
+        type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

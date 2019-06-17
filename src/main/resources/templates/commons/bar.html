@@ -10,59 +10,138 @@
           th:href="@{/assets/css/customer/index.css}"/>
 </head>
 <body>
-<!------------------------------head------------------------------>
-<div class="head" th:fragment="head">
+<!--页面头部-->
+<div class="head" th:fragment="headbar">
     <div class="wrapper clearfix">
         <div class="clearfix" id="top">
-            <h1 class="fl"><a href="index.html"><img src="/vendor/vendor_main/static/assets/img/customer/logo.png"
-                                                     th:src="@{/assets/img/customer/logo.png}"/></a></h1>
+            <h1 class="fl">
+                <a href="#">
+                    <img src="/vendor/vendor_main/static/assets/img/customer/logo.png"
+                         th:src="@{/assets/img/customer/logo.png}"/>
+                </a>
+            </h1>
             <div class="fr clearfix" id="top1">
                 <p class="fl">
-                    <a href="#" id="login">登录</a>
-                    <a href="#" id="reg">注册</a>
+                    <a href="/logout" onclick="doLogout()">点击退出</a>
                 </p>
                 <form action="#" method="get" class="fl">
-                    <input type="text" placeholder="热门搜索：干花花瓶"/>
+                    <input type="text" placeholder="热门搜索：盒饭机"/>
                     <input type="button"/>
                 </form>
                 <div class="btn fl clearfix">
-                    <a href="mygxin.html">
+                    <a href="personalcenter.html" th:href="@{/personalcenter}">
                         <img src="/vendor/vendor_main/static/assets/img/customer/grzx.png"
                              th:src="@{/assets/img/customer/grzx.png}"/>
                     </a>
-                    <a href="#" class="er1">
-                        <img src="/vendor/vendor_main/static/assets/img/customer/ewm.png"
-                             th:src="@{/assets/img/customer/grzx.png}"/>
-                    </a>
-                    <a href="cart.html">
+                    <a href="cart.html" th:href="@{/cart}">
                         <img src="/vendor/vendor_main/static/assets/img/customer/gwc.png"
-                             th:src="@{/assets/img/customer/grzx.png}"/>
+                             th:src="@{/assets/img/customer/gwc.png}"/>
                     </a>
-                    <p>
-                        <a href="#">
-                            <img src="/vendor/vendor_main/static/assets/img/customer/smewm.png"
-                                 th:src="@{/assets/img/customer/smewm.png}"/>
-                        </a>
-                    </p>
+                    <!--<p>-->
+                        <!--<a href="#">-->
+                            <!--<img src="/vendor/vendor_main/static/assets/img/customer/smewm.png"-->
+                                 <!--th:src="@{/assets/img/customer/smewm.png}"/>-->
+                        <!--</a>-->
+                    <!--</p>-->
                 </div>
             </div>
         </div>
         <ul class="clearfix" id="bott">
-            <li><a href="index.html">首页</a></li>
+            <li><a href="index.html" th:href="@{/index}">首页</a></li>
             <li>
-                <a href="#">所有商品</a>
+                <a href="index.html" th:href="@{/index}">所有商品</a>
             </li>
             <li>
-                <a href="flowerDer.html">饮料机</a>
+                <a href="drink.html" th:href="@{/drink}">饮料机</a>
             </li>
             <li>
-                <a href="decoration.html">酸奶机</a>
+                <a href="yogurt.html" th:href="@{/yogurt}">酸奶机</a>
             </li>
-            <li><a href="paint.html">盒饭机</a></li>
-            <li><a href="perfume.html">冰淇淋机</a></li>
-            <li><a href="idea.html">综合机</a></li>
+            <li><a href="lunch.html" th:href="@{/lunch}">盒饭机</a></li>
+            <li><a href="ice_cream.html" th:href="@{/icecream}">冰淇淋机</a></li>
+            <li><a href="multiple.html" th:href="@{/multiple}">综合机</a></li>
         </ul>
     </div>
 </div>
+<!--返回顶部工具栏-->
+<div class="gotop" th:fragment="gotobar">
+
+    <a href="cart.html" th:href="@{/cart}">
+        <dl>
+            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt1.png"
+                     th:src="@{/assets/img/customer/gt1.png}"/></dt>
+            <dd>去购<br/>物车</dd>
+        </dl>
+    </a>
+    <a href="#" class="dh">
+        <dl>
+            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt2.png"
+                     th:src="@{/assets/img/customer/gt2.png}"/></dt>
+            <dd>联系<br/>客服</dd>
+        </dl>
+    </a>
+    <a href="personalcenter.html" th:href="@{/personalcenter}">
+        <dl>
+            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt3.png"
+                     th:src="@{/assets/img/customer/gt3.png}"/></dt>
+            <dd>个人<br/>中心</dd>
+        </dl>
+    </a>
+    <a href="#" class="toptop" style="display: none">
+        <dl>
+            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt4.png"
+                     th:src="@{/assets/img/customer/gt4.png}"/></dt>
+            <dd>返回<br/>顶部</dd>
+        </dl>
+    </a>
+    <p>18270631410</p>
+</div>
+<!--页面底部-->
+<div class="footer" th:fragment="footerbar">
+    <div class="top">
+        <div class="wrapper">
+            <div class="clearfix">
+                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot1.png"
+                                             th:src="@{/assets/img/customer/foot1.png}"/></a>
+                <span class="fl">7天内发货</span>
+            </div>
+            <div class="clearfix">
+                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot2.png"
+                                             th:src="@{/assets/img/customer/foot2.png}"/></a>
+                <span class="fl">15天送达</span>
+            </div>
+            <div class="clearfix">
+                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot3.png"
+                                             th:src="@{/assets/img/customer/foot3.png}"/></a>
+                <span class="fl">送货上门</span>
+            </div>
+            <div class="clearfix">
+                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot4.png"
+                                             th:src="@{/assets/img/customer/foot4.png}"/></a>
+                <span class="fl">免费安装</span>
+            </div>
+        </div>
+    </div>
+    <p class="dibu">最家家居&copy;2013-2017公司版权所有 京ICP备080100-44备0000111000号<br/>
+        违法和不良信息举报电话：400-800-8200，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</p>
+</div>
+<script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>
+<!--<script th:src="@{/webjars/jquery/2.1.1/src/jquery.js}" type="text/javascript" charset="utf-8"></script>-->
+<script src="/vendor/vendor_main/layer/layer.js" th:src="@{/layer/layer.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script type="text/javascript">
+    //退出系统的方法
+    function doLogout() {
+        alert("hshs");
+        layer.confirm("真的要退出系统吗？", {icon: 3, title: '提示'}, function (cindex) {
+            //确认退出
+            window.location.href = "/logout";
+            layer.close(cindex);
+        }, function (cindex) {
+            //取消退出
+            layer.close(cindex);
+        });
+    }
+</script>
 </body>
 </html>

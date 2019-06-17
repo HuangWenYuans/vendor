@@ -20,7 +20,7 @@ img {
     padding: 15px;
     top: -50px;
     left: 0;
-    background: url(/vendor/vendor_main/static/assets/img/customer/bg.jpg) #fff repeat-x bottom;
+    background: url(/assets/img/customer/bg.jpg) #fff repeat-x bottom;
 }
 
 .thImg a {
@@ -222,7 +222,7 @@ a.ad {
     left: 0px;
     right: 0px;
     bottom: 0px;
-    background: url(/vendor/vendor_main/static/assets/img/customer/bg_caption.png);
+    background: url(/assets/img/customer/bg_caption.png);
     text-align: left;
 }
 
@@ -283,7 +283,7 @@ a.ad {
     height: 18px;
     display: block;
     background-repeat: no-repeat;
-    background-image: url(/vendor/vendor_main/static/assets/img/customer/sprite_nav_3.png);
+    background-image: url(/assets/img/customer/sprite_nav_3.png);
     text-indent: -9000px;
     cursor: pointer;
     background-size: 180%;

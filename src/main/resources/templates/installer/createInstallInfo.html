@@ -14,26 +14,91 @@
     <li class="layui-nav-item"><a href="">用户×××</a></li>
     <li class="layui-nav-item" style="float: right"><a href="">返回主界面</a></li>
 </ul>
-
-<form action="">
-    请选择安装时间：
-    <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
-        <input type="text" class="layui-input" id="test1">
+<form type="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户ID:</label>
+        <div class="layui-input-block" style="width: 200px">
+            <input type="text" name="userId" id="userId" required   class="layui-input" th:value="${session.userId}" readonly="readonly">
+        </div>
     </div>
-    <td><button  type="submit" class="layui-btn">提交</button></td>
+
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">售货机ID:</label>
+        <div class="layui-input-block">
+            <select name="symbolId" id="symbolId" lay-verify="required" style="width: 200px;height: 38px">
+                <option  th:each="symbol : ${session.symbols}" th:text="${symbol.symbolId}"></option>
+            </select>
+        </div>
+    </div>
+
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"> 安装时间：</label>
+        <div class="layui-inline" style="width: 200px">
+            <input type="text" name="installTime" id="installTime" class="layui-input">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <input  type="button" class="layui-btn" onclick="doinfo()" value="预约安装">
+        </div>
+    </div>
 </form>
 
 
-<script src="/vendor/vendor_main/static/layui/layui.js" th:src="@{/layui/layui.js}" ></script>
-<script>
+<script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>
+<script src="/vendor/vendor_main/static/layui/layui.all.js" th:src="@{/layui/layui.all.js}" ></script>
+<script type="text/javascript">
     layui.use('laydate', function(){
         var laydate = layui.laydate;
 
         //执行一个laydate实例
         laydate.render({
-            elem: '#test1' //指定元素
+            elem: '#installTime', //指定元素
+            format: 'yyyy-MM-dd HH:mm:ss' //可任意组合
         });
     });
+
+
+
+     function doinfo() {
+
+         var userId = $("#userId").val();
+         var symbolId = $("#symbolId").val();
+         var installTime = $("#installTime").val();
+
+        //    使用ajax提交表单数据
+        var loadingIndex = null;
+        $.ajax({
+            type: 'POST',
+            url: "/installer/doinfo",
+            data: {
+                "userId": userId,
+                "symbolId": symbolId,
+                "installTime": installTime
+            },
+            beforeSend: function () {
+                loadingIndex = layer.msg('处理中', {icon: 16});
+            },
+            success: function (result) {
+                //成功提交数据则将处理的图标关闭
+                layer.close(loadingIndex);
+                if (result.success) {
+                    window.location.href = "/installer/createinfo";
+                } else {
+                    layer.msg("用户账号或密码错误！", {time: 2000, icon: 2, shift: 6}, function () {
+                    });
+                }
+            }
+        });
+        // alert("Success");
+    }
+
 </script>
 </body>
 </html>

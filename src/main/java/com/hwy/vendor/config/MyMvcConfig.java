@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 功能描述: 自定义视图解析器
+ *
  * @author huangwenyuan
  * @create 2019/06/05
  * @since 1.0.0
@@ -23,8 +24,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MyMvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/hwy").setViewName("customer/index");
+        registry.addViewController("/").setViewName("customer/login");
+        registry.addViewController("/login").setViewName("customer/login");
+        registry.addViewController("/register").setViewName("customer/register");
+        registry.addViewController("/index").setViewName("customer/index");
+        registry.addViewController("/drink").setViewName("customer/drink");
+        registry.addViewController("/yogurt").setViewName("customer/yogurt");
+        registry.addViewController("/lunch").setViewName("customer/lunch");
+        registry.addViewController("/icecream").setViewName("customer/icecream");
+        registry.addViewController("/multiple").setViewName("customer/multiple");
+        registry.addViewController("/personalcenter").setViewName("customer/personalcenter");
+        registry.addViewController("/cart").setViewName("customer/cart");
+        registry.addViewController("/myorder").setViewName("customer/myorder");
+        registry.addViewController("/address").setViewName("customer/address");
+        registry.addViewController("/information").setViewName("customer/information");
+        registry.addViewController("/modifypassword").setViewName("customer/modifypassword");
+        registry.addViewController("/order").setViewName("customer/order");
     }
 }
 
-    

@@ -46,10 +46,10 @@
 	cursor: pointer;
 	padding-left:10px;
 	width:160px;
-	background: url(../img/temp/down.jpg) no-repeat 140px center;
+	background: url(/assets/img/customer/temp/down.jpg) no-repeat 140px center;
 }
 .current p.default.on{
-	background: url(../img/temp/up.jpg) no-repeat 140px center;
+	background: url(/assets/img/customer/temp/up.jpg) no-repeat 140px center;
 }
 /*********************proList****************************/
 .proList{
@@ -659,7 +659,7 @@ section h3{
 	top:0;
 	width:16px;
 	height:16px;
-	background: url(/vendor/vendor_main/static/assets/img/customer/temp/check.jpg);
+	background: url(/assets/img/customer/temp/check.jpg);
 }
 .table  label input[type=checkbox]:checked + span{
 	position: absolute;
@@ -667,7 +667,7 @@ section h3{
 	top:0;
 	width:16px;
 	height:16px;
-	background: url(/vendor/vendor_main/static/assets/img/customer/temp/checkOn.jpg);
+	background: url(/assets/img/customer/temp/checkOn.jpg);
 }
 .table .tr p:last-child a,
 .table .tr p:last-child span{
