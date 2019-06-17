@@ -39,7 +39,9 @@
                                 <p class="plic">
                                     <span class="ciur-pic">单价：[[${gds.goods.goodsPrice}]]元</span>
                                     <span class="ciur-pic">库存：[[${gds.count}]]</span>
-                                    <span class="ciur-pic"><a>补货</a></span>
+                                    <a target="_blank" th:href="@{'/goReplenishment/?vendorId=' + ${vendorId} + '&goodsId=' + ${gds.goods.goodsId}}" >
+                                        <button class="layui-btn layui-btn-normal">补货 </button>
+                                    </a>
                                 </p>
                             </div>
                         </div>

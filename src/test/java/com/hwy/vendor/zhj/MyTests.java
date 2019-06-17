@@ -46,7 +46,7 @@ public class MyTests {
 
     @Test
     public void test1(){
-        List<VendorGoods> vgs = vendorGoodsServiceImpl.getVendorGoodsById(1);
+        List<VendorGoods> vgs = vendorGoodsServiceImpl.getVendorGoodsById("1");
         for (VendorGoods vg : vgs){
             System.out.println("id:" + vg.getGoodsId() + "   Count:" + vg.getGoodsCount());
         }
@@ -60,6 +60,11 @@ public class MyTests {
     public void test2() {
         Goods goods = goodsServiceImpl.getGoodsById(1);
         System.out.println("ppppppp:" + goods.getGoodsPrice());
+    }
+
+    @Test
+    public void test3(){
+        vendorGoodsServiceImpl.init("2qweqwe");
     }
 }
 

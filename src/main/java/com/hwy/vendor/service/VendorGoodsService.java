@@ -26,6 +26,26 @@ public interface VendorGoodsService {
      * @param vendorId
      * @return
      */
-    List<VendorGoods> getVendorGoodsById(int vendorId);
+    List<VendorGoods> getVendorGoodsById(String vendorId);
 
+    /***
+     * 根据售货机id以及商品id查询记录
+     * @param vendorId
+     * @param goodsId
+     * @return
+     */
+    VendorGoods getVendorGoodsByVendorIdAndAndGoodsId(String vendorId, Integer goodsId);
+
+    /***
+     * 修改记录
+     * @param vendorGoods
+     * @return
+     */
+    Boolean update(VendorGoods vendorGoods);
+
+    /***
+     * 初始化售货机内的货物
+     * @param vendorId
+     */
+    void init(String vendorId);
 }

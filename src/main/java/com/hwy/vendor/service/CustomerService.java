@@ -1,7 +1,7 @@
 /**
  * 162012班 第四组
  * 智能售货机管理系统——XXX模块
- * FileName: VendorService
+ * FileName: CustomerService
  * Author:   huangwenyuan
  * Date:     2019/06/08 下午 10:29
  * Description: 顾客服务类
@@ -20,7 +20,7 @@ import java.util.List;
  * @create 2019/06/08
  * @since 1.0.0
  */
-public interface VendorService {
+public interface CustomerService {
 
 
     /***
@@ -37,6 +37,33 @@ public interface VendorService {
      * @return 售货机对象
      */
     Vendor getVendorById(Integer vendorId);
+
+    /***
+     * 得到所有
+     * @return
+     */
+    List<Vendor> getAll();
+
+    /***
+     * 更新vendor
+     * @param vendor
+     * @return
+     */
+    Vendor update(Vendor vendor);
+
+    /***
+     * 通过Id删除
+     * @param vendorId
+     * @return
+     */
+    void deleteById(Integer vendorId);
+
+    /***
+     * 插入新的数据
+     * @param vendor
+     * @return
+     */
+    Vendor insert(Vendor vendor);
 }
 
     

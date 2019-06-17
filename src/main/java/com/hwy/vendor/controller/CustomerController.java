@@ -10,7 +10,7 @@
 package com.hwy.vendor.controller;
 
 import com.hwy.vendor.entity.Vendor;
-import com.hwy.vendor.service.VendorService;
+import com.hwy.vendor.service.CustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +26,9 @@ import javax.annotation.Resource;
  * @since 1.0.0
  */
 @Controller
-public class VendorController {
+public class CustomerController {
     @Resource
-    private VendorService vendorService;
+    private CustomerService customerService;
 
     /***
      * 根据售货机id，跳转到对应的详情页
@@ -37,7 +37,7 @@ public class VendorController {
     @GetMapping("/detail/{vendorId}")
     public String Detail(@PathVariable("vendorId") Integer vendorId, Model model) {
         //根据id获取售货机信息
-        Vendor vendor = vendorService.getVendorById(vendorId);
+        Vendor vendor = customerService.getVendorById(vendorId);
         model.addAttribute("vendor", vendor);
         return "customer/detail";
     }

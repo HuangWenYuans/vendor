@@ -33,9 +33,8 @@ public class VendorGoods {
     /***
      * 售货机id
      */
-    //@ManyToOne
     @Column(name = "vendor_id")
-    private int vendorId;
+    private String vendorId;
 
     /***
      * 销售商品id
@@ -58,11 +57,11 @@ public class VendorGoods {
         this.id = id;
     }
 
-    public int getVendorId() {
+    public String getVendorId() {
         return vendorId;
     }
 
-    public void setVendorId(int vendorId) {
+    public void setVendorId(String vendorId) {
         this.vendorId = vendorId;
     }
 

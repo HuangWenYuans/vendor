@@ -12,13 +12,14 @@ package com.hwy.vendor.service.impl;
 import com.hwy.vendor.entity.Vendor;
 import com.hwy.vendor.repository.VendorRepository;
 import com.hwy.vendor.repository.VendorTypeRepository;
-import com.hwy.vendor.service.VendorService;
+import com.hwy.vendor.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 功能描述: 顾客服务类
@@ -28,7 +29,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Service
-public class VendorServiceImpl implements VendorService {
+public class CustomerServiceImpl implements CustomerService {
     @Resource
     private VendorRepository vendorRepository;
     @Resource
@@ -53,8 +54,46 @@ public class VendorServiceImpl implements VendorService {
      */
     @Override
     public Vendor getVendorById(Integer vendorId) {
-        logger.info("售货机编号" + vendorId + ",售货机信息：" + vendorRepository.findById(vendorId).get().toString());
-        return vendorRepository.findById(vendorId).get();
+        Optional<Vendor> optional = vendorRepository.findById(vendorId);
+        return optional.orElse(null);
+    }
+
+    /***
+     * 获取所有
+     * @return
+     */
+    @Override
+    public List<Vendor> getAll() {
+        return vendorRepository.findAll();
+    }
+
+    /***
+     * 更新
+     * @param vendor
+     * @return
+     */
+    @Override
+    public Vendor update(Vendor vendor) {
+        return vendorRepository.saveAndFlush(vendor);
+    }
+
+    /***
+     * 根据id删除数据
+     * @param vendorId
+     */
+    @Override
+    public void deleteById(Integer vendorId) {
+        vendorRepository.deleteById(vendorId);
+    }
+
+    /***
+     * 插入新的数据
+     * @param vendor
+     * @return
+     */
+    @Override
+    public Vendor insert(Vendor vendor) {
+        return vendorRepository.save(vendor);
     }
 }
 

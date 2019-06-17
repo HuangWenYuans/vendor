@@ -32,13 +32,17 @@
                 <div class="list-cont" cont="tuangou">
                     <div class="item-box layui-clear">
                         <!-- th:each 所在的标签也会循环 -->
-                        <div th:each="goods:${gs}" class="item">
+                        <div th:each="gds:${gs}" class="item">
                             <img src="/vendor/vendor_main/static/assets/img/manufacturer/tuan_img1.jpg"
                                  th:src="@{/assets/img/manufacturer/tuan_img1.jpg}" alt="">
                             <div class="text-box">
-                                <p class="title">[[${goods.goodsName}]]</p>
+                                <p class="title">[[${gds.goods.goodsName}]]</p>
                                 <p class="plic">
-                                    <span class="ciur-pic">单价：[[${goods.goodsPrice}]]元</span>
+                                    <span class="ciur-pic">单价：[[${gds.goods.goodsPrice}]]元</span>
+                                        <a th:if="${gds.count > 0}" target="_blank" th:href="@{'/doBuy/?vendorId=' + ${vendorId} + '&goodsId=' + ${gds.goods.goodsId}}" >
+                                            <button class="layui-btn layui-btn-normal">购买 </button>
+                                        </a>
+                                        <button th:if="${gds.count <= 0}" class="layui-btn layui-btn-danger">无货</button>
                                 </p>
                             </div>
                         </div>

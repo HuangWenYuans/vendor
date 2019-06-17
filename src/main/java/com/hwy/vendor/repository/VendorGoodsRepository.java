@@ -23,5 +23,13 @@ public interface VendorGoodsRepository extends JpaRepository<VendorGoods, Intege
      * @param vendorId
      * @return
      */
-    List<VendorGoods> findByVendorId(Integer vendorId);
+    List<VendorGoods> findByVendorId(String vendorId);
+
+    /***
+     * 根据售货机id以及商品id查询记录
+     * @param vendorId
+     * @param goodsId
+     * @return
+     */
+    VendorGoods findVendorGoodsByVendorIdAndAndGoodsId(String vendorId, Integer goodsId);
 }

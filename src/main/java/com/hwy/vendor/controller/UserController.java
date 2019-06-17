@@ -12,7 +12,7 @@ package com.hwy.vendor.controller;
 import com.hwy.vendor.entity.AjaxResult;
 import com.hwy.vendor.entity.User;
 import com.hwy.vendor.entity.Vendor;
-import com.hwy.vendor.service.VendorService;
+import com.hwy.vendor.service.CustomerService;
 import com.hwy.vendor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class UserController {
     @Resource
     private UserService userService;
     @Resource
-    private VendorService vendorService;
+    private CustomerService vendorService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     /***
