@@ -44,7 +44,7 @@
 <!----------------proList------------------------->
 <ul class="proList wrapper clearfix">
     <li th:each="drinkVendor,n:${session.drinkVendors}">
-        <a href="detail.html" th:href="@{/detail}">
+        <a href="detail.html" th:href="@{/customer/detail}">
             <dl>
                 <dt>
                     <img th:src="@{${drinkVendor.pricture1}}"/>

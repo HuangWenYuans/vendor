@@ -93,8 +93,8 @@
 <!--<script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>-->
 <script src="/vendor/vendor_main/layer/layer.js" th:src="@{/layer/layer.js}" type="text/javascript"
         charset="utf-8"></script>
-<script th:src="@{/assets/js/customer/cart.js}" type="text/javascript"
-        charset="utf-8"></script>
+<!--<script th:src="@{/assets/js/customer/cart.js}" type="text/javascript"-->
+        <!--charset="utf-8"></script>-->
 
 <script th:inline="javascript" type="text/javascript">
     $(function () {
@@ -287,13 +287,12 @@
             var loadingIndex = null;
             $.ajax({
                 type: 'POST',
-                url: "/addToCart",
+                url: "/customer/addToCart",
                 data: {
                     "userId": userId,
                     "vendorId": vendorId,
                     "count": count
                 },
-                dataType: "json",
                 beforeSend: function () {
                     loadingIndex = layer.msg('处理中', {icon: 16});
                 },
@@ -327,5 +326,7 @@
         vis: 1
     });
 </script>
+<!--引入公共头部的js-->
+<span th:replace="commons/js::js"></span>
 </body>
 </html>

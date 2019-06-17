@@ -10,7 +10,8 @@
 package com.hwy.vendor.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,11 @@ public class User {
     @Column(name = "gender")
     private int gender;
 
+    /***
+     * 用户类型
+     */
+    @Column(name = "type")
+    private int type;
 
     /***
      * 用户对应的购物车
@@ -70,16 +76,34 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Cart> carts = new ArrayList<>();
 
+
+    /***
+     * 一个用户对应多个consignees(收货信息）
+     */
+    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Consignee> consignees;
+
+    /***
+     * 一个用户对应多个订单
+     */
+    //@Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
     public User() {
     }
 
-    public User(String username, String password, String realname, String birthday, int gender, List<Cart> carts) {
+    public User(String username, String password, String realname, String birthday, int gender, int type, List<Cart> carts, List<Consignee> consignees, List<Order> orders) {
         this.username = username;
         this.password = password;
         this.realname = realname;
         this.birthday = birthday;
         this.gender = gender;
+        this.type = type;
         this.carts = carts;
+        this.consignees = consignees;
+        this.orders = orders;
     }
 
     public Integer getUserid() {
@@ -130,12 +154,36 @@ public class User {
         this.gender = gender;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public List<Cart> getCarts() {
         return carts;
     }
 
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
+    }
+
+    public List<Consignee> getConsignees() {
+        return consignees;
+    }
+
+    public void setConsignees(List<Consignee> consignees) {
+        this.consignees = consignees;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
@@ -147,6 +195,7 @@ public class User {
                 ", realname='" + realname + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", gender=" + gender +
+                ", type=" + type +
                 '}';
     }
 }

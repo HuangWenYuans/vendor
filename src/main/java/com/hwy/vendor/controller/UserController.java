@@ -10,9 +10,10 @@
 package com.hwy.vendor.controller;
 
 import com.hwy.vendor.entity.AjaxResult;
+import com.hwy.vendor.entity.Consignee;
 import com.hwy.vendor.entity.User;
 import com.hwy.vendor.entity.Vendor;
-import com.hwy.vendor.service.VendorService;
+import com.hwy.vendor.service.CustomerService;
 import com.hwy.vendor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,9 @@ public class UserController {
     @Resource
     private UserService userService;
     @Resource
-    private VendorService vendorService;
+    private CustomerService customerService;
+    @Resource
+    private CustomerService vendorService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     /***
@@ -55,12 +58,10 @@ public class UserController {
         if (u != null) {
             logger.info("用户:" + u.getUsername() + "登录了");
             logger.info("登录用户信息：" + u.toString());
-
-            ////为当前用户创建一个购物车对象
-            //Cart cart = new Cart();
-            //u.setCart(cart);
-            //cart.setUser(u);
-
+            //获取登录用户的收货信息
+            List<Consignee> consignees = customerService.getConsigneesByUser(u);
+            //将收获信息存入session
+            session.setAttribute("consignees", consignees);
             //将登录的用户的信息存入session
             session.setAttribute("user", u);
             //查询出所有饮料机的信息

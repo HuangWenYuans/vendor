@@ -31,7 +31,7 @@
         <h3><img th:src="@{/assets/img/customer/ih3.png}"></h3>
         <img th:src="@{/assets/img/customer/temp/paint01.jpg}"/>
         <div class="paintList">
-            <a href="detail.html" th:href="@{/detail}" th:each="lunchVendor,n:${session.lunchVendors}">
+            <a href="detail.html" th:href="@{/customer/detail}" th:each="lunchVendor,n:${session.lunchVendors}">
                 <dl>
                     <dt>
                         <img width="374px" height="374px" th:src="@{${lunchVendor.pricture1}}">

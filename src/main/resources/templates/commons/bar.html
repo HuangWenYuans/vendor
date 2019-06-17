@@ -15,14 +15,14 @@
     <div class="wrapper clearfix">
         <div class="clearfix" id="top">
             <h1 class="fl">
-                <a href="#">
+                <a href="#" th:href="@{/index}">
                     <img src="/vendor/vendor_main/static/assets/img/customer/logo.png"
                          th:src="@{/assets/img/customer/logo.png}"/>
                 </a>
             </h1>
             <div class="fr clearfix" id="top1">
                 <p class="fl">
-                    <a href="/logout" onclick="doLogout()">点击退出</a>
+                    <a href="javascript:void(0)" onclick="doLogout()">点击退出</a>
                 </p>
                 <form action="#" method="get" class="fl">
                     <input type="text" placeholder="热门搜索：盒饭机"/>
@@ -33,16 +33,10 @@
                         <img src="/vendor/vendor_main/static/assets/img/customer/grzx.png"
                              th:src="@{/assets/img/customer/grzx.png}"/>
                     </a>
-                    <a href="cart.html" th:href="@{/cart}">
+                    <a href="javascript:void(0)" onclick="showCart()">
                         <img src="/vendor/vendor_main/static/assets/img/customer/gwc.png"
                              th:src="@{/assets/img/customer/gwc.png}"/>
                     </a>
-                    <!--<p>-->
-                        <!--<a href="#">-->
-                            <!--<img src="/vendor/vendor_main/static/assets/img/customer/smewm.png"-->
-                                 <!--th:src="@{/assets/img/customer/smewm.png}"/>-->
-                        <!--</a>-->
-                    <!--</p>-->
                 </div>
             </div>
         </div>
@@ -66,7 +60,7 @@
 <!--返回顶部工具栏-->
 <div class="gotop" th:fragment="gotobar">
 
-    <a href="cart.html" th:href="@{/cart}">
+    <a href="javascript:void(0)" onclick="showCart()">
         <dl>
             <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt1.png"
                      th:src="@{/assets/img/customer/gt1.png}"/></dt>
@@ -129,19 +123,6 @@
 <!--<script th:src="@{/webjars/jquery/2.1.1/src/jquery.js}" type="text/javascript" charset="utf-8"></script>-->
 <script src="/vendor/vendor_main/layer/layer.js" th:src="@{/layer/layer.js}" type="text/javascript"
         charset="utf-8"></script>
-<script type="text/javascript">
-    //退出系统的方法
-    function doLogout() {
-        alert("hshs");
-        layer.confirm("真的要退出系统吗？", {icon: 3, title: '提示'}, function (cindex) {
-            //确认退出
-            window.location.href = "/logout";
-            layer.close(cindex);
-        }, function (cindex) {
-            //取消退出
-            layer.close(cindex);
-        });
-    }
-</script>
+
 </body>
 </html>

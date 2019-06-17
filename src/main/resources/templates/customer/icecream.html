@@ -32,7 +32,7 @@
         <img src="/vendor/vendor_main/static/assets/img/customer/temp/xxB01.jpg"
              th:src="@{/assets/img/customer/temp/xxB01.jpg}"/>
         <div class="paintList">
-            <a href="detail.html" th:href="@{/detail}" th:each="iceCreamVendor,n:${session.iceCreamVendors}">
+            <a href="detail.html" th:href="@{/customer/detail}" th:each="iceCreamVendor,n:${session.iceCreamVendors}">
                 <dl>
                     <dt>
                         <img width="374px" height="374px" th:src="@{${iceCreamVendor.pricture1}}">

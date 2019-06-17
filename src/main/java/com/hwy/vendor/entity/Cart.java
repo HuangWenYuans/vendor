@@ -44,7 +44,7 @@ public class Cart {
     /***
      * 与售货机建立多对对的关系
      */
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "t_cart_vendor", joinColumns = {@JoinColumn(name = "cart_id")},
             inverseJoinColumns = {@JoinColumn(name = "vendor_id")})
     private List<Vendor> vendors = new ArrayList<>();

@@ -1,7 +1,10 @@
 package com.hwy.vendor.repository;
 
+import com.hwy.vendor.entity.Consignee;
 import com.hwy.vendor.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 
 /**
@@ -34,4 +37,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return
      */
     User findByUserid(Integer userId);
+
 }

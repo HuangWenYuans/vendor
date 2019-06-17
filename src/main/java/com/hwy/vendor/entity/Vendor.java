@@ -94,20 +94,28 @@ public class Vendor {
     @ManyToMany(mappedBy = "vendors")
     private List<Cart> carts = new ArrayList<>();
 
+    /***
+     * 与订单详情建立一对一关联
+     */
+    @OneToOne(mappedBy = "vendor")
+    private OrderItem orderItem;
+
+    /***
+     * 与每台售货机建立一对多关联
+     */
+    @OneToMany(mappedBy = "vendor")
+    private List<Symbol> symbols = new ArrayList<>();
+
     public Vendor() {
     }
 
-    public Vendor(String vendorName, String pricture1, String pricture2, String pricture3, String pricture4, BigDecimal price, Integer stock, String detail, VendorType vendorType, List<Cart> carts) {
-        this.vendorName = vendorName;
-        this.pricture1 = pricture1;
-        this.pricture2 = pricture2;
-        this.pricture3 = pricture3;
-        this.pricture4 = pricture4;
-        this.price = price;
-        this.stock = stock;
-        this.detail = detail;
-        this.vendorType = vendorType;
-        this.carts = carts;
+
+    public OrderItem getOrderItem() {
+        return orderItem;
+    }
+
+    public void setOrderItem(OrderItem orderItem) {
+        this.orderItem = orderItem;
     }
 
     public int getVendorId() {
@@ -196,6 +204,14 @@ public class Vendor {
 
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
+    }
+
+    public List<Symbol> getSymbols() {
+        return symbols;
+    }
+
+    public void setSymbols(List<Symbol> symbols) {
+        this.symbols = symbols;
     }
 
     @Override

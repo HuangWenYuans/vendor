@@ -46,7 +46,7 @@ public class VendorType {
     //将默认的懒加载改成立即加载
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "vendorType", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "vendorType",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Vendor> vendors = new ArrayList<>();
 
     public VendorType() {

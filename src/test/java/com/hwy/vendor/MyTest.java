@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.UUID;
+
 /**
  * 功能描述:
  *
@@ -27,13 +29,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = MyTest.class)
 public class MyTest {
-    @Autowired
-    private UserRepository userRepository;
+    //@Autowired
+    //private UserRepository userRepository;
+    //
+    //@Test
+    //public void testFind() {
+    //    User user = this.userRepository.findByUsername("123");
+    //    System.out.println(user);
+    //}
 
     @Test
-    public void testFind() {
-        User user = this.userRepository.findByUsername("123");
-        System.out.println(user);
+    public void test(){
+        UUID uuid = UUID.randomUUID();
+        System.out.println(uuid);
     }
 }
 
