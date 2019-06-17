@@ -32,7 +32,7 @@ public class Vendor {
     @Id
     @Column(name = "vendor_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer vendorId;
+    private int vendorId;
 
     /***
      * 售货机名
@@ -231,4 +231,3 @@ public class Vendor {
     }
 }
 
-    

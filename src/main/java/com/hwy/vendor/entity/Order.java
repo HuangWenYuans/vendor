@@ -10,9 +10,6 @@
 package com.hwy.vendor.entity;
 
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;

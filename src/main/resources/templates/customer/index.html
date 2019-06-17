@@ -42,7 +42,7 @@
         <!--每行有4个的行-->
         <div class="pList clearfix tran" th:each="drinkVendor,n:${session.drinkVendors}" th:if="${n.count % 4 == 0}">
             <!--每行第一个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.drinkVendors[n.count - 4].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.drinkVendors[n.count - 4].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -54,7 +54,7 @@
                 </dl>
             </a>
             <!--每行第二个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.drinkVendors[n.count - 3].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.drinkVendors[n.count - 3].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -66,7 +66,7 @@
                 </dl>
             </a>
             <!--每行第三个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.drinkVendors[n.count - 2].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.drinkVendors[n.count - 2].vendorId}">
 
                 <dl>
                     <dt>
@@ -79,7 +79,7 @@
                 </dl>
             </a>
             <!--每行第四个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.drinkVendors[n.count - 1].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.drinkVendors[n.count - 1].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -94,7 +94,7 @@
 
         <!--不足4个的那一行-->
         <div class="pList clearfix tran">
-            <a href="detail.html" th:href="@{/detail}+${drinkVendor.vendorId}"
+            <a href="detail.html" th:href="@{/customer/detail/}+${drinkVendor.vendorId}"
                th:each="drinkVendor,i:${session.drinkVendors}"
                th:if="${i.count > ((session.drinkVendors.size()/4)*4) && i.count <=session.drinkVendors.size()}">
                 <dl>
@@ -119,7 +119,7 @@
         <!--每行有3个的行-->
         <div class="flower clearfix tran" th:each="yogurtVendor,n:${session.yogurtVendors}" th:if="${n.count % 3 == 0}">
             <!--每行第一个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.yogurtVendors[n.count - 3].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.yogurtVendors[n.count - 3].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -131,7 +131,7 @@
                 </dl>
             </a>
             <!--每行第二个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.yogurtVendors[n.count - 2].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.yogurtVendors[n.count - 2].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -143,7 +143,7 @@
                 </dl>
             </a>
             <!--每行第三个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.yogurtVendors[n.count - 1].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.yogurtVendors[n.count - 1].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -157,7 +157,7 @@
         </div>
         <!--不足3个的那一行-->
         <div class="pList clearfix tran">
-            <a href="detail.html" th:href="@{/detail/}+${yogurtVendor.vendorId}"
+            <a href="detail.html" th:href="@{/customer/detail/}+${yogurtVendor.vendorId}"
                th:each="yogurtVendor,i:${session.yogurtVendors}"
                th:if="${i.count > ((session.yogurtVendors.size()/3)*3) && i.count <=session.yogurtVendors.size()}">
                 <dl>
@@ -177,7 +177,7 @@
         <!--每行有3个的行-->
         <div class="flower clearfix tran" th:each="lunchVendor,n:${session.lunchVendors}" th:if="${n.count % 3 == 0}">
             <!--每行第一个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.lunchVendors[n.count - 3].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.lunchVendors[n.count - 3].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -189,7 +189,7 @@
                 </dl>
             </a>
             <!--每行第二个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.lunchVendors[n.count - 2].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.lunchVendors[n.count - 2].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -201,7 +201,7 @@
                 </dl>
             </a>
             <!--每行第三个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.lunchVendors[n.count - 1].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.lunchVendors[n.count - 1].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -215,7 +215,7 @@
         </div>
         <!--不足3个的那一行-->
         <div class="pList clearfix tran">
-            <a href="detail.html" th:href="@{/detail/}+${lunchVendor.vendorId}"
+            <a href="detail.html" th:href="@{/customer/detail/}+${lunchVendor.vendorId}"
                th:each="lunchVendor,i:${session.lunchVendors}"
                th:if="${i.count > ((session.lunchVendors.size()/3)*3) && i.count <=session.lunchVendors.size()}">
                 <dl>
@@ -236,7 +236,7 @@
         <div class="flower clearfix tran" th:each="iceCreamVendor,n:${session.iceCreamVendors}"
              th:if="${n.count % 3 == 0}">
             <!--每行第一个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.iceCreamVendors[n.count - 3].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.iceCreamVendors[n.count - 3].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -248,7 +248,7 @@
                 </dl>
             </a>
             <!--每行第二个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.iceCreamVendors[n.count - 2].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.iceCreamVendors[n.count - 2].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -260,7 +260,7 @@
                 </dl>
             </a>
             <!--每行第三个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.iceCreamVendors[n.count - 1].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.iceCreamVendors[n.count - 1].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -274,7 +274,7 @@
         </div>
         <!--不足3个的那一行-->
         <div class="pList clearfix tran">
-            <a href="detail.html" th:href="@{/detail/}+${iceCreamVendor.vendorId}"
+            <a href="detail.html" th:href="@{/customer/detail/}+${iceCreamVendor.vendorId}"
                th:each="iceCreamVendor,i:${session.iceCreamVendors}"
                th:if="${i.count > ((session.iceCreamVendors.size()/3)*3) && i.count <=session.iceCreamVendors.size()}">
                 <dl>
@@ -295,7 +295,7 @@
         <div class="flower clearfix tran" th:each="multipleVendor,n:${session.multipleVendors}"
              th:if="${n.count % 3 == 0}">
             <!--每行第一个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.multipleVendors[n.count - 3].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.multipleVendors[n.count - 3].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -307,7 +307,7 @@
                 </dl>
             </a>
             <!--每行第二个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.multipleVendors[n.count - 2].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.multipleVendors[n.count - 2].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -319,7 +319,7 @@
                 </dl>
             </a>
             <!--每行第三个-->
-            <a href="detail.html" th:href="@{/detail/}+${session.multipleVendors[n.count - 1].vendorId}">
+            <a href="detail.html" th:href="@{/customer/detail/}+${session.multipleVendors[n.count - 1].vendorId}">
                 <dl>
                     <dt>
                         <span class=" abl"></span>
@@ -333,7 +333,7 @@
         </div>
         <!--不足3个的那一行-->
         <div class="pList clearfix tran">
-            <a href="detail.html" th:href="@{/detail/}+${multipleVendor.vendorId}"
+            <a href="detail.html" th:href="@{/customer/detail/}+${multipleVendor.vendorId}"
                th:each="multipleVendor,i:${session.multipleVendors}"
                th:if="${i.count > ((session.multipleVendors.size()/3)*3) && i.count <=session.multipleVendors.size()}">
                 <dl>
@@ -378,6 +378,7 @@
     });
 </script>
 
-
+<!--引入公共头部的js-->
+<span th:replace="commons/js::js"></span>
 </body>
 </html>

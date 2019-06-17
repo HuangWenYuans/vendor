@@ -1,123 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head lang="en">
+<head>
     <meta charset="utf-8"/>
     <title>订单页面</title>
-    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/public.css"
-          th:href="@{/assets/css/customer/public.css}"/>
-    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/myorder.css"
-          th:src="@{/assets/css/customer/myorder.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/public.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/myorder.css}"/>
+    <script type="text/javascript">
+            function toInstall(vendorId) {
+                //    使用ajax提交表单数据
+                var loadingIndex = null;
+                    console.log(vendorId);
+                $.ajax({
+                    type: 'POST',
+                    url: "/installer/createinfo",
+                    data: {
+                        "vendorId": vendorId,
+                    },
+                    beforeSend: function () {
+                        loadingIndex = layer.msg('处理中', {icon: 16});
+                    },
+                    success: function (result) {
+                        //成功提交数据则将处理的图标关闭
+                        layer.close(loadingIndex);
+                        if (result.success) {
+                            window.location.href = "/createInstallInfo";
+                        } else {
+                            layer.msg("预约失败！", {time: 2000, icon: 2, shift: 6}, function () {
+                            });
+                        }
+                    }
+                });
+            }
+    </script>
+
 </head>
 <body>
-<!------------------------------head------------------------------>
-<div class="head ding">
-    <div class="wrapper clearfix">
-        <div class="clearfix" id="top">
-            <h1 class="fl"><a href="index.html">
-                <img src="/vendor/vendor_main/static/assets/img/customer/logo.png"
-                     th:src="@{/assets/img/customer/logo.png}"/></a>
-            </h1>
-            <div class="fr clearfix" id="top1">
-                <p class="fl">
-                    <a href="#" id="login">登录</a>
-                    <a href="#" id="reg">注册</a>
-                </p>
-                <form action="#" method="get" class="fl">
-                    <input type="text" placeholder="搜索"/>
-                    <input type="button"/>
-                </form>
-                <div class="btn fl clearfix">
-                    <a href="personalcenter.html"><img src="/vendor/vendor_main/static/assets/img/customer/grzx.png"
-                                                       th:src="@{/assets/img/customer/grzx.png}"/></a>
-                    <a href="#" class="er1"><img src="/vendor/vendor_main/static/assets/img/customer/ewm.png"
-                                                 th:src="@{/assets/img/customer/ewm.png}"/></a>
-                    <a href="cart.html"><img src="/vendor/vendor_main/static/assets/img/customer/gwc.png"
-                                             th:src="@{/assets/img/customer/gwc.png}"/></a>
-                    <p><a href="#"><img src="/vendor/vendor_main/static/assets/img/customer/smewm.png"
-                                        th:src="@{/assets/img/customer/smewm.png}"/></a></p>
-                </div>
-            </div>
-        </div>
-        <ul class="clearfix" id="bott">
-            <li><a href="index.html">首页</a></li>
-            <li>
-                <a href="#">所有商品</a>
-                <div class="sList">
-                    <div class="wrapper  clearfix">
-                        <a href="lunch.html">
-                            <dl>
-                                <dt><img src="/vendor/vendor_main/static/assets/img/customer/nav1.jpg"
-                                         th:src="@{/assets/css/customer/nav1.jpg}"/></dt>
-                                <dd>浓情欧式</dd>
-                            </dl>
-                        </a>
-                        <a href=" lunch.html">
-                            <dl>
-                                <dt><img src="/vendor/vendor_main/static/assets/img/customer/nav2.jpg"
-                                         th:src="@{/assets/css/customer/nav2.jpg}"/>
-                                </dt>
-                                <dd>浪漫美式</dd>
-                            </dl>
-                        </a>
-                        <a href="lunch.html">
-                            <dl>
-                                <dt><img src="/vendor/vendor_main/static/assets/img/customer/nav3.jpg"
-                                         th:src="@{/assets/img/customer/nav3.jpg}"/></dt>
-                                <dd>雅致中式</dd>
-                            </dl>
-                        </a>
-                        <a href="lunch.html">
-                            <dl>
-                                <dt><img src="/vendor/vendor_main/static/assets/img/customer/nav6.jpg"
-                                         th:src="@{/assets/img/customer/nav6.jpg}"/></dt>
-                                <dd>简约现代</dd>
-                            </dl>
-                        </a>
-                        <a href="lunch.html">
-                            <dl>
-                                <dt><img src="/vendor/vendor_main/static/assets/img/customer/nav7.jpg"
-                                         th:src="@{/assets/img/customer/nav7.jpg}"/>/>
-                                </dt>
-                                <dd>创意装饰</dd>
-                            </dl>
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <a href="drink.html">装饰摆件</a>
-                <div class="sList2">
-                    <div class="clearfix">
-                        <a href="proList.html">干花花艺</a>
-                        <a href="vase_proList.html">花瓶花器</a>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <a href="yogurt.html">布艺软饰</a>
-                <div class="sList2">
-                    <div class="clearfix">
-                        <a href="zbproList.html">桌布罩件</a>
-                        <a href="bzproList.html">抱枕靠垫</a>
-                    </div>
-                </div>
-            </li>
-            <li><a href="lunch.html">墙式壁挂</a></li>
-            <li><a href="icecream.html">蜡艺香薰</a></li>
-            <li><a href="multiple.html">创意家居</a></li>
-        </ul>
-    </div>
-</div>
-
+<!--引入页面头部-->
+<div th:replace="commons/bar::headbar"></div>
 <!------------------------------idea------------------------------>
 <div class="address mt">
     <div class="wrapper clearfix">
-        <a href="#" class="fl">首页</a>
+        <a href="#" th:href="@{/index}" class="fl">首页</a>
         <span>/</span>
-        <a href="personalcenter.html">个人中心</a>
+        <a href="personalcenter.html" th:href="@{/personalcenter}">个人中心</a>
         <span>/</span>
-        <a href="myorder.html" class="on">我的订单</a>
+        <a href="myorder.html" th:href="@{/myorder}" class="on">我的订单</a>
     </div>
 </div>
 
@@ -126,25 +53,24 @@
     <div class="wrapper clearfix">
         <div class="zuo fl">
             <h3>
-                <a href="#"><img src="/vendor/vendor_main/static/assets/img/customer/tx.png"
-                                 th:src="@{/assets/img/customer/img/tx.png}"/></a>
-                <p class="clearfix"><span class="fl">[羊羊羊]</span><span class="fr">[退出登录]</span></p>
+                <!--<a href="#"><img th:src="@{/assets/img/customer/tx.png}"/></a>-->
+                <p class="clearfix"><span class="fl">用户名:[[${session.user.username}]]</span></p>
             </h3>
             <div>
                 <h4>我的交易</h4>
                 <ul>
-                    <li><a href="cart.html">我的购物车</a></li>
-                    <li><a href="myorder.html">我的订单</a></li>
+                    <li><a href="cart.html" th:href="@{/cart}">我的购物车</a></li>
+                    <li><a href="myorder.html" th:href="@{/myorder}">我的订单</a></li>
                 </ul>
                 <h4>个人中心</h4>
                 <ul>
-                    <li><a href="personalcenter.html">我的中心</a></li>
-                    <li><a href="address.html">地址管理</a></li>
+                    <li><a href="personalcenter.html" th:href="@{/personalcenter}">我的中心</a></li>
+                    <li><a href="address.html" th:href="@{/address}">地址管理</a></li>
                 </ul>
                 <h4>账户管理</h4>
                 <ul>
-                    <li class="on"><a href="information.html">个人信息</a></li>
-                    <li><a href="modifypassword.html">修改密码</a></li>
+                    <li class="on"><a href="information.html" th:href="@{/information}">个人信息</a></li>
+                    <li><a href="modifypassword.html" th:href="@{/modifypassword}">修改密码</a></li>
                 </ul>
             </div>
         </div>
@@ -154,216 +80,151 @@
                 <a href="#" class="fl">请谨防钓鱼链接或诈骗电话，了解更多&gt;</a>
             </div>
             <div class="dlist clearfix">
+                <!--选择订单类别部分-->
                 <ul class="fl clearfix" id="wa">
-                    <li class="on"><a href="#2">全部有效订单</a></li>
-                    <li><a href="#2">待支付</a></li>
-                    <li><a href="#2l">待收货</a></li>
-                    <li><a href="#2">已关闭</a></li>
+                    <li class="on"><a href="#2">全部订单</a></li>
                 </ul>
+                <!--搜索框部分-->
                 <form action="#" method="get" class="fr clearfix">
-                    <input type="text" name="" id="" value="" placeholder="请输入商品名称、订单号"/>
-                    <input type="button" name="" id="" value=""/>
+                    <input type="text" name="" value="" placeholder="请输入商品名称、订单号"/>
+                    <input type="button" name="" value=""/>
                 </form>
-            </div>
-            <div class="dkuang">
-                <p class="one">已收货</p>
-                <div class="word clearfix">
-                    <ul class="fl clearfix">
-                        <li>2016年12月1日 18:53</li>
-                        <li>杨小黄</li>
-                        <li>订单号:5160513358520018</li>
-                        <li>在线支付</li>
-                    </ul>
-                    <p class="fr">订单金额：<span>99.00</span>元</p>
-                </div>
-                <div class="shohou clearfix">
-                    <a href="#" class="fl">
-                        <img src="/vendor/vendor_main/static/assets/img/customer/g1.jpg"
-                             th:src="@{assets/img/customer/g1.jpg}"/>
-                    </a>
-                    <p class="fl"><a href="#">家用创意菜盘子圆盘 釉下彩复古</a><a href="#">¥99.00×1</a></p>
-                    <p class="fr">
-                        <a href="myprod.html">待评价</a>
-                        <a href="orderxq.html">订单详情</a>
-                    </p>
-                </div>
-            </div>
-            <div class="dkuang clearfix deng">
-                <p class="one fl">待收货</p>
-                <div class="clearfix">
-                    <div class="fl vewwl">
-                        <a href="wuliu.html" class="ckwl">查看物流</a>
-                        <div class="wuliu">
-                            <h4>圆通速递：858888888888888</h4>
-                            <ul>
-                                <li>
-                                    <p>妥投投递并签收，已签收。签收人：本人签收</p>
-                                    <p>2016-12-03 17:30:00</p>
-                                </li>
-                                <li>
-                                    <p>深圳市南油速递营销部安排投递（投递员姓名：六六六。联系电话：14243452522;</p>
-                                    <p>2016-12-03 08:50:00</p>
-                                </li>
-                                <li>
-                                    <p>到达广东省邮政速递物流有限公司深圳航空邮件处理中心处理中心（经转）</p>
-                                    <p>2016-12-03 02:20:00</p>
-                                </li>
-                                <li>以上为最新跟踪信息<a href="wuliu.html">查看全部</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="word clearfix">
-                    <ul class="fl clearfix">
-                        <li>2016年12月1日 18:53</li>
-                        <li>杨小黄</li>
-                        <li>订单号:5160513358520018</li>
-                        <li>在线支付</li>
-                    </ul>
-                    <p class="fr">订单金额：<span>99.00</span>元</p>
-                </div>
-                <div class="shohou clearfix">
-                    <a href="#" class="fl">
-                        <img src="/vendor/vendor_main/static/assets/img/customer/g1.jpg"
-                             th:src="@{assets/img/customer/g1.jpg}"/>
-                    </a>
-                    <p class="fl"><a href="#">家用创意菜盘子圆盘 釉下彩复古</a><a href="#">¥99.00×1</a></p>
-                    <p class="fr">
-                        <a href="#">确认收货</a>
-                        <a href="orderxq.html">订单详情</a>
-                    </p>
-                </div>
-            </div>
-            <div class="dkuang deng">
-                <p class="one">待支付</p>
-                <div class="word clearfix">
-                    <ul class="fl clearfix">
-                        <li>2016年12月1日 18:53</li>
-                        <li>杨小黄</li>
-                        <li>订单号:5160513358520018</li>
-                        <li>在线支付</li>
-                    </ul>
-                    <p class="fr">订单金额：<span>99.00</span>元</p>
-                </div>
-                <div class="shohou clearfix">
-                    <a href="#" class="fl">
-                        <img src="/vendor/vendor_main/static/assets/img/customer/g1.jpg"
-                             th:src="@{assets/img/customer/g1.jpg}"/>
-                    </a>
-                    <p class="fl"><a href="#">家用创意菜盘子圆盘 釉下彩复古</a><a href="#">¥99.00×1</a></p>
-                    <p class="fr">
-                        <a href="#">立即支付</a>
-                        <a href="orderxq.html">订单详情</a>
-                    </p>
-                </div>
-            </div>
-            <div class="dkuang">
-                <p class="one">已关闭</p>
-                <div class="word clearfix">
-                    <ul class="fl clearfix">
-                        <li>2016年12月1日 18:53</li>
-                        <li>杨小黄</li>
-                        <li>订单号:5160513358520018</li>
-                        <li>在线支付</li>
-                    </ul>
-                    <p class="fr">订单金额：<span>99.00</span>元</p>
-                </div>
-                <div class="shohou clearfix">
-                    <a href="#" class="fl">
-                        <img src="/vendor/vendor_main/static/assets/img/customer/g1.jpg"
-                             th:src="@{assets/img/customer/g1.jpg}"/>
-                    </a>
-                    <p class="fl"><a href="#">家用创意菜盘子圆盘 釉下彩复古</a><a href="#">¥99.00×1</a></p>
-                    <p class="fr">
-                        <a href="#">交易失败</a>
-                        <a href="orderxq.html">订单详情</a>
-                    </p>
-                </div>
+
             </div>
 
+            <!--待安装部分-->
+            <div class="dkuang deng" style="display: block" th:each="order,n:${session.orders}"
+                 th:if="${order.status == 0}">
+                <p class="one">待安装</p>
+                <div class="word clearfix">
+                    <ul class="fl clearfix">
+                        <li>[[${order.orderDate}]]</li>
+                        <li th:text="${consignee.consigneeName}" th:if="${consignee.isDefault == 1}"
+                            th:each="consignee,n:${session.consignees}">
+                        </li>
+                        <li>订单号:[[${order.orderId}]]</li>
+                        <li>在线支付</li>
+                    </ul>
+                    <p class="fr">订单金额：<span>[[${order.amount}]]</span>元</p>
+                </div>
+                <!--订单详情-->
+                <div class="shohou clearfix" th:each="orderitem,i:${order.orderItems}">
+                    <a href="#" class="fl">
+                        <img th:src="@{${orderitem.vendor.pricture1}}"/>
+                    </a>
+                    <p class="fl"><a href="#" th:text="${orderitem.vendor.vendorName}"></a>
+                        <a href="#">¥[[${orderitem.vendor.price}]]×[[${orderitem.count}]]</a>
+                    </p>
+                    <p class="fr">
+                        <a href="javascript:void(0)" th:onclick="toInstall([[${orderitem.vendor.vendorId}]])">预约安装</a>
+                        <a href="orderxq.html">订单详情</a>
+                    </p>
+                </div>
+            </div>
+            <!--待维修部分-->
+            <div class="dkuang deng" style="display: block" th:each="order,n:${session.orders}"
+                 th:if="${order.status == 2}">
+                <p class="one">待维修</p>
+                <div class="word clearfix">
+                    <ul class="fl clearfix">
+                        <li>[[${order.orderDate}]]</li>
+                        <li th:text="${consignee.consigneeName}" th:if="${consignee.isDefault == 1}"
+                            th:each="consignee,n:${session.consignees}">
+                        </li>
+                        <li>订单号:[[${order.orderId}]]</li>
+                        <li>在线支付</li>
+                    </ul>
+                    <p class="fr">订单金额：<span>[[${order.amount}]]</span>元</p>
+                </div>
+                <!--订单详情-->
+                <div class="shohou clearfix" th:each="orderitem,i:${order.orderItems}">
+                    <a href="#" class="fl">
+                        <img th:src="@{${orderitem.vendor.pricture1}}"/>
+                    </a>
+                    <p class="fl"><a href="#">[[${orderitem.vendor.vendorName}]]</a>
+                        <a href="#">¥[[${orderitem.vendor.price}]]×[[${orderitem.count}]]</a>
+                    </p>
+                    <p class="fr">
+                        <a href="#">点击催单</a>
+                        <a href="orderxq.html">订单详情</a>
+                    </p>
+                </div>
+            </div>
+            <!--已安装部分-->
+            <div class="dkuang clearfix" style="display: block" th:each="order,n:${session.orders}"
+                 th:if="${order.status == 1}">
+                <p class="one">已安装</p>
+                <div class="word clearfix">
+                    <ul class="fl clearfix">
+                        <li>[[${order.orderDate}]]</li>
+                        <li th:text="${consignee.consigneeName}" th:if="${consignee.isDefault == 1}"
+                            th:each="consignee,n:${session.consignees}">
+                        <li>订单号:[[${order.orderId}]]</li>
+                        <li>在线支付</li>
+                    </ul>
+                    <p class="fr">订单金额：<span>[[${order.amount}]]</span>元</p>
+                </div>
+                <div class="shohou clearfix" th:each="orderitem,i:${order.orderItems}">
+                    <a href="#" class="fl">
+                        <img th:src="@{${orderitem.vendor.pricture1}}"/>
+                    </a>
+                    <p class="fl"><a href="#">[[${orderitem.vendor.vendorName}]]</a>
+                        <a href="#">¥[[${orderitem.vendor.price}]]×[[${orderitem.count}]]</a>
+                    </p>
+                    <p class="fr">
+                        <a href="#" th:href="@{/maintainer/notRepair}" style="background: #A10000;color: #fff">点击报修</a>
+                        <a href="orderxq.html">订单详情</a>
+                    </p>
+                </div>
+            </div>
+            <!--已维修部分-->
+            <div class="dkuang clearfix" style="display: block" th:each="order,n:${session.orders}"
+                 th:if="${order.status == 3}">
+                <p class="one">已维修</p>
+                <div class="word clearfix">
+                    <ul class="fl clearfix">
+                        <li>[[${order.orderDate}]]</li>
+                        <li th:text="${consignee.consigneeName}" th:if="${consignee.isDefault == 1}"
+                            th:each="consignee,n:${session.consignees}">
+                        <li>订单号:[[${order.orderId}]]</li>
+                        <li>在线支付</li>
+                    </ul>
+                    <p class="fr">订单金额：<span>[[${order.amount}]]</span>元</p>
+                </div>
+                <div class="shohou clearfix" th:each="orderitem,i:${order.orderItems}">
+                    <a href="#" class="fl">
+                        <img th:src="@{${orderitem.vendor.pricture1}}"/>
+                    </a>
+                    <p class="fl"><a href="#">[[${orderitem.vendor.vendorName}]]</a>
+                        <a href="#">¥[[${orderitem.vendor.price}]]×[[${orderitem.count}]]</a>
+                    </p>
+                    <p class="fr">
+                        <!--<a href="#">确认收货</a>-->
+                        <a href="orderxq.html">订单详情</a>
+                    </p>
+                </div>
+            </div>
             <!--分页组件-->
             <div class="fenye clearfix">
                 <a href="#">
-                    <img src="/vendor/vendor_main/static/assets/img/customer/zuo.jpg"
-                         th:src="@{assets/img/customer/zuo.jpg}"/>
+                    <img th:src="@{/assets/img/customer/zuo.jpg}"/>
                 </a>
                 <a href="#">1</a>
                 <a href="#">
-                    <img src="/vendor/vendor_main/static/assets/img/customer/you.jpg"
-                         th:src="@{assets/img/customer/you.jpg}"/>
+                    <img th:src="@{/assets/img/customer/you.jpg}">
                 </a>
             </div>
         </div>
     </div>
 </div>
-<!--返回顶部-->
-<div class="gotop">
-    <a href="cart.html">
-        <dl>
-            <dt>
-                <img src="/vendor/vendor_main/static/assets/img/customer/gt1.png"
-                     th:src="@{/assets/img/customer/gt1.png}"/>
-            </dt>
-            <dd>去购<br/>物车</dd>
-        </dl>
-    </a>
-    <a href="#" class="dh">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt2.png"
-                     th:src="@{/assets/img/customer/gt2.png}"/></dt>
-            <dd>联系<br/>客服</dd>
-        </dl>
-    </a>
-    <a href="personalcenter.html">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt3.png"
-                     th:src="@{/assets/img/customer/gt3.png}"/></dt>
-            <dd>个人<br/>中心</dd>
-        </dl>
-    </a>
-    <a href="#" class="toptop" style="display: none">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt4.png"
-                     th:src="@{/assets/img/customer/gt4.png}"/></dt>
-            <dd>返回<br/>顶部</dd>
-        </dl>
-    </a>
-    <p>400-800-8200</p>
-</div>
-<!--footer-->
-<div class="footer">
-    <div class="top">
-        <div class="wrapper">
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot1.png"
-                                             th:src="@{/assets/img/customer/foot1.png}"/></a>
-                <span class="fl">7天无理由退货</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot2.png"
-                                             th:src="@{/assets/img/customer/foot2.png}"/></a>
-                <span class="fl">15天免费换货</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot3.png"
-                                             th:src="@{/assets/img/customer/foot3.png}"/></a>
-                <span class="fl">满599包邮</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot4.png"
-                                             th:src="@{/assets/img/customer/foot4.png}"/></a>
-                <span class="fl">手机特色服务</span>
-            </div>
-        </div>
-    </div>
-    <p class="dibu">最家家居&copy;2013-2017公司版权所有 京ICP备080100-44备0000111000号<br/>
-        违法和不良信息举报电话：400-800-8200，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</p>
-</div>
-<script src="/vendor/vendor_main/static/assets/js/customer/jquery-1.12.4.min.js"
-        th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
-<script src="/vendor/vendor_main/static/assets/js/customer/public.js" th:src="@{/assets/js/customer/public.js}"
-        type="text/javascript" charset="utf-8"></script>
-<script src="/vendor/vendor_main/static/assets/js/customer/user.js" th:src="@{/assets/js/customer/user.js}"
-        type="text/javascript" charset="utf-8"></script>
+<!--引入返回顶部工具栏-->
+<div th:replace="commons/bar::gotobar"></div>
+<!--引入页面底部-->
+<div th:replace="commons/bar::footerbar"></div>
+<script th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/assets/js/customer/public.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/assets/js/customer/user.js}" type="text/javascript" charset="utf-8"></script>
+<!--引入公共头部的js-->
+<span th:replace="commons/js::js"></span>
 </body>
 </html>

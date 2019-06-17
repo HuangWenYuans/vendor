@@ -41,7 +41,20 @@ public interface UserService {
      */
     User checkUsername(String username);
 
+    /***
+     * 根据用户编号获取用户信息
+     * @param userId 用户编号
+     * @return user对象
+     */
+    User getUserById(Integer userId);
 
+
+
+    /***
+     * 根据用户类型查找用户
+     * @param type 用户类型
+     * @return 用户列表
+     */
     List<User> findByType(Integer type);
 }
 

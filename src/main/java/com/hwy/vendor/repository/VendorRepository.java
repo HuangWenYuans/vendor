@@ -9,11 +9,8 @@
 
 package com.hwy.vendor.repository;
 
-import com.hwy.vendor.entity.Symbol;
 import com.hwy.vendor.entity.Vendor;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 
 /**

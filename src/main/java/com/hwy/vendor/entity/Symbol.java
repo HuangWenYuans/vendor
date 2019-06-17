@@ -1,7 +1,7 @@
 /**
  * 162012班 第四组
  * 智能售货机管理系统——XXX模块
- * FileName: SymbolRepository
+ * FileName: Symbol
  * Author:   huangwenyuan
  * Date:     2019/06/17 下午 02:00
  * Description: 唯一标识每台售货机的类
@@ -56,7 +56,7 @@ public class Symbol {
 
     @Override
     public String toString() {
-        return "SymbolRepository{" +
+        return "Symbol{" +
                 "symbolId='" + symbolId + '\'' +
                 '}';
     }

@@ -5,82 +5,37 @@
     <title>订单</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/public.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/proList.css}"/>
+    <script type="text/javascript">
+        //去支付的方法
+        function toOk() {
+            //    使用ajax提交表单数据
+            var loadingIndex = null;
+            console.log($("#form").serialize());
+            $.ajax({
+                type: 'POST',
+                url: "/customer/toOk",
+                data: $("#form").serialize(),
+                beforeSend: function () {
+                    loadingIndex = layer.msg('处理中', {icon: 16});
+                },
+                success: function (result) {
+                    //成功提交数据则将处理的图标关闭
+                    layer.close(loadingIndex);
+                    if (result.success) {
+                        window.location.href = "/ok";
+                    } else {
+                        layer.msg("结算购物车失败！", {time: 2000, icon: 2, shift: 6}, function () {
+                        });
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <!----------------------------------------order------------------>
-<div class="head ding">
-    <div class="wrapper clearfix">
-        <div class="clearfix" id="top">
-            <h1 class="fl"><a href="index.html" th:href="@{/index}">
-                <img th:src="@{/assets/img/customer/logo.png}"/></a>
-            </h1>
-            <div class="fr clearfix" id="top1">
-                <p class="fl">
-                    <a href="login.html" id="login">登录</a>
-                    <a href="register.html" id="reg">注册</a>
-                </p>
-                <form action="#" method="get" class="fl">
-                    <input type="text" placeholder="搜索"/>
-                    <input type="button"/>
-                </form>
-                <div class="btn fl clearfix">
-                    <a href="personalcenter.html">
-                        <img th:src="@{/assets/img/customer/grzx.png}"/>
-                    </a>
-                    <a href="#" class="er1">
-                        <img th:src="@{/assets/img/customer/ewm.png}"/>
-                    </a>
-                    <a href="cart.html"><img th:src="@{/assets/img/customer/gwc.png}"/></a>
-                    <p><a href="#"><img th:src="@{/assets/img/customer/smewm.png}"/></a></p>
-                </div>
-            </div>
-        </div>
-        <ul class="clearfix" id="bott">
-            <li><a href="index.html">首页</a></li>
-            <li>
-                <a href="#">所有商品</a>
-                <div class="sList">
-                    <div class="wrapper  clearfix">
-                        <a href="lunch.html">
-                            <dl>
-                                <dt><img src="/vendor/vendor_main/static/assets/img/customer/nav1.jpg"/></dt>
-                                <dd>浓情欧式</dd>
-                            </dl>
-                        </a>
-                        <a href="lunch.html">
-                            <dl>
-                                <dt><img src="/vendor/vendor_main/static/assets/img/customer/nav2.jpg"/></dt>
-                                <dd>浪漫美式</dd>
-                            </dl>
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <a href="drink.html">装饰摆件</a>
-                <div class="sList2">
-                    <div class="clearfix">
-                        <a href="proList.html">干花花艺</a>
-                        <a href="vase_proList.html">花瓶花器</a>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <a href="yogurt.html">布艺软饰</a>
-                <div class="sList2">
-                    <div class="clearfix">
-                        <a href="zbproList.html">桌布罩件</a>
-                        <a href="bzproList.html">抱枕靠垫</a>
-                    </div>
-                </div>
-            </li>
-            <li><a href="lunch.html">墙式壁挂</a></li>
-            <li><a href="icecream.html">蜡艺香薰</a></li>
-            <li><a href="multiple.html">创意家居</a></li>
-        </ul>
-    </div>
-</div>
-
+<!--引入页面头部-->
+<div th:replace="commons/bar::headbar"></div>
 <div class="order cart mt">
     <!-----------------site------------------->
     <div class="site">
@@ -94,59 +49,27 @@
         <div class="orderL fl">
             <!--------h3---------------->
             <h3>收件信息<a th:href="@{/address}" class="fr">新增地址</a></h3>
-            <!--------addres---------------->
+            <!--------收获地址---------------->
             <div class="addres clearfix">
-                <div class="addre fl on">
+                <div th:each="consignee,n:${session.consignees}"
+                     th:class="${consignee.isDefault == 1} ? 'addre fl on':'addre fl'">
                     <div class="tit clearfix">
-                        <p class="fl">张三1
-                            <span class="default">[默认地址]</span>
+                        <p class="fl">
+                            <span class="default" th:text="${consignee.isDefault == 1}?'[默认地址]':''"></span>
                         </p>
-                        <p class="fr">
+                        <p class="fr">[[${consignee.consigneeName}]]&nbsp;&nbsp;&nbsp;&nbsp;
                             <a href="#">删除</a>
                             <span>|</span>
                             <a href="#" class="edit">编辑</a>
                         </p>
                     </div>
                     <div class="addCon">
-                        <p>河北省&nbsp;唐山市&nbsp;路北区&nbsp;大学生公寓村</p>
-                        <p>15732570937</p>
-                    </div>
-                </div>
-                <div class="addre fl">
-                    <div class="tit clearfix">
-                        <p class="fl">张三2
-                        </p>
-                        <p class="fr">
-                            <a href="#" class="setDefault">设为默认</a>
-                            <span>|</span>
-                            <a href="#">删除</a>
-                            <span>|</span>
-                            <a href="#" class="edit">编辑</a>
-                        </p>
-                    </div>
-                    <div class="addCon">
-                        <p>河北省&nbsp;唐山市&nbsp;路北区&nbsp;大学生公寓村</p>
-                        <p>15732570937</p>
-                    </div>
-                </div>
-                <div class="addre fl">
-                    <div class="tit clearfix">
-                        <p class="fl">张三3
-                        </p>
-                        <p class="fr">
-                            <a href="#" class="setDefault">设为默认</a>
-                            <span>|</span>
-                            <a href="#">删除</a>
-                            <span>|</span>
-                            <a href="#" class="edit">编辑</a>
-                        </p>
-                    </div>
-                    <div class="addCon">
-                        <p>河北省&nbsp;唐山市&nbsp;路北区&nbsp;大学生公寓村</p>
-                        <p>15732570937</p>
+                        <p>[[${consignee.consigneeAddress}]]</p>
+                        <p>[[${consignee.consigneePhone}]]</p>
                     </div>
                 </div>
             </div>
+
             <h3>支付方式</h3>
             <!--------way---------------->
             <div class="way clearfix">
@@ -165,58 +88,40 @@
             </div>
         </div>
         <div class="orderR fr">
-            <div class="msg">
-                <h3>订单内容<a href="cart.html"  th:href="@{/cart}" class="fr">返回购物车</a></h3>
-                <!--------ul---------------->
-                <ul class="clearfix">
-                    <li class="fl">
-                        <img src="/vendor/vendor_main/static/assets/img/customer/sf1.jpg"
-                             th:src="@{/assets/img/customer/temp/order01.jpg}" width="87px" height="87px">
-                    </li>
-                    <li class="fl">
-                        <p>创意现代简约干花花瓶摆件</p>
-                        <p>颜色分类：烟灰色玻璃瓶</p>
-                        <p>数量：1</p>
-                    </li>
-                    <li class="fr">￥69.90</li>
-                </ul>
-                <ul class="clearfix">
-                    <li class="fl">
-                        <img src="/vendor/vendor_main/static/assets/img/customer/sf1.jpg"
-                             th:src="@{/assets/img/customer/temp/order01.jpg}" width="87px" height="87px">
-                    </li>
-                    <li class="fl">
-                        <p>创意现代简约干花花瓶摆件</p>
-                        <p>颜色分类：烟灰色玻璃瓶</p>
-                        <p>数量：1</p>
-                    </li>
-                    <li class="fr">￥69.90</li>
-                </ul>
-                <ul class="clearfix">
-                    <li class="fl">
-                        <img src="/vendor/vendor_main/static/assets/img/customer/sf1.jpg"
-                             th:src="@{/assets/img/customer/temp/order01.jpg}" width="87px" height="87px">
-                    </li>
-                    <li class="fl">
-                        <p>创意现代简约干花花瓶摆件</p>
-                        <p>颜色分类：烟灰色玻璃瓶</p>
-                        <p>数量：1</p>
-                    </li>
-                    <li class="fr">￥69.90</li>
-                </ul>
-            </div>
+            <form id="form">
+                <div class="msg">
+                    <h3>订单内容<a th:href="@{/customer/cart}" class="fr">返回购物车</a></h3>
+                    <!--------ul---------------->
+                    <ul class="clearfix" th:each="cart,n:${session.shoppingList}">
+                        <input type="hidden" name="cartId" th:value="${cart.cartId}"/>
+                        <li class="fl">
+                            <img th:src="@{${cart.getVendors().get(0).pricture1}}" width="87px" height="87px">
+                        </li>
+                        <li class="fl">
+                            <p>[[${cart.getVendors().get(0).vendorName}]]</p>
+                            <p>颜色分类：[[${cart.getVendors().get(0).vendorName}]]</p>
+                            <p>数量：[[${cart.getCount()}]]</p>
+                        </li>
+                        <li class="fr">￥[[${cart.getVendors().get(0).price}]]</li>
+                        <!--添加一个隐藏域用来计算每件商品的总价-->
+                        <li class="vendor-price" style="display: none">
+                            [[${cart.getVendors().get(0).price * cart.count}]]
+                        </li>
+                    </ul>
+                </div>
+            </form>
+
             <!--------tips---------------->
             <div class="tips">
-                <p><span class="fl">商品金额：</span><span class="fr">￥139.80</span></p>
+                <p><span class="fl">商品金额：</span><span class="fr all"></span></p>
                 <p><span class="fl">优惠金额：</span><span class="fr">￥0.00</span></p>
                 <p><span class="fl">运费：</span><span class="fr">免运费</span></p>
             </div>
             <!--------tips count---------------->
             <div class="count tips">
-                <p><span class="fl">合计：</span><span class="fr">￥139.80</span></p>
+                <p><span class="fl">合计：</span><span class="fr all"></span></p>
             </div>
-            <!--<input type="button" name="" value="去支付"> -->
-            <a href="ok.html" class="pay">去支付</a>
+            <a href="javascript:void(0)" onclick="toOk()" class="pay">去支付</a>
         </div>
     </div>
 </div>
@@ -225,12 +130,27 @@
 <div th:replace="commons/bar::gotobar"></div>
 <!--引入页面底部-->
 <div th:replace="commons/bar::footerbar"></div>
-<script src="js/user.js" type="text/javascript" charset="utf-8"></script>
-<script src="/vendor/vendor_main/static/assets/js/customer/jquery-1.12.4.min.js"
-        th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
-<script src="/vendor/vendor_main/static/assets/js/customer/public.js" th:src="@{/assets/js/customer/public.js}"
-        type="text/javascript" charset="utf-8"></script>
-<script src="/vendor/vendor_main/static/assets/js/customer/pro.js" th:src="@{/assets/js/customer/pro.js}"
-        type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/assets/js/customer/public.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/assets/js/customer/pro.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/assets/js/customer/user.js}" type="text/javascript" charset="utf-8"></script>
+<!--引入公共头部的js-->
+<span th:replace="commons/js::js"></span>
+<script type="text/javascript">
+    $(function () {
+        //计算订单总价
+        var all = 0;
+        $(".vendor-price").each(function () {
+            //获取每件商品总价
+            var sAll = $(this).text().substring(1);
+            //累加
+            all += parseFloat(sAll);
+            //赋值
+            $(".all").text('￥' + all.toFixed(2));
+        });
+    });
+</script>
+
+
 </body>
 </html>

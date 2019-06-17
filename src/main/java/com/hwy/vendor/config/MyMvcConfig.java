@@ -40,6 +40,20 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/information").setViewName("customer/information");
         registry.addViewController("/modifypassword").setViewName("customer/modifypassword");
         registry.addViewController("/order").setViewName("customer/order");
+        registry.addViewController("/detail").setViewName("customer/detail");
+        registry.addViewController("/operAndMainSys").setViewName("maintainer/operAndMainSys");
+        registry.addViewController("/patrol").setViewName("maintainer/patrol");
+        registry.addViewController("/patrolGoods").setViewName("/maintainer/patrolGoods");
+        registry.addViewController("/Warranty").setViewName("/customer/Warranty");
+        registry.addViewController("/createInstallInfo").setViewName("/installer/createInstallInfo");
+
+        /*绑定厂家的网页 */
+        registry.addViewController("/replenishment").setViewName("manufacturer/replenishment.html");
+        registry.addViewController("/vending_machine").setViewName("manufacturer/vending_machine.html");
+        registry.addViewController("/factory").setViewName("manufacturer/factory.html");
+        registry.addViewController("/vendor_info").setViewName("manufacturer/vendor_info.html");
+        registry.addViewController("/ok").setViewName("customer/ok");
+
     }
 }
 

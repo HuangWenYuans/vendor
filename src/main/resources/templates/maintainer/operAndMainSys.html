@@ -1,3 +1,11 @@
+<!--
+  162012班 第四组
+  智能售货机管理系统——运维模块
+  FileName: patrolGoods
+  Author:   YuHaoran
+  Date:     2019/6/12 20:37
+  Description:
+-->
 <!DOCTYPE html >
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -6,17 +14,201 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/vendor/vendor_main/static/layui/css/layui.css"  th:href="@{/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
 <ul class="layui-nav">
     <li class="layui-nav-item"><a href="">欢迎维修人员×××</a></li>
     <li class="layui-nav-item"><a href="supplyGoods.html">售货机补货</a></li>
-    <li class="layui-nav-item"><a href="">维修订单</a></li>
-    <li class="layui-nav-item"><a href="">巡查补货</a></li>
+    <li class="layui-nav-item">
+        <a th:href="@{/maintainer/notRepair}">维修订单<span class="layui-nav-more"></span></a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a th:href="@{/maintainer/notRepair}">等待维修</a></dd>
+            <dd><a th:href="@{/maintainer/repaired}">维修完成</a></dd>
+        </dl>
+    </li>
+    <li class="layui-nav-item"><a th:href="@{/maintainer/patrolMain}">巡查详情</a></li>
     <li class="layui-nav-item" style="float: right"><a href="">返回主界面</a></li>
 </ul>
+<div th:if="${session.flag} eq 2">
+    <table class="layui-table">
+        <colgroup>
+            <col width="200">
+            <col width="200">
+            <col width="200">
+            <col width="200">
+            <col width="200">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>售货机ID</th>
+            <th>用户名</th>
+            <th>联系方式</th>
+            <th>维修地址</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="notRepair:${session.NotRepairs}" th:if="${session.NotRepairs}!= null">
+            <td th:text="${notRepair.getSymbolId()}"></td>
+            <td th:text="${notRepair.getUser().getRealname()}"></td>
+            <td th:each="consignee:${notRepair.getUser().getConsignees()}" th:if="${consignee.getIsDefault()==1}"
+                th:text="${consignee.getConsigneePhone()}"></td>
+            <td th:each="consignee:${notRepair.getUser().getConsignees()}" th:if="${consignee.getIsDefault()==1}"
+                th:text="${consignee.getConsigneeAddress()}"></td>
+            <td>
+                <button class="layui-btn layui-btn-warm layui-btn-radius"
+                        th:onclick="toSure([[${notRepair.getMaintainId()}]])">维修
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:if="${session.flag} eq 3">
+    <table class="layui-table">
+        <colgroup>
+            <col width="200">
+            <col width="200">
+            <col width="200">
+            <col width="200">
+            <col width="200">
+            <col width="200">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>售货机ID</th>
+            <th>用户名</th>
+            <th>联系方式</th>
+            <th>维修地址</th>
+            <th>维修日期</th>
+            <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Repair:${session.Repairs}" th:if="${session.Repairs}!= null">
+            <td th:text="${Repair.getSymbolId()}"></td>
+            <td th:text="${Repair.getUser().getRealname()}"></td>
+            <td th:each="consignee:${Repair.getUser().getConsignees()}" th:if="${consignee.getIsDefault()==1}"
+                th:text="${consignee.getConsigneePhone()}"></td>
+            <td th:each="consignee:${Repair.getUser().getConsignees()}" th:if="${consignee.getIsDefault()==1}"
+                th:text="${consignee.getConsigneeAddress()}"></td>
+            <td th:text="${Repair.getMaintainDate()}"></td>
+            <td th:text="已维修"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:if="${session.flag} eq 4">
+    <!--    <form class="layui-form" th:type="post">-->
+    <div class="layui-tab-item layui-show">
+        <div class="layui-input-inline">
+            <input type="tel" id="symbolId" lay-verify="required|phone" autocomplete="off" class="layui-input"
+                   placeholder="请输入售货机编号">
+        </div>
+        <button class="layui-btn layui-btn-radius layui-btn-normal" th:onclick="doQuery()">确认</button>
 
-<div style="text-align: center;font-size: 40px">用Ajax局部刷新页面</div>
+    </div>
+    <!--    </form>-->
+    <table class="layui-table">
+        <colgroup>
+            <col width="200">
+            <col width="200">
+            <col width="200">
+            <col width="200">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>售货机ID</th>
+            <th>售货机名称</th>
+            <th>售货机类型</th>
+            <th>查询详情</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Patrol:${session.Patrols}" th:if="${session.Patrols}!= null">
+            <td th:text="${Patrol.getSymbolId()}"></td>
+            <td th:text="${Patrol.getVendor().getVendorName()}"></td>
+            <td th:text="${Patrol.getVendor().getVendorType().getTypeName()}"></td>
+            <td><a class="layui-btn layui-btn-radius layui-btn-normal">详情</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script th:src="@{/layui/layui.all.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    layui.use('element', function () {
+        var element = layui.element;
+        element.init();
+        //…
+    });
+
+    function doQuery() {
+        var symbolId = $("#symbolId").val();
+
+        //    使用ajax提交表单数据
+        var loadingIndex = null;
+        $.ajax({
+            type: 'POST',
+            url: "/maintainer/doSearch",
+            data: {
+                "symbolId": symbolId
+            },
+            beforeSend: function () {
+                loadingIndex = layer.msg('处理中', {icon: 16});
+            },
+            success: function (result) {
+                //成功提交数据则将处理的图标关闭
+                layer.close(loadingIndex);
+                if (result.success) {
+                    window.location.href = "/operAndMainSys";
+                } else {
+                    alert("编号不存在!")
+
+                    window.location.href = "/operAndMainSys";
+                }
+            }
+        });
+
+    }
+
+    function toSure(id) {
+        layer.confirm("是否确认修改？", {icon: 3, title: '提示'}, function (cindex) {
+            console.log(id);
+            var loadingIndex = null;
+            //确认修改
+            $.ajax({
+                url: '/maintainer/repair',
+                type: "POST",
+                data: {"maintainId": id},
+
+                beforeSend: function () {
+                    loadingIndex = layer.msg('处理中', {icon: 16});
+                },
+                success: function (result) {
+                    //成功提交数据则将处理的图标关闭
+                    layer.close(loadingIndex);
+                    if (result.success) {
+                        window.location.href = "/operAndMainSys";
+                    } else {
+                        window.location.href = "/operAndMainSys";
+
+                        layer.msg("修改失败！", {time: 2000, icon: 2, shift: 6}, function () {
+                        })
+                    };
+                }
+            });
+
+        }, function (cindex) {
+            //取消退出
+            layer.close(cindex);
+        });
+    }
+
+
+</script>
 </body>
+</html>

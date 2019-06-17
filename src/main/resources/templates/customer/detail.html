@@ -93,10 +93,10 @@
 <!--<script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>-->
 <script src="/vendor/vendor_main/layer/layer.js" th:src="@{/layer/layer.js}" type="text/javascript"
         charset="utf-8"></script>
-<script th:src="@{/assets/js/customer/cart.js}" type="text/javascript"
-        charset="utf-8"></script>
+<!--<script th:src="@{/assets/js/customer/cart.js}" type="text/javascript"-->
+<!--charset="utf-8"></script>-->
 
-<script th:inline="JavaScript" type="text/javascript">
+<script th:inline="javascript" type="text/javascript">
     $(function () {
 
         /************商品筛选***************/
@@ -271,21 +271,26 @@
 
         //将商品加入购物车的方法
         function addToCart() {
-            //获取商品数量
+            //售货机机数量
             var count = parseInt($("#count").text());
             console.log("count:" + count);
             if (count <= 0) {
                 confirm("最少购买一件！");
             }
 
+            //购买顾客编号
+            var userId = [[${session.user.userid}]];
+            //售货机编号
+            var vendorId = [[${vendor.vendorId}]];
+
             //    使用ajax提交表单数据
             var loadingIndex = null;
             $.ajax({
                 type: 'POST',
-                url: "/addToCart",
+                url: "/customer/addToCart",
                 data: {
-                    "user": [[${session.user}]],
-                    "vendor": [[${vendor}]],
+                    "userId": userId,
+                    "vendorId": vendorId,
                     "count": count
                 },
                 beforeSend: function () {
@@ -295,7 +300,7 @@
                     //成功提交数据则将处理的图标关闭
                     layer.close(loadingIndex);
                     if (result.success) {
-                        layer.msg("加入购物车成功！", {time: 2000, icon: 3, shift: 6}, function () {
+                        layer.msg("加入购物车成功！", {time: 2000, icon: 1, shift: 6}, function () {
                         });
                     } else {
                         layer.msg("加入购物车失败！", {time: 2000, icon: 2, shift: 6}, function () {
@@ -321,5 +326,7 @@
         vis: 1
     });
 </script>
+<!--引入公共头部的js-->
+<span th:replace="commons/js::js"></span>
 </body>
 </html>

@@ -10,7 +10,7 @@ spring:
     date-format: yyyy-MM-dd
   datasource:
     username: root
-    password: 2695684aaa
+    password: hwy79868058
     url: jdbc:mysql://localhost:3306/vendor?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:

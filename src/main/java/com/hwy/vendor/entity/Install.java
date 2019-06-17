@@ -13,6 +13,7 @@ import javax.persistence.*;
 
 /**
  * 功能描述: 安装信息类
+ *
  * @author TaoLiwei
  * @create 2019/6/11
  * @since 1.0.0
@@ -65,15 +66,15 @@ public class Install {
      * 与用户实现一对一映射
      */
     @OneToOne
-    @JoinColumn(name = "user_id",unique = true)
-    User user;
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 
     /***
      * 与售货机实现一对一映射
      */
     @OneToOne
-    @JoinColumn(name = "symbol_id",unique = true)
-    Symbol symbol;
+    @JoinColumn(name = "symbol_id", unique = true)
+    private Symbol symbol;
 
     public Integer getInstallId() {
         return installId;

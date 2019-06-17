@@ -2,8 +2,8 @@
  * 162012班 第四组
  * 智能售货机管理系统——XXX模块
  * FileName: SymbolRepository
- * Author:   TaoLiwei
- * Date:     2019/6/17 下午 05:23
+ * Author:   huangwenyuan
+ * Date:     2019/06/17 下午 03:30
  * Description:
  */
 

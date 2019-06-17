@@ -3,19 +3,16 @@
 <head lang="en">
     <meta charset="utf-8"/>
     <title>cart</title>
-    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/public.css"
-          th:href="@{/assets/css/customer/public.css}"/>
-    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/customer/proList.css"
-          th:href="@{/assets/css/customer/proList.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/public.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/proList.css}"/>
 </head>
 <body>
 <!--------------------------------------cart--------------------->
 <div class="head ding">
     <div class="wrapper clearfix">
         <div class="clearfix" id="top">
-            <h1 class="fl"><a href="index.html">
-                <img src="/vendor/vendor_main/static/assets/img/customer/logo.png"
-                     th:src="@{/assets/img/customer/logo.png}"/></a>
+            <h1 class="fl"><a href="index.html" th:href="@{/index}">
+                <img th:src="@{/assets/img/customer/logo.png}"/></a>
             </h1>
             <div class="fr clearfix" id="top1">
 
@@ -24,211 +21,108 @@
                     <input type="button"/>
                 </form>
                 <div class="btn fl clearfix">
-                    <a href="personalcenter.html"><img src="/vendor/vendor_main/static/assets/img/customer/grzx.png"
-                                                       th:src="@{/assets/img/customer/grzx.png}"/></a>
-                    <a href="#" class="er1"><img src="/vendor/vendor_main/static/assets/img/customer/ewm.png"
-                                                 th:src="@{/assets/img/customer/ewm.png}"/></a>
-                    <a href="cart.html"><img src="/vendor/vendor_main/static/assets/img/customer/gwc.png"
-                                             th:src="@{/assets/img/customer/gwc.png}"/></a>
-                    <p><a href="#"><img src="/vendor/vendor_main/static/assets/img/customer/smewm.png"
-                                        th:src="@{/assets/img/customer/smewm.png}"/></a></p>
+                    <a href="personalcenter.html"><img th:src="@{/assets/img/customer/grzx.png}"/></a>
+                    <a href="#" class="er1"><img th:src="@{/assets/img/customer/ewm.png}"/></a>
+                    <a href="cart.html"><img th:src="@{/assets/img/customer/gwc.png}"/></a>
+                    <p><a href="#"><img th:src="@{/assets/img/customer/smewm.png}"/></a></p>
                 </div>
             </div>
         </div>
-        <ul class="clearfix" id="bott">
-            <li><a href="index.html" th:href="@{/index}">首页</a></li>
-            <li>
-                <a href="index.html" th:href="@{/index}">所有商品</a>
-            </li>
-            <li>
-                <a href="drink.html" th:href="@{/drink}">饮料机</a>
-            </li>
-            <li>
-                <a href="yogurt.html" th:href="@{/yogurt}">酸奶机</a>
-            </li>
-            <li><a href="lunch.html" th:href="@{/lunch}">盒饭机</a></li>
-            <li><a href="ice_cream.html" th:href="@{/icecream}">冰淇淋机</a></li>
-            <li><a href="multiple.html" th:href="@{/multiple}">综合机</a></li>
-        </ul>
+        <!--<div class="clearfix">-->
+        <!--<ul class="clearfix" id="bott">-->
+        <!--<li><a href="index.html" th:href="@{/index}">首页</a></li>-->
+        <!--<li>-->
+        <!--<a href="index.html" th:href="@{/index}">所有商品</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="drink.html" th:href="@{/drink}">饮料机</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="yogurt.html" th:href="@{/yogurt}">酸奶机</a>-->
+        <!--</li>-->
+        <!--<li><a href="lunch.html" th:href="@{/lunch}">盒饭机</a></li>-->
+        <!--<li><a href="ice_cream.html" th:href="@{/icecream}">冰淇淋机</a></li>-->
+        <!--<li><a href="multiple.html" th:href="@{/multiple}">综合机</a></li>-->
+        <!--</ul>-->
+        <!--</div>-->
 
     </div>
 </div>
 <div class="cart mt">
-    <!-----------------logo------------------->
-    <!--<div class="logo">
-        <h1 class="wrapper clearfix">
-            <a href="index.html"><img class="fl" src="img/temp/logo.png"></a>
-            <img class="top" src="img/temp/cartTop01.png">
-        </h1>
-    </div>-->
     <!-----------------site------------------->
     <div class="site">
         <p class=" wrapper clearfix">
             <span class="fl">购物车</span>
-            <img class="top" src="/vendor/vendor_main/static/assets/img/customer/temp/cartTop01.png"
-                 th:src="@{/assets/img/customer/temp/cartTop01.png}">
+            <img class="top" th:src="@{/assets/img/customer/temp/cartTop01.png}">
             <a href="index.html" th:href="@{/index}" class="fr">继续购物&gt;</a>
         </p>
     </div>
-    <!-----------------table------------------->
-    <div class="table wrapper">
-        <div class="tr">
-            <div>商品</div>
-            <div>单价</div>
-            <div>数量</div>
-            <div>小计</div>
-            <div>操作</div>
-        </div>
-        <div class="th">
-            <div class="pro clearfix">
-                <label class="fl">
-                    <input type="checkbox"/>
-                    <span></span>
-                </label>
-                <a class="fl" href="#">
-                    <dl class="clearfix">
-                        <dt class="fl">
-                            <img src="/vendor/vendor_main/static/assets/img/customer/sf1.jpg" width="120px"
-                                 height="120px" th:src="@{/assets/img/customer/sf1.jpg}">
-                        </dt>
-                        <dd class="fl">
-                            <p>创意现代简约干花花瓶摆件</p>
-                            <p>颜色分类:</p>
-                            <p>白色瓷瓶+白色串枚</p>
-                        </dd>
-                    </dl>
-                </a>
-            </div>
-            <div class="price">￥20.00</div>
-            <div class="number">
-                <p class="num clearfix">
-                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg"
-                         th:src="@{/assets/img/customer/temp/sub.jpg}">
-                    <span class="fl">1</span>
-                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg"
-                         th:src="@{/assets/img/customer/temp/add.jpg}">
-                </p>
-            </div>
-            <div class="price sAll">￥20.00</div>
-            <div class="price"><a class="del" href="#2">删除</a></div>
-        </div>
-        <div class="th">
-            <div class="pro clearfix">
-                <label class="fl">
-                    <input type="checkbox"/>
-                    <span></span>
-                </label>
-                <a class="fl" href="#">
-                    <dl class="clearfix">
-                        <dt class="fl">
-                            <img src="/vendor/vendor_main/static/assets/img/customer/sf1.jpg" width="120px"
-                                 height="120px" th:src="@{/assets/img/customer/sf1.jpg}">
-                        </dt>
-                        <dd class="fl">
-                            <p>创意现代简约干花花瓶摆件</p>
-                            <p>颜色分类:</p>
-                            <p>白色瓷瓶+白色串枚</p>
-                        </dd>
-                    </dl>
-                </a>
-            </div>
-            <div class="price">￥20.00</div>
-            <div class="number">
-                <p class="num clearfix">
-                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg"
-                         th:src="@{/assets/img/customer/temp/sub.jpg}">
-                    <span class="fl">1</span>
-                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg"
-                         th:src="@{/assets/img/customer/temp/add.jpg}">
-                </p>
-            </div>
-            <div class="price sAll">￥20.00</div>
-            <div class="price"><a class="del" href="#2">删除</a></div>
-        </div>
-        <div class="th">
-            <div class="pro clearfix">
-                <label class="fl">
-                    <input type="checkbox"/>
-                    <span></span>
-                </label>
-                <a class="fl" href="#">
-                    <dl class="clearfix">
-                        <dt class="fl">
-                            <img src="/vendor/vendor_main/static/assets/img/customer/sf1.jpg" width="120px"
-                                 height="120px" th:src="@{/assets/img/customer/sf1.jpg}">
-                        </dt>
-                        <dd class="fl">
-                            <p>创意现代简约干花花瓶摆件</p>
-                            <p>颜色分类:</p>
-                            <p>白色瓷瓶+白色串枚</p>
-                        </dd>
-                    </dl>
-                </a>
-            </div>
-            <div class="price">￥20.00</div>
-            <div class="number">
-                <p class="num clearfix">
-                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg"
-                         th:src="@{/assets/img/customer/temp/sub.jpg}">
-                    <span class="fl">1</span>
-                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg"
-                         th:src="@{/assets/img/customer/temp/add.jpg}">
-                </p>
-            </div>
-            <div class="price sAll">￥20.00</div>
-            <div class="price"><a class="del" href="#2">删除</a></div>
-        </div>
-        <div class="th">
-            <div class="pro clearfix">
-                <label class="fl">
-                    <input type="checkbox"/>
-                    <span></span>
-                </label>
-                <a class="fl" href="#">
-                    <dl class="clearfix">
-                        <dt class="fl">
-                            <img src="/vendor/vendor_main/static/assets/img/customer/sf1.jpg" width="120px"
-                                 height="120px" th:src="@{/assets/img/customer/sf1.jpg}">
-                        </dt>
-                        <dd class="fl">
-                            <p>创意现代简约干花花瓶摆件</p>
-                            <p>颜色分类:</p>
-                            <p>白色瓷瓶+白色串枚</p>
-                        </dd>
-                    </dl>
-                </a>
-            </div>
-            <div class="price">￥20.00</div>
-            <div class="number">
-                <p class="num clearfix">
-                    <img class="fl sub" src="/vendor/vendor_main/static/assets/img/customer/temp/sub.jpg"
-                         th:src="@{/assets/img/customer/temp/sub.jpg}">
-                    <span class="fl">1</span>
-                    <img class="fl add" src="/vendor/vendor_main/static/assets/img/customer/temp/add.jpg"
-                         th:src="@{/assets/img/customer/temp/add.jpg}">
-                </p>
-            </div>
-            <div class="price sAll">￥20.00</div>
-            <div class="price"><a class="del" href="#2">删除</a></div>
-        </div>
 
-        <div class="goOn">空空如也~<a href="index.html">去逛逛</a></div>
-        <div class="tr clearfix">
-            <label class="fl">
-                <input class="checkAll" type="checkbox"/>
-                <span></span>
-            </label>
-            <p class="fl">
-                <a href="#">全选</a>
-                <a href="#" class="del">删除</a>
-            </p>
-            <p class="fr">
-                <span>共<small id="sl">0</small>件商品</span>
-                <span>合计:&nbsp;<small id="all">￥0.00</small></span>
-                <a href="order.html" th:href="@{/order}" class="count">结算</a>
-            </p>
-        </div>
+    <!--购物车表格-->
+    <form id="form">
+        <div class="table wrapper">
+            <div class="tr">
+                <div>商品</div>
+                <div>单价</div>
+                <div>数量</div>
+                <div>小计</div>
+                <div>操作</div>
+            </div>
+            <div class="th" th:each="cart,i:${session.carts}">
+                <div class="pro clearfix">
+                    <label class="fl">
+                        <input type="checkbox" name="cartId" th:value="${cart.cartId}">
+                        <span></span>
+                    </label>
+                    <a class="fl" href="#">
+                        <dl class="clearfix">
+                            <dt class="fl">
+                                <img width="120px" height="120px"
+                                     th:src="@{${cart.getVendors().get(0).pricture1}}">
+                            </dt>
+                            <dd class="fl">
+                                <p>[[${cart.getVendors().get(0).vendorName}]]</p>
+                                <p>颜色分类:</p>
+                                <p>[[${cart.getVendors().get(0).vendorName}]]</p>
+                            </dd>
+                        </dl>
+                    </a>
+                </div>
+                <div class="price"><span>￥[[${cart.getVendors().get(0).price}]]</span></div>
+                <div class="number">
+                    <p class="num clearfix">
+                        <img class="fl sub" th:src="@{/assets/img/customer/temp/temp/sub.jpg}">
+                        <span class="fl">[[${cart.count}]]</span>
+                        <img class="fl add" th:src="@{/assets/img/customer/temp/temp/add.jpg}">
+                    </p>
+                </div>
+                <div class="price sAll">￥[[${cart.getVendors().get(0).price * cart.count}]]</div>
+                <div class="price">
+                    <a class="del" href="javascript:void(0)"
+                       th:onclick="deleteFromCart([[${cart.cartId}]])">删除</a>
+                </div>
+            </div>
+    </form>
+    <!--<div class="goOn">空空如也~<a href="index.html">去逛逛</a></div>-->
+    <div class="tr clearfix">
+        <label class="fl">
+            <input class="checkAll" type="checkbox">
+            <span></span>
+        </label>
+        <p class="fl">
+            <a href="#">全选</a>
+            <a href="#" class="del">删除</a>
+        </p>
+        <p class="fr">
+            <span>共<small id="sl">[[${session.carts.size()}]]</small>件商品</span>
+            <span>合计:&nbsp;<small id="all">￥0.00</small></span>
+            <a href="javascript:void(0)" class="count" onclick="pay()">结算</a>
+        </p>
     </div>
+</div>
+
+</div>
+
 </div>
 <div class="mask"></div>
 <div class="tipDel">
@@ -238,89 +132,26 @@
         <a class="fr cancel" href="#">取消</a>
     </p>
 </div>
-<!--返回顶部-->
-<div class="gotop">
-    <a href="cart.html">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt1.png"
-                     th:src="@{/assets/img/customer/gt1.png}"/></dt>
-            <dd>去购<br/>物车</dd>
-        </dl>
-    </a>
-    <a href="#" class="dh">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt2.png"
-                     th:src="@{/assets/img/customer/gt2.png}"/></dt>
-            <dd>联系<br/>客服</dd>
-        </dl>
-    </a>
-    <a href="personalcenter.html">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt3.png"
-                     th:src="@{/assets/img/customer/gt3.png}"/></dt>
-            <dd>个人<br/>中心</dd>
-        </dl>
-    </a>
-    <a href="#" class="toptop" style="display: none">
-        <dl>
-            <dt><img src="/vendor/vendor_main/static/assets/img/customer/gt4.png"
-                     th:src="@{/assets/img/customer/gt4.png}"/></dt>
-            <dd>返回<br/>顶部</dd>
-        </dl>
-    </a>
-    <p>400-800-8200</p>
-</div>
-<!--footer-->
-<div class="footer">
-    <div class="top">
-        <div class="wrapper">
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot1.png"
-                                             th:src="@{/assets/img/customer/foot1.png}"/></a>
-                <span class="fl">7天内发货</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot2.png"
-                                             th:src="@{/assets/img/customer/foot2.png}"/></a>
-                <span class="fl">15天送达</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot3.png"
-                                             th:src="@{/assets/img/customer/foot3.png}"/></a>
-                <span class="fl">送货上门</span>
-            </div>
-            <div class="clearfix">
-                <a href="#2" class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/foot4.png"
-                                             th:src="@{/assets/img/customer/foot4.png}"/></a>
-                <span class="fl">免费安装</span>
-            </div>
-        </div>
-    </div>
-    <p class="dibu">最家家居&copy;2013-2017公司版权所有 京ICP备080100-44备0000111000号<br/>
-        违法和不良信息举报电话：400-800-8200，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</p>
-</div>
+<!--引入返回顶部工具栏-->
+<div th:replace="commons/bar::gotobar"></div>
+<!--引入页面底部-->
+<div th:replace="commons/bar::footerbar"></div>
 <!----------------mask------------------->
 <div class="mask"></div>
 <!-------------------mask内容------------------->
 <div class="proDets">
-    <img class="off" src="/vendor/vendor_main/static/assets/img/customer/temp/off.jpg"
-         th:src="@{/assets/img/customer/temp/off.jpg}"/>
+    <img class="off" th:src="@{/assets/img/customer/temp/off.jpg}"/>
     <div class="proCon clearfix">
         <div class="proImg fr">
-            <img class="list" src="/vendor/vendor_main/static/assets/img/customer/temp/proDet.jpg"
-                 th:src="@{/assets/img/customer/temp/proDet.jpg}"/>
+            <img class="list" th:src="@{/assets/img/customer/temp/proDet.jpg}"/>
             <div class="smallImg clearfix">
-                <img src="/vendor/vendor_main/static/assets/img/customer/temp/proDet01.jpg"
-                     th:src="@{/assets/img/customer/temp/proDet01.jpg}"
+                <img th:src="@{/assets/img/customer/temp/proDet01.jpg}"
                      data-src="img/temp/proDet01_big.jpg">
-                <img src="/vendor/vendor_main/static/assets/img/customer/temp/proDet02.jpg"
-                     th:src="@{/assets/img/customer/temp/proDet02.jpg}"
+                <img th:src="@{/assets/img/customer/temp/proDet02.jpg}"
                      data-src="/vendor/vendor_main/static/assets/img/customer/temp/proDet02_big.jpg">
-                <img src="/vendor/vendor_main/static/assets/img/customer/temp/proDet03.jpg"
-                     th:src="@{/assets/img/customer/temp/proDet03.jpg}"
+                <img th:src="@{/assets/img/customer/temp/proDet03.jpg}"
                      data-src="/vendor/vendor_main/static/assets/img/customer/temp/proDet03_big.jpg">
-                <img src="/vendor/vendor_main/static/assets/img/customer/temp/proDet04.jpg"
-                     th:src="@{/assets/img/customer/temp/proDet03_big.jpg}"
+                <img th:src="@{/assets/img/customer/temp/proDet03_big.jpg}"
                      data-src="/vendor/vendor_main/static/assets/img/customer/temp/proDet04_big.jpg">
             </div>
         </div>
@@ -328,11 +159,9 @@
             <div class="proIntro change">
                 <p>颜色分类</p>
                 <div class="smallImg clearfix">
-                    <p class="fl on"><img src="/vendor/vendor_main/static/assets/img/customer/temp/prosmall01.jpg"
-                                          alt="白瓷花瓶+20支快乐花"
+                    <p class="fl on"><img th:src="@{/assets/img/customer/temp/prosmall01.jpg}" alt="白瓷花瓶+20支快乐花"
                                           data-src="img/temp/proBig01.jpg"></p>
-                    <p class="fl"><img src="/vendor/vendor_main/static/assets/img/customer/temp/prosmall02.jpg"
-                                       alt="白瓷花瓶+20支兔尾巴草"
+                    <p class="fl"><img th:src="@{/assets/img/customer/temp/prosmall02.jpg}" alt="白瓷花瓶+20支兔尾巴草"
                                        data-src="img/temp/proBig02.jpg"></p>
                 </div>
             </div>
@@ -345,15 +174,244 @@
 </div>
 <div class="pleaseC">
     <p>请选择宝贝</p>
-    <img class="off" src="/vendor/vendor_main/static/assets/img/customer/temp/off.jpg"/>
+    <img class="off" th:src="@{/assets/img/customer/temp/off.jpg}"/>
 </div>
-<script src="/vendor/vendor_main/static/assets/js/customer/jquery-1.12.4.min.js"
-        th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+<!--<script src="/vendor/vendor_main/static/assets/js/customer/jquery-1.12.4.min.js"-->
+<!--th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>-->
+
+<script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>
 <script src="/vendor/vendor_main/static/assets/js/customer/public.js" th:src="@{/assets/js/customer/public.js}"
         type="text/javascript" charset="utf-8"></script>
 <script src="/vendor/vendor_main/static/assets/js/customer/pro.js" th:src="@{/assets/js/customer/pro.js}"
         type="text/javascript" charset="utf-8"></script>
 <script src="/vendor/vendor_main/static/assets/js/customer/cart.js" th:src="@{/assets/js/customer/cart.js}"
         type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/layer/layer.js}" type="text/javascript"></script>
+
+<!--引入公共头部的js-->
+<span th:replace="commons/js::js"></span>
+<!--引入购物车部分的js-->
+<!--<span th:replace="commons/js::cart"></span>-->
+
+<script type="text/javascript" charset="utf-8" th:inline="javascript">
+
+    //删除购物车商品
+    function deleteFromCart(CartId) {
+
+        layer.confirm("是否确认将该商品移出购物车?", {icon: 3, title: '提示'}, function (cindex) {
+            //确认移出购物车
+            $.ajax({
+                type: "POST",
+                url: "/customer/deleteFromCart",
+                data: {
+                    CartId: CartId
+                },
+                success: function (result) {
+                    if (result.success) {
+                        // 删除成功再次回到购物车页面
+                        showCart();
+                    } else {
+                        //   移出购物车失败则给出提示
+                        layer.msg("移出购物车失败！", {time: 2000, icon: 5, shift: 6}, function () {
+                        });
+                    }
+                }
+            })
+            ;
+            layer.close(cindex);
+        }, function (cindex) {
+            //取消
+            layer.close(cindex);
+        });
+    }
+
+    //结算购物车的方法
+    function pay() {
+        //    使用ajax提交表单数据
+        var loadingIndex = null;
+        $.ajax({
+            type: 'POST',
+            url: "/customer/toOrder",
+            data: $("#form").serialize(),
+            beforeSend: function () {
+                loadingIndex = layer.msg('处理中', {icon: 16});
+            },
+            success: function (result) {
+                //成功提交数据则将处理的图标关闭
+                layer.close(loadingIndex);
+                if (result.success) {
+                    window.location.href = "/order";
+                } else {
+                    layer.msg("结算购物车失败！", {time: 2000, icon: 2, shift: 6}, function () {
+                    });
+                }
+            }
+        });
+    }
+
+
+    $(function () {
+        /**************数量加减***************/
+        $(".num .sub").click(function () {
+            var num = parseInt($(this).siblings("span").text());
+            if (num <= 1) {
+                $(this).attr("disabled", "disabled");
+            } else {
+                num--;
+                $(this).siblings("span").text(num);
+                //获取除了货币符号以外的数字
+                var price = $(this).parents(".number").prev().text().substring(1);
+                //单价和数量相乘并保留两位小数
+                $(this).parents(".th").find(".sAll").text('￥' + (num * price).toFixed(2));
+                jisuan();
+                zg();
+            }
+        });
+        $(".num .add").click(function () {
+            var num = parseInt($(this).siblings("span").text());
+            if (num >= 5) {
+                confirm("限购5件");
+            } else {
+                num++;
+                $(this).siblings("span").text(num);
+                var price = $(this).parents(".number").prev().text().substring(1);
+                $(this).parents(".th").find(".sAll").text('￥' + (num * price).toFixed(2));
+                jisuan();
+                zg();
+            }
+        });
+
+        //计算总价
+        function jisuan() {
+            var all = 0;
+            //复选框选中的个数
+            var len = $(".th input[type='checkbox']:checked").length;
+            //未选中
+            if (len == 0) {
+                $("#all").text('￥' + parseFloat(0).toFixed(2));
+            } else {
+                $(".th input[type='checkbox']:checked").each(function () {
+                    //获取小计里的数值
+                    var sAll = $(this).parents(".pro").siblings('.sAll').text().substring(1);
+                    //累加
+                    all += parseFloat(sAll);
+                    //赋值
+                    $("#all").text('￥' + all.toFixed(2));
+                })
+            }
+
+        }
+
+        //计算总共几件商品
+        function zg() {
+            var zsl = 0;
+            var index = $(".th input[type='checkbox']:checked").parents(".th").find(".num span");
+            var len = index.length;
+            if (len == 0) {
+                $("#sl").text(0);
+            } else {
+                index.each(function () {
+                    zsl += parseInt($(this).text());
+                    $("#sl").text(zsl);
+                })
+            }
+            if ($("#sl").text() > 0) {
+                $(".count").css("background", "#c10000");
+            } else {
+                $(".count").css("background", "#8e8e8e");
+            }
+        }
+
+        /*****************商品全选***********************/
+        $("input[type='checkbox']").on('click', function () {
+            var sf = $(this).is(":checked");
+            var sc = $(this).hasClass("checkAll");
+            if (sf) {
+                if (sc) {
+                    $("input[type='checkbox']").each(function () {
+                        this.checked = true;
+                    });
+                    zg();
+                    jisuan();
+                } else {
+                    $(this).checked = true;
+                    var len = $("input[type='checkbox']:checked").length;
+                    var len1 = $("input").length - 1;
+                    if (len == len1) {
+                        $("input[type='checkbox']").each(function () {
+                            this.checked = true;
+                        });
+                    }
+                    zg();
+                    jisuan();
+                }
+            } else {
+                if (sc) {
+                    $("input[type='checkbox']").each(function () {
+                        this.checked = false;
+                    });
+                    zg();
+                    jisuan();
+                } else {
+                    $(this).checked = false;
+                    var len = $(".th input[type='checkbox']:checked").length;
+                    var len1 = $("input").length - 1;
+                    if (len < len1) {
+                        $('.checkAll').attr("checked", false);
+                    }
+                    zg();
+                    jisuan();
+                }
+            }
+
+        });
+
+    });
+
+
+    //将购物车的商品批量移出
+    $('.del').click(function () {
+            if (!$(this).parent().parent().hasClass("th")) {
+                //获取到勾选的所有元素
+                var boxes = $(".th input[type='checkbox']:checked");
+                if (boxes.length == 0) {
+                    //未选择要移出购物车的商品
+                    layer.msg("请选择需要移出购物车的商品！", {time: 2000, icon: 5, shift: 6}, function () {
+                    });
+
+                } else {
+                    //    选择了要移出购物车的商品
+                    layer.confirm("是否确认从购物车中移除已选择的商品？", {icon: 3, title: '提示'}, function (cindex) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/customer/deletesFromCart",
+                            //序列化页面中的数据
+                            data: $("#form").serialize(),
+
+                            success: function (result) {
+                                if (result.success) {
+                                    // 删除成功再次回到购物车页面
+                                    showCart();
+                                } else {
+                                    //   移出购物车失败则给出提示
+                                    layer.msg("移出购物车失败！", {time: 2000, icon: 5, shift: 6}, function () {
+                                    });
+                                }
+                            }
+                        });
+                    })
+                }
+            }
+        }
+    );
+    $('.cancel').click(function () {
+        $(".mask").hide();
+        $(".tipDel").hide();
+    });
+
+
+</script>
+
+
 </body>
 </html>

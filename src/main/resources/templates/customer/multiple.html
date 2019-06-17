@@ -29,7 +29,7 @@
         <ul th:each="multipleVendor,n:${session.multipleVendors}" th:if="${n.count % 3 == 0}">
             <!--每行第一个-->
             <li>
-                <a href="detail.html" th:href="@{/detail}">
+                <a href="detail.html" th:href="@{/customer/detail}">
                     <dl>
                         <dt>
                             <img th:src="@{${session.multipleVendors[n.count - 3].pricture1}}" width="374px"
@@ -43,7 +43,7 @@
             </li>
             <!--每行第二个-->
             <li>
-                <a href="detail.html" th:href="@{/detail}">
+                <a href="detail.html" th:href="@{/customer/detail}">
                     <dl>
                         <dt>
                             <img th:src="@{${session.multipleVendors[n.count - 2].pricture1}}" width="374px"
@@ -57,7 +57,7 @@
             </li>
             <!--每行第三个-->
             <li>
-                <a href="detail.html" th:href="@{/detail}">
+                <a href="detail.html" th:href="@{/customer/detail}">
                     <dl>
                         <dt>
                             <img th:src="@{${session.multipleVendors[n.count - 1].pricture1}}" width="374px"
@@ -72,7 +72,7 @@
         </ul>
         <!--不足三个的那一行-->
         <ul>
-            <li href="detail.html" th:href="@{/detail}" th:each="multipleVendor,i:${session.multipleVendors}"
+            <li href="detail.html" th:href="@{/customer/detail}" th:each="multipleVendor,i:${session.multipleVendors}"
                 th:if="${i.count > ((session.multipleVendors.size()/3)*3) && i.count <=session.multipleVendors.size()}">
                 <a>
                     <dl>
