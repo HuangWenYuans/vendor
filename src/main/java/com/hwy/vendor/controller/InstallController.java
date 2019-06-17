@@ -12,6 +12,7 @@ package com.hwy.vendor.controller;
 import com.hwy.vendor.entity.*;
 import com.hwy.vendor.service.InstallService;
 import com.hwy.vendor.service.SymbolService;
+import com.hwy.vendor.service.UserService;
 import com.hwy.vendor.service.VendorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,10 +42,11 @@ public class InstallController {
     private SymbolService symbolService;
     @Resource
     private VendorService vendorService;
+    @Resource
+    private UserService userService;
     private Logger logger = LoggerFactory.getLogger(getClass());
     @GetMapping("/index")
     public String test(HttpSession session){
-
         List<Install> installs = installService.queryByInstallerIdAndInstallStatusAndUser_Consignees_IsDefault(3,1,1);
         session.setAttribute("installs",installs);
         session.setAttribute("flag",1);
@@ -102,7 +106,10 @@ public class InstallController {
             Symbol symbol = new Symbol();
             symbol.setSymbolId(install.getSymbolId());
             install.setSymbol(symbol);
-            install.setInstallerId(3);
+            List<User> users = userService.findByType(1);
+            Random random = new Random();
+            int num = random.nextInt(users.size());
+            install.setInstallerId(users.get(num).getUserid());
             install.setInstallStatus(1);
             installService.addInstall(install);
             result.setSuccess(true);

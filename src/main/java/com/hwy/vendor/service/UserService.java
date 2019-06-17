@@ -11,6 +11,8 @@ package com.hwy.vendor.service;
 
 import com.hwy.vendor.entity.User;
 
+import java.util.List;
+
 /**
  * 功能描述:用户服务方法定义
  *
@@ -38,6 +40,9 @@ public interface UserService {
      * @return user对象
      */
     User checkUsername(String username);
+
+
+    List<User> findByType(Integer type);
 }
 
     

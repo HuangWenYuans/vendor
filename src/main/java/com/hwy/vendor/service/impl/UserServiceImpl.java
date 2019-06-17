@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 功能描述: 用户服务实现类
@@ -62,6 +63,12 @@ public class UserServiceImpl implements UserService {
         Logger logger = LoggerFactory.getLogger(getClass());
         logger.info("该用户名是否存在："+userRepository.findByUsername(username));
         return userRepository.findByUsername(username);
+    }
+
+
+    @Override
+    public List<User> findByType(Integer type){
+        return userRepository.findByType(type);
     }
 }
 

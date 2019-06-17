@@ -3,6 +3,8 @@ package com.hwy.vendor.repository;
 import com.hwy.vendor.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 
 /**
  * 功能描述: 用户相关操作的数据库访问层
@@ -27,4 +29,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return User对象
      */
     User findByUsername(String username);
+
+    List<User> findByType(Integer type);
 }
