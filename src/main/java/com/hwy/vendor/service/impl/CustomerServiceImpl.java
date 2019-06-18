@@ -242,5 +242,44 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Order> getOrderByUser(User user) {
         return orderRepository.findOrdersByUser(user);
     }
+
+
+    /***
+     * 获取所有
+     * @return
+     */
+    @Override
+    public List<Vendor> getAll() {
+        return vendorRepository.findAll();
+    }
+
+    /***
+     * 更新
+     * @param vendor
+     * @return
+     */
+    @Override
+    public Vendor update(Vendor vendor) {
+        return vendorRepository.saveAndFlush(vendor);
+    }
+
+    /***
+     * 根据id删除数据
+     * @param vendorId
+     */
+    @Override
+    public void deleteById(Integer vendorId) {
+        vendorRepository.deleteById(vendorId);
+    }
+
+    /***
+     * 插入新的数据
+     * @param vendor
+     * @return
+     */
+    @Override
+    public Vendor insert(Vendor vendor) {
+        return vendorRepository.save(vendor);
+    }
 }
 

@@ -107,5 +107,33 @@ public interface CustomerService {
      * @return 订单列表L
      */
     List<Order> getOrderByUser(User user);
+
+
+    /***
+     * 得到所有
+     * @return
+     */
+    List<Vendor> getAll();
+
+    /***
+     * 更新vendor
+     * @param vendor
+     * @return
+     */
+    Vendor update(Vendor vendor);
+
+    /***
+     * 通过Id删除
+     * @param vendorId
+     * @return
+     */
+    void deleteById(Integer vendorId);
+
+    /***
+     * 插入新的数据
+     * @param vendor
+     * @return
+     */
+    Vendor insert(Vendor vendor);
 }
 

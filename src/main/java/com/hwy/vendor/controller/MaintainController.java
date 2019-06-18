@@ -109,28 +109,28 @@ public class MaintainController {
 
     /***
      * 顾客保修
-     * @param vendorId
+     * @param symbolId
      * @param session
      * @return
      */
     @ResponseBody
     @RequestMapping("/doWarranty")
-    public Object doWarranty(Integer vendorId, HttpSession session) {
+    public Object doWarranty(String symbolId,Integer vendorId,HttpSession session) {
         AjaxResult result = new AjaxResult();
         User user = (User) session.getAttribute("user");
         //根据售货机编号获取售货机信息
         try {
-            Integer randam;
             //根据用户类型查找用户
             List<User> users = userService.findByType(3);
-            randam = (int) (Math.random() * users.size());
+           int randam = (int) (Math.random() * users.size());
             System.out.println("random:"+randam);
             System.out.println(users);
             Maintain maintain = new Maintain();
             maintain.setMaintainerId(users.get(randam).getUserid());
-            //maintain.setSymbolId(symbolId);
+            maintain.setSymbolId(symbolId);
             maintain.setUserid(user.getUserid());
-            maintainService.updateStatusById(maintain);
+            maintain.setMaintainStatus(0);
+            maintainService.insertMaintain(maintain);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();
