@@ -211,10 +211,12 @@ public class CustomerServiceImpl implements CustomerService {
             orderItem.setOrder(order);
 
             for (int i = 0; i < orderItem.getCount(); i++) {
+
                 Symbol symbol = new Symbol();
                 //生成uuid用于唯一标识每台售货机
                 UUID uuid = UUID.randomUUID();
                 symbol.setSymbolId(uuid.toString());
+                symbol.setUserid(user.getUserid());
                 //建立联系
                 vendor.getSymbols().add(symbol);
                 symbol.setVendor(vendor);

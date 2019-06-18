@@ -1,0 +1,92 @@
+<!--
+  162012班 第四组
+  智能售货机管理系统——运维模块
+  FileName: Warranty
+  Author:   YuHaoran
+  Date:     2019/6/17 18:26
+  Description: 
+-->
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>顾客保修界面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<ul class="layui-nav">
+    <li class="layui-nav-item"><a href="">欢迎顾客</a></li>
+</ul>
+<div>
+    <table class="layui-table">
+        <colgroup>
+            <col width="200">
+            <col width="200">
+            <col width="200">
+            <col width="200">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>售货机ID</th>
+            <th>售货机名称</th>
+            <th>售货机类型</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Patrol:${session.Patrols}" th:if="${session.Patrols}!= null">
+            <td th:text="${Patrol.getSymbolId()}"></td>
+            <td th:text="${Patrol.getVendor().getVendorName()}"></td>
+            <td th:text="${Patrol.getVendor().getVendorType().getTypeName()}"></td>
+            <td>
+                <button id="symbolId"  class="layui-btn layui-btn-warm layui-btn-radius"
+                        th:onclick="toSure([[${Patrol.getSymbolId()}]])">报修
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script th:src="@{/layui/layui.all.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    function toSure(id) {
+        layer.confirm("是否确认报修？", {icon: 3, title: '提示'}, function (cindex) {
+            var loadingIndex = null;
+            //确认修改
+            $.ajax({
+                url: '/maintainer/doWarranty',
+                type: "POST",
+                data: {"symbolId": id},
+
+                beforeSend: function () {
+                    loadingIndex = layer.msg('处理中', {icon: 16});
+                },
+                success: function (result) {
+                    //成功提交数据则将处理的图标关闭
+                    layer.close(loadingIndex);
+                    if (result.success) {
+                        window.location.href = "/operAndMainSys";
+                    } else {
+                        window.location.href = "/operAndMainSys";
+
+                        layer.msg("修改失败！", {time: 2000, icon: 2, shift: 6}, function () {
+                        })
+                    }
+                    ;
+                }
+            });
+
+        }, function (cindex) {
+            //取消退出
+            layer.close(cindex);
+        });
+    }
+</script>
+</body>
+</html>

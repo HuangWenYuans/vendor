@@ -35,6 +35,12 @@ public class Symbol {
     @JoinColumn(name = "vendor_id")
     private Vendor vendor;
 
+    /***
+     * 购买用户的编号
+     */
+    @Column(name = "user_id")
+    private Integer userid;
+
     public Symbol() {
     }
 
@@ -54,10 +60,20 @@ public class Symbol {
         this.vendor = vendor;
     }
 
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
     @Override
     public String toString() {
         return "Symbol{" +
                 "symbolId='" + symbolId + '\'' +
+                ", vendor=" + vendor +
+                ", userid=" + userid +
                 '}';
     }
 }
