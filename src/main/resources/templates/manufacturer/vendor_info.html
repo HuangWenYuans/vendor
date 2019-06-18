@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- saved from url=(0094)file:///home/super/idea/layuiMaternalBabyMall-v1.0.0/html/buytoday%20(%E5%A4%8D%E4%BB%B6).html -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/manufacturer/main.css"
+          th:href="@{/assets/css/manufacturer/main.css}">
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/layui/css/layui.css"
+          th:href="@{/layui/css/layui.css}">
+    <script type="text/javascript" src="/vendor/vendor_main/static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+    <body>
+	<ul class="layui-nav">
+    <li class="layui-nav-item"><a href="">欢迎管理员某某某</a></li>
+    <li class="layui-nav-item"><a href="">返回主界面</a></li>
+    </ul>
+	
+    <form class="layui-form" action="/doVendor" method="post" target="_blank" lay-filter="example">
+      <div class="layui-form-item">
+        <label class="layui-form-label">售货机名称</label>
+        <div class="layui-input-block">
+          <input type="text" name="vendorName" th:value="${vendor.vendorName}" lay-verify="title" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+         <div class="layui-form-item">
+            <label class="layui-form-label">售货机价格</label>
+            <div class="layui-input-block">
+              <input type="text" name="price" th:value="${vendor.price}" lay-verify="title" autocomplete="off"  class="layui-input">
+            </div>
+          </div>
+
+     <div class="layui-form-item">
+        <label class="layui-form-label">售货机库存</label>
+        <div class="layui-input-block">
+          <input type="text" name="stock" th:value="${vendor.stock}" lay-verify="title" autocomplete="off"  class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">售货机简介</label>
+        <div class="layui-input-block">
+          <textarea placeholder="请输入内容" name="detail" th:value="${vendor.detail}" class="layui-textarea"></textarea>
+        </div>
+      </div>
+        <input type="hidden" name="vendorId" th:value="${vendor.vendorId}"/>
+        <input type="hidden" name="isnew" th:value="${isnew}"/>
+      <div th:if="${writeable} == 1" class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+        </div>
+      </div>
+</form>
+
+<script>
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    return false;
+  });
+});
+</script>
+	</body>
+</html>
