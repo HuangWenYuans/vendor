@@ -43,7 +43,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/operAndMainSys").setViewName("maintainer/operAndMainSys");
         registry.addViewController("/patrol").setViewName("maintainer/patrol");
         registry.addViewController("/patrolGoods").setViewName("/maintainer/patrolGoods");
-        registry.addViewController("/Warranty").setViewName("/customer/Warranty");
+        registry.addViewController("/warranty").setViewName("/maintainer/warranty");
         registry.addViewController("/createInstallInfo").setViewName("/installer/createInstallInfo");
 
         /*绑定厂家的网页 */

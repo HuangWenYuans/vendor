@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * 功能描述: 巡查模块服务
+ *
  * @author J.Y
  * @create 2019/6/15
  * @since 1.0.0
@@ -28,10 +29,18 @@ public interface PatrolService {
      */
 
     List<Symbol> getPatrol();
+
     /***
      * 根据orderItemId查询该运维人员的所有订单
      * @param symbolId
      * @return List<symbol>
      */
     List<Symbol> queryBySymbolId(String symbolId);
+
+    /***
+     * 顾客可报修机器列表
+     * @param vendorId
+     * @return symbol列表
+     */
+    List<Symbol> findByVendor_VendorId(int vendorId);
 }

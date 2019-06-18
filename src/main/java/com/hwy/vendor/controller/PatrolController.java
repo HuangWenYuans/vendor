@@ -10,7 +10,6 @@
 package com.hwy.vendor.controller;
 
 import com.hwy.vendor.entity.AjaxResult;
-import com.hwy.vendor.entity.OrderItem;
 import com.hwy.vendor.entity.Symbol;
 import com.hwy.vendor.service.PatrolService;
 import org.springframework.stereotype.Controller;
@@ -25,6 +24,7 @@ import java.util.List;
 
 /**
  * 功能描述: 巡查部分
+ *
  * @author J.Y
  * @create 2019/6/13
  * @since 1.0.0
@@ -33,7 +33,7 @@ import java.util.List;
 @RequestMapping("/maintainer")
 public class PatrolController {
     @Resource
-    PatrolService patrolService;
+    private PatrolService patrolService;
 
     /***
      * 获取售货机列表
@@ -57,25 +57,39 @@ public class PatrolController {
      */
     @ResponseBody
     @RequestMapping("/doSearch")
-    public Object doSearch(@RequestParam("symbolId")String symbolId, HttpSession session) {
+    public Object doSearch(@RequestParam("symbolId") String symbolId, HttpSession session) {
         AjaxResult result = new AjaxResult();
         //根据售货机编号获取售货机信息
         List<Symbol> symbols = new ArrayList<>();
 
         symbols = patrolService.queryBySymbolId(symbolId);
-        if(symbols.size() != 0){
-            session.setAttribute("Patrols",symbols);
+        if (symbols.size() != 0) {
+            session.setAttribute("Patrols", symbols);
             session.setAttribute("flag", 4);
             result.setSuccess(true);
-        }else {
+        } else {
             List<Symbol> patrol = patrolService.getPatrol();
 
             session.setAttribute("Patrols", patrol);
             session.setAttribute("flag", 4);
             result.setSuccess(false);
         }
-        return  result;
+        return result;
     }
+
+
+    /***
+     * 顾客可报修机器列表
+     * @param session
+     * @return List<Symbol>
+     */
+    @RequestMapping("/warrantyList")
+    public String warrantyList(Integer vendorId,HttpSession session) {
+        List<Symbol> symbols = patrolService.findByVendor_VendorId(vendorId);
+        session.setAttribute("Patrols", symbols);
+        return "warranty";
+    }
+
 }
 
     

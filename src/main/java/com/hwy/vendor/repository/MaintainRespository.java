@@ -34,4 +34,5 @@ public interface MaintainRespository extends JpaRepository<Maintain, Integer> {
      */
      Maintain findByMaintainId(Integer maintainId);
 
+
 }

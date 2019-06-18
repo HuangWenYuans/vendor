@@ -11,7 +11,6 @@ package com.hwy.vendor.controller;
 
 import com.hwy.vendor.entity.*;
 import com.hwy.vendor.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +38,7 @@ public class InstallController {
     @Resource
     private SymbolService symbolService;
     @Resource
-    private CustomerService customerService;
+    private CustomerService vendorService;
     @Resource
     private VendorGoodsService vendorGoodsService;
     @Resource
@@ -88,6 +87,7 @@ public class InstallController {
         AjaxResult result = new AjaxResult();
 
         try {
+            //根据vendorId查询Symbol列表
             List<Symbol> symbols = symbolService.findVendorByVendorId(vendorId);
             List<Symbol> symbolList = symbolService.findSymbolByInstallStatus(1);
             System.out.println(symbols.toString());
@@ -111,9 +111,9 @@ public class InstallController {
 
     @ResponseBody
     @PostMapping("/doinfo")
-    public Object doinfo(Install install, HttpSession session) {
-
+    public Object doinfo(Install install) {
         AjaxResult result = new AjaxResult();
+
         //根据用户名密码查询用户
         try {
             logger.info("用户ID:" + install.getUserId());
@@ -145,7 +145,7 @@ public class InstallController {
     @ResponseBody
     @GetMapping("/test")
     public String test() {
-        Vendor vendor = customerService.getVendorById(3);
+        Vendor vendor = vendorService.getVendorById(3);
         logger.info("vendor", vendor);
         return vendor + "";
     }

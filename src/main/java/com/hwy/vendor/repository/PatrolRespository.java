@@ -37,4 +37,11 @@ public interface PatrolRespository extends JpaRepository<Symbol,Integer> {
      * @return List<symbol>
      */
     List<Symbol> findBySymbolId(String symbolId);
+
+    /***
+     * 顾客可报修机器列表
+     * @param vendorId
+     * @return
+     */
+    List<Symbol> findByVendor_VendorId(int vendorId);
 }

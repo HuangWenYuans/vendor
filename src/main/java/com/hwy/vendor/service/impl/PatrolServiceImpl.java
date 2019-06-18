@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * 功能描述: 实现巡查服务
+ *
  * @author J.Y
  * @create 2019/6/15
  * @since 1.0.0
@@ -45,8 +46,18 @@ public class PatrolServiceImpl implements PatrolService {
      * @return List<OrderItem>
      */
     @Override
-    public List<Symbol> getPatrol(){
+    public List<Symbol> getPatrol() {
         return patrolRespository.findAll();
+    }
+
+    /***
+     * 顾客可报修机器列表
+     * @param vendorId
+     * @return List<Symbol>
+     */
+    @Override
+    public List<Symbol> findByVendor_VendorId(int vendorId) {
+        return patrolRespository.findByVendor_VendorId(vendorId);
     }
 }
 

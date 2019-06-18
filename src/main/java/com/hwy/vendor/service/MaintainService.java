@@ -27,7 +27,7 @@ public interface MaintainService {
      * @param maintainerId 运维人员编号
      * @return 待维修列表
      */
-    List<Maintain> getMaintainByIdAndStatus(int maintainerId,int maintainStatus);
+    List<Maintain> getMaintainByIdAndStatus(int maintainerId, int maintainStatus);
 
     /***
      * 根据维修订单号修改机器状态
@@ -40,4 +40,6 @@ public interface MaintainService {
      * @param maintainId 售货机类型编号
      */
     Maintain getByMaintainId(Integer maintainId);
+
+    void insertMaintain(Maintain maintain);
 }

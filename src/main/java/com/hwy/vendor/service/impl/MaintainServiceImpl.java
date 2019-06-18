@@ -57,6 +57,12 @@ public class MaintainServiceImpl implements MaintainService {
         return maintainRespository.findByMaintainId(maintainId);
     }
 
+
+
+    @Override
+    public void insertMaintain(Maintain maintain) {
+        maintainRespository.save(maintain);
+    }
 }
 
     

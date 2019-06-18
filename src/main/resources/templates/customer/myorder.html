@@ -6,31 +6,59 @@
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/public.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/myorder.css}"/>
     <script type="text/javascript">
-            function toInstall(vendorId) {
-                //    使用ajax提交表单数据
-                var loadingIndex = null;
-                    console.log(vendorId);
-                $.ajax({
-                    type: 'POST',
-                    url: "/installer/createinfo",
-                    data: {
-                        "vendorId": vendorId,
-                    },
-                    beforeSend: function () {
-                        loadingIndex = layer.msg('处理中', {icon: 16});
-                    },
-                    success: function (result) {
-                        //成功提交数据则将处理的图标关闭
-                        layer.close(loadingIndex);
-                        if (result.success) {
-                            window.location.href = "/createInstallInfo";
-                        } else {
-                            layer.msg("预约失败！", {time: 2000, icon: 2, shift: 6}, function () {
-                            });
-                        }
+        //跳转到预约安装界面的方法
+        function toInstall(vendorId) {
+            //    使用ajax提交表单数据
+            var loadingIndex = null;
+            console.log(vendorId);
+            $.ajax({
+                type: 'POST',
+                url: "/installer/createinfo",
+                data: {
+                    "vendorId": vendorId,
+                },
+                beforeSend: function () {
+                    loadingIndex = layer.msg('处理中', {icon: 16});
+                },
+                success: function (result) {
+                    //成功提交数据则将处理的图标关闭
+                    layer.close(loadingIndex);
+                    if (result.success) {
+                        window.location.href = "/createInstallInfo";
+                    } else {
+                        layer.msg("预约失败！", {time: 2000, icon: 2, shift: 6}, function () {
+                        });
                     }
-                });
-            }
+                }
+            });
+        }
+
+        //跳转到预约界面的方法
+        function toRepair(vendorId) {
+            //    使用ajax提交表单数据
+            var loadingIndex = null;
+            console.log(vendorId);
+            $.ajax({
+                type: 'POST',
+                url: "/maintainer/warrantyList",
+                data: {
+                    "vendorId": vendorId,
+                },
+                beforeSend: function () {
+                    loadingIndex = layer.msg('处理中', {icon: 16});
+                },
+                success: function (result) {
+                    //成功提交数据则将处理的图标关闭
+                    layer.close(loadingIndex);
+                    if (result.success) {
+                        window.location.href = "maintainer/warrantyList";
+                    } else {
+                        layer.msg("预约失败！", {time: 2000, icon: 2, shift: 6}, function () {
+                        });
+                    }
+                }
+            });
+        }
     </script>
 
 </head>
@@ -172,7 +200,8 @@
                         <a href="#">¥[[${orderitem.vendor.price}]]×[[${orderitem.count}]]</a>
                     </p>
                     <p class="fr">
-                        <a href="#" th:href="@{/maintainer/notRepair}" style="background: #A10000;color: #fff">点击报修</a>
+                        <a href="javascript:void(0)" th:onclick="toRepair([[${orderitem.vendor.vendorId}]])"
+                           style="background: #A10000;color: #fff">点击报修</a>
                         <a href="orderxq.html">订单详情</a>
                     </p>
                 </div>

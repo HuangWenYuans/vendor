@@ -9,10 +9,11 @@
 
 package com.hwy.vendor.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.hwy.vendor.entity.*;
 import com.hwy.vendor.service.MaintainService;
+import com.hwy.vendor.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,6 +36,8 @@ public class MaintainController {
 
     @Resource
     private MaintainService maintainService;
+    @Resource
+    private UserService userService;
 
     /***
      * 实现运维人员登录显示未维修列表
@@ -43,10 +46,10 @@ public class MaintainController {
      */
     @RequestMapping("/notRepair")
     public String notRepair(HttpSession session) {
-        //int userid = ((User) session.getAttribute("user")).getUserid();
+        int userid = ((User) session.getAttribute("user")).getUserid();
 
         //查询该运维人员的所有待维修订单
-        List<Maintain> NotRepairs = maintainService.getMaintainByIdAndStatus(3, 0);
+        List<Maintain> NotRepairs = maintainService.getMaintainByIdAndStatus(userid, 0);
 
         session.setAttribute("NotRepairs", NotRepairs);
         session.setAttribute("flag", 2);
@@ -61,9 +64,9 @@ public class MaintainController {
     @RequestMapping("/repaired")
     public String repaired(HttpSession session) {
 
-        //int userid = ((User) session.getAttribute("user")).getUserid();
+        int userid = ((User) session.getAttribute("user")).getUserid();
         //查询该运维人员的所有已维修订单
-        List<Maintain> Repairs = maintainService.getMaintainByIdAndStatus(3, 1);
+        List<Maintain> Repairs = maintainService.getMaintainByIdAndStatus(userid, 1);
 
         session.setAttribute("Repairs", Repairs);
         session.setAttribute("flag", 3);
@@ -103,6 +106,39 @@ public class MaintainController {
         }
         return result;
     }
+
+    /***
+     * 顾客保修
+     * @param vendorId
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/doWarranty")
+    public Object doWarranty(Integer vendorId, HttpSession session) {
+        AjaxResult result = new AjaxResult();
+        User user = (User) session.getAttribute("user");
+        //根据售货机编号获取售货机信息
+        try {
+            Integer randam;
+            //根据用户类型查找用户
+            List<User> users = userService.findByType(3);
+            randam = (int) (Math.random() * users.size());
+            System.out.println("random:"+randam);
+            System.out.println(users);
+            Maintain maintain = new Maintain();
+            maintain.setMaintainerId(users.get(randam).getUserid());
+            //maintain.setSymbolId(symbolId);
+            maintain.setUserid(user.getUserid());
+            maintainService.updateStatusById(maintain);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
 
 }
 
