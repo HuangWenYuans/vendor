@@ -12,7 +12,7 @@ package com.hwy.vendor.controller;
 import com.hwy.vendor.entity.AjaxResult;
 import com.hwy.vendor.entity.User;
 import com.hwy.vendor.entity.Vendor;
-import com.hwy.vendor.service.VendorService;
+import com.hwy.vendor.service.CustomerService;
 import com.hwy.vendor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class UserController {
     @Resource
     private UserService userService;
     @Resource
-    private VendorService vendorService;
+    private CustomerService customerService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     /***
@@ -59,21 +59,21 @@ public class UserController {
             session.setAttribute("user", u);
 
             //查询出所有饮料机的信息
-            List<Vendor> drinkVendors = vendorService.getVendorsByType(1);
+            List<Vendor> drinkVendors = customerService.getVendorsByType(1);
             logger.info("饮料机的信息" + drinkVendors);
             session.setAttribute("drinkVendors", drinkVendors);
             //查询出所有酸奶机的信息
-            List<Vendor> yogurtVendors = vendorService.getVendorsByType(2);
+            List<Vendor> yogurtVendors = customerService.getVendorsByType(2);
             logger.info("酸奶机的信息" + drinkVendors);
             session.setAttribute("yogurtVendors", yogurtVendors);
             //查询出所有盒饭机的信息
-            List<Vendor> lunchVendors = vendorService.getVendorsByType(3);
+            List<Vendor> lunchVendors = customerService.getVendorsByType(3);
             session.setAttribute("lunchVendors", lunchVendors);
             //查询出所有冰淇淋机的信息
-            List<Vendor> iceCreamVendors = vendorService.getVendorsByType(4);
+            List<Vendor> iceCreamVendors = customerService.getVendorsByType(4);
             session.setAttribute("iceCreamVendors", iceCreamVendors);
             //查询出所有综合机的信息
-            List<Vendor> multipleVendors = vendorService.getVendorsByType(5);
+            List<Vendor> multipleVendors = customerService.getVendorsByType(5);
             session.setAttribute("multipleVendors", multipleVendors);
 
             result.setSuccess(true);

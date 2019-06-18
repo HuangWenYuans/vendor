@@ -39,7 +39,7 @@ public class InstallController {
     @Resource
     private SymbolService symbolService;
     @Resource
-    private VendorService vendorService;
+    private CustomerService customerService;
     @Resource
     private VendorGoodsService vendorGoodsService;
     @Resource
@@ -145,7 +145,7 @@ public class InstallController {
     @ResponseBody
     @GetMapping("/test")
     public String test() {
-        Vendor vendor = vendorService.getVendorById(3);
+        Vendor vendor = customerService.getVendorById(3);
         logger.info("vendor", vendor);
         return vendor + "";
     }
