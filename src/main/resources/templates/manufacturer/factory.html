@@ -1,0 +1,96 @@
+<!--
+  162012班 第四组
+  智能售货机管理系统——XXX模块
+  FileName: factory
+  Author:   Hongjian Zhao
+  Date:     19-6-13 下午11:14
+  Description: 
+-->
+<!DOCTYPE html>
+<!-- saved from url=(0094)file:///home/super/idea/layuiMaternalBabyMall-v1.0.0/html/buytoday%20(%E5%A4%8D%E4%BB%B6).html -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/manufacturer/main.css"
+          th:href="@{/assets/css/manufacturer/main.css}">
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/layui/css/layui.css"
+          th:href="@{/layui/css/layui.css}">
+    <script type="text/javascript" src="/vendor/vendor_main/static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+<ul class="layui-nav">
+    <li class="layui-nav-item"><a href="">欢迎管理员某某某</a></li>
+    <li class="layui-nav-item"><a href="">返回主界面</a></li>
+</ul>
+
+<form class="layui-form" action="/vendorQuery" method="post" target="_blank" lay-filter="example">
+    <input type="text" name="vendorId" required="" lay-verify="required" placeholder="请输入售货机ID" autocomplete="off" class="layui-input">
+    <button class="layui-btn" lay-submit="" lay-filter="demo1">查询</button>
+</form>
+
+<div style="text-align: right">
+    <a target="_blank" th:href="@{'/vendorAdd'}">
+        <button class="layui-btn layui-btn-normal">新增售货机</button>
+    </a>
+</div>
+<table class="layui-table">
+    <colgroup>
+        <col width="60">
+        <col width="140">
+        <col width="160">
+        <col width="80">
+        <col width="160">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>售货机ID</th>
+        <th>售货机名称</th>
+        <th>售货机简介</th>
+        <th>库存数量</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vendor:${vs}">
+        <td>[[${vendor.vendorId}]]</td>
+        <td>[[${vendor.vendorName}]]</td>
+        <td>[[${vendor.detail}]]</td>
+        <td>[[${vendor.stock}]]</td>
+        <td>
+            <a target="_blank" th:href="@{'/vendorInfo/?vendorId=' + ${vendor.vendorId}}">
+                <button class="layui-btn layui-btn-normal">详细信息</button>
+            </a>
+            <a target="_blank" th:href="@{'/vendorInfoUpdate/?vendorId=' + ${vendor.vendorId}}">
+                <button class="layui-btn">修改</button>
+            </a>
+            <a target="_blank" th:href="@{'/vendorDelete/?vendorId=' + ${vendor.vendorId}}">
+                <button class="layui-btn layui-btn-danger">删除</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div id="demo1" style="text-align: center"><div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-1"><a href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="0">上一页</a><span class="layui-laypage-curr"><em class="layui-laypage-em"></em><em>1</em></span><a href="javascript:;" data-page="2">2</a><a href="javascript:;" data-page="3">3</a><a href="javascript:;" data-page="4">4</a><a href="javascript:;" data-page="5">5</a><span class="layui-laypage-spr">…</span><a href="javascript:;" class="layui-laypage-last" title="尾页" data-page="7">7</a><a href="javascript:;" class="layui-laypage-next" data-page="2">下一页</a></div></div>
+<script src="../res/layui/layui.js"></script>
+<script>
+    layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+            ,layer = layui.layer;
+
+        //总页数大于页码总数
+        laypage.render({
+            elem: 'demo1'
+            ,count: 70 //数据总数
+            ,jump: function(obj){
+                console.log(obj)
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

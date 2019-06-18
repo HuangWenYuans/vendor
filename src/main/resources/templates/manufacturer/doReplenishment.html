@@ -1,0 +1,32 @@
+<!--
+  162012班 第四组
+  智能售货机管理系统——XXX模块
+  FileName: doReplenishment
+  Author:   Hongjian Zhao
+  Date:     19-6-13 下午10:02
+  Description: 
+-->
+<!DOCTYPE html>
+<!-- saved from url=(0094)file:///home/super/idea/layuiMaternalBabyMall-v1.0.0/html/buytoday%20(%E5%A4%8D%E4%BB%B6).html -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/manufacturer/main.css"
+          th:href="@{/assets/css/manufacturer/main.css}">
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/layui/css/layui.css"
+          th:href="@{/layui/css/layui.css}">
+    <script type="text/javascript" src="/vendor/vendor_main/static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+    <form class="layui-form" action="/doReplenishment" method="post">
+        <input type="text" name="reCount" required  lay-verify="required" placeholder="请输入补货数量" autocomplete="off" class="layui-input">
+        <input type="hidden" name="vendorId" th:value="${vendorId}">
+        <input type="hidden" name="goodsId" th:value="${goodsId}">
+        <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+    </form>
+</body>
+</html>
