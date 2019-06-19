@@ -12,6 +12,7 @@ package com.hwy.vendor.repository;
 import com.hwy.vendor.entity.Order;
 import com.hwy.vendor.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
  * @create 2019/06/16
  * @since 1.0.0
  */
-public interface OrderRepository extends JpaRepository<Order, Integer> {
+public interface OrderRepository extends JpaRepository<Order, Integer>, JpaSpecificationExecutor<Order> {
 
     /***
      * 根据用户获取订单

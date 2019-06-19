@@ -10,6 +10,7 @@
 package com.hwy.vendor.service;
 
 import com.hwy.vendor.entity.*;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -101,13 +102,6 @@ public interface CustomerService {
      */
     void addToOrder(List<Cart> shoppingList);
 
-    /***
-     * 根据用户获取订单
-     * @param user 用户
-     * @return 订单列表L
-     */
-    List<Order> getOrderByUser(User user);
-
 
     /***
      * 得到所有
@@ -135,5 +129,13 @@ public interface CustomerService {
      * @return
      */
     Vendor insert(Vendor vendor);
+
+    /***
+     * 分页查询出用户订单
+     * @param user 用户
+     * @param page 起始页码
+     * @return
+     */
+    Page<Order> getOrderPageAndSortByUser(User user, int page);
 }
 

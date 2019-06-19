@@ -14,6 +14,10 @@ import com.hwy.vendor.repository.*;
 import com.hwy.vendor.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
@@ -184,14 +188,13 @@ public class CustomerServiceImpl implements CustomerService {
     public void addToOrder(List<Cart> shoppingList) {
         //获取系统当时时间并格式化
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         //获取下单用户
         User user = shoppingList.get(0).getUser();
         BigDecimal amount = new BigDecimal(0);
         Order order = new Order();
         OrderItem orderItem = new OrderItem();
-        System.out.println("======================================================" + shoppingList.size());
         //计算订单总价
         for (Cart cart : shoppingList) {
             //获取订单详情的售货机信息
@@ -233,14 +236,24 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-    /***
-     * 根据用户获取订单
+    /****
+     * 根据用户获取订单并分页，以时间倒序排序
      * @param user 用户
+     * @param page 起始页码
      * @return 订单列表
      */
     @Override
-    public List<Order> getOrderByUser(User user) {
-        return orderRepository.findOrdersByUser(user);
+    public Page<Order> getOrderPageAndSortByUser(User user, int page) {
+
+        //定义查询条件,查询出属于特定用户的订单
+        Specification<Order> specification = (Specification<Order>)
+                (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("user"), user);
+        //定义排序规则，根据时间降序排序
+        Sort sort = new Sort(Sort.Direction.DESC, "orderDate");
+        //设置分页,显示第一页每页5条
+        PageRequest pageRequest = PageRequest.of(page, 3, sort);
+
+        return orderRepository.findAll(specification, pageRequest);
     }
 
 

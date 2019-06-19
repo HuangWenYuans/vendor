@@ -1,87 +1,117 @@
-<!--
-  162012班 第四组
-  智能售货机管理系统——运维模块
-  FileName: patrolGoods
-  Author:   YuHaoran
-  Date:     2019/6/12 20:37
-  Description:
--->
-<!DOCTYPE html >
+<!DOCTYPE html>
+<!-- saved from url=(0094)file:///home/super/idea/layuiMaternalBabyMall-v1.0.0/html/buytoday%20(%E5%A4%8D%E4%BB%B6).html -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <title>维修人员界面</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all">
-
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/assets/css/manufacturer/main.css"
+          th:href="@{/assets/css/manufacturer/main.css}">
+    <link rel="stylesheet" type="text/css" href="/vendor/vendor_main/static/layui/css/layui.css"
+          th:href="@{/layui/css/layui.css}">
+    <script type="text/javascript" src="/vendor/vendor_main/static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
 <body>
-<ul class="layui-nav">
-    <li class="layui-nav-item"><a href="">欢迎维修人员×××</a></li>
-    <li class="layui-nav-item"><a href="supplyGoods.html">售货机补货</a></li>
-    <li class="layui-nav-item"><a href="">维修订单</a></li>
-    <li class="layui-nav-item"><a href="">巡查详情</a></li>
-    <li class="layui-nav-item" style="float: right"><a href="">返回主界面</a></li>
-</ul>
 
-<div class="layui-form">
-    <table class="layui-table" >
-        <colgroup>
-            <col width="250">
-            <col width="250">
-            <col width="250">
-            <col width="250">
-        </colgroup>
-        <thead>
-        <tr>
-            <th>机器序号</th>
-            <th>货物名称</th>
-            <th>货物数量</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>可乐</td>
-            <td>10</td>
-            <td><button type="button" class="layui-btn layui-btn-warm layui-btn-radius">修改</button></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>芬达</td>
-            <td>10</td>
-            <td><button type="button" class="layui-btn layui-btn-warm layui-btn-radius">修改</button></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>雪碧</td>
-            <td>10</td>
-            <td><button type="button" class="layui-btn layui-btn-warm layui-btn-radius">修改</button></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>美年达</td>
-            <td>10</td>
-            <td><button type="button" class="layui-btn layui-btn-warm layui-btn-radius">修改</button></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div class="layui-box layui-laypage layui-laypage-molv" id="layui-laypage-3">
-    <a href="javascript:;" class="layui-laypage-prev" data-page="3">上一页</a>
-    <span class="layui-laypage-curr"><em class="layui-laypage-em" style="background-color:#FFB800;"></em>
-    <em>1</em></span>
-    <a href="javascript:;" data-page="2">2</a>
-    <a href="javascript:;" data-page="3">3</a>
-    <a href="javascript:;" data-page="1">4</a>
-    <a href="javascript:;" data-page="5">5</a><span class="layui-laypage-spr">…</span>
-    <a href="javascript:;" class="layui-laypage-last" title="尾页" data-page="10">10</a>
-    <a href="javascript:;" class="layui-laypage-next" data-page="5">下一页</a>
-</div>
+<div class="content content-nav-base buytoday-content">
+    <div id="list-cont">
+        <div class="main-nav">
+            <div class="inner-cont0"></div>
+        </div>
+        <div class="banner-box"></div>
+        <div class="product-list-box">
+            <div class="product-list w1200">
 
+
+                <div class="tab-title">
+                    <a href="" class="active tuang" data-content="tuangou">售货机ID:[[${vendorId}]]</a>
+                </div>
+
+                <div class="list-cont" cont="tuangou">
+                    <div class="item-box layui-clear">
+                        <div th:each="gds:${gs}" class="item">
+                            <img src="/vendor/vendor_main/static/assets/img/manufacturer/tuan_img1.jpg"
+                                 th:src="@{/assets/img/manufacturer/tuan_img1.jpg}" alt="">
+                            <div class="text-box">
+                                <p class="title">[[${gds.goods.goodsName}]]</p>
+                                <p class="plic">
+                                    <span class="ciur-pic">单价：[[${gds.goods.goodsPrice}]]元</span>
+                                    <span class="ciur-pic">库存：[[${gds.count}]]</span>
+                                    <a target="_blank" th:href="@{'/goReplenishment/?vendorId=' + ${vendorId} + '&goodsId=' + ${gds.goods.goodsId}}">
+                                        <button class="layui-btn layui-btn-normal" >编辑</button>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div id="demo0" style="text-align: center;">
+                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-1">
+                                <a href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="0">上一页</a>
+                                <span class="layui-laypage-curr">
+                                        <em class="layui-laypage-em"></em>
+                                        <em>1</em>
+                                    </span>
+                                <a href="javascript:;" data-page="2">2</a>
+                                <a href="javascript:;" data-page="3">3</a>
+                                <a href="javascript:;" data-page="4">4</a>
+                                <a href="javascript:;" data-page="5">5</a>
+                                <span class="layui-laypage-spr">…</span>
+                                <a href="javascript:;" class="layui-laypage-last" title="尾页" data-page="10">10</a>
+                                <a href="javascript:;" class="layui-laypage-next" data-page="2">下一页</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        layui.config({
+            base: '../../static/assets/js/manufacturer/util '//你存放新模块的目录，注意，不是layui的模块目录
+
+        }).use(['mm', 'laypage', 'jquery'], function () {
+            var laypage = layui.laypage
+                , $ = layui.$;
+            mm = layui.mm;
+            laypage.render({
+                elem: 'demo0',
+                count: 100//数据总数
+            });
+
+            $('body').on('click', '*[data-content]', function () {
+                $(this).addClass('active').siblings().removeClass('active')
+                var dataConte = $(this).attr('data-content');
+                $('*[cont]').each(function (i, item) {
+                    var itemCont = $(item).attr('cont');
+                    console.log(item)
+                    if (dataConte === itemCont) {
+                        $(item).removeClass('layui-hide');
+                    } else {
+                        $(item).addClass('layui-hide');
+                    }
+                })
+            })
+            // 模版引擎导入
+            //  var html = demo.innerHTML;
+            //  var listCont = document.getElementById('list-cont');
+            //  // console.log(layui.router("#/about.html"))
+            // mm.request({
+            //     url: '../json/buytoday.json',
+            //     success : function(res){
+            //       console.log(res)
+            //       listCont.innerHTML = mm.renderHtml(html,res)
+            //     },
+            //     error: function(res){
+            //       console.log(res);
+            //     }
+            //   })
+
+        });
+    </script>
 </body>
 </html>
+

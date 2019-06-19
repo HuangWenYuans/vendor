@@ -131,11 +131,12 @@
             <td th:text="${Patrol.getSymbolId()}"></td>
             <td th:text="${Patrol.getVendor().getVendorName()}"></td>
             <td th:text="${Patrol.getVendor().getVendorType().getTypeName()}"></td>
-            <td><a class="layui-btn layui-btn-radius layui-btn-normal">详情</a></td>
+            <td><a class="layui-btn layui-btn-radius layui-btn-normal" th:href="@{/maintainer/goodList(symbolId = ${Patrol.getSymbolId()})}">巡查</a></td>
         </tr>
         </tbody>
     </table>
 </div>
+
 <script th:src="@{/layui/layui.all.js}" type="text/javascript"
         charset="utf-8"></script>
 <script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>

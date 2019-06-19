@@ -14,6 +14,7 @@ import com.hwy.vendor.service.CustomerService;
 import com.hwy.vendor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +68,6 @@ public class CustomerController {
             User user = userService.getUserById(userId);
             //根据售货机编号获取售货机信息
             Vendor vendor = customerService.getVendorById(vendorId);
-            logger.info("Controller层====user:" + user + "\tvendor:" + vendor + "count:" + count);
             //根据用户和售货机信息判断用户是否已经加入过该商品
             Cart cart = customerService.getCartByUserAndVendor(user, vendor);
             if (cart != null) {
@@ -207,19 +207,26 @@ public class CustomerController {
     }
 
     /***
-     * 查询当前用户的订单
+     * 分页查询当前用户订单
+     * @param page 页码
+     * @param model
      * @param session
      * @return 订单页面地址
      */
-    @RequestMapping("/myorder")
-    public String myorder(HttpSession session) {
+    @GetMapping("/myorder/{page}")
+    public String myorder(@PathVariable("page") Integer page, Model model, HttpSession session) {
         //从session中获取当前用户
-        System.out.println(session.getAttribute("user").toString());
         User user = (User) session.getAttribute("user");
-        //获取该用户的所有订单
-        List<Order> orders = customerService.getOrderByUser(user);
-        System.out.println(orders.toString());
-        session.setAttribute("orders", orders);
+
+        //获取用户某一页码的订单
+        Page<Order> pages = customerService.getOrderPageAndSortByUser(user, page - 1);
+
+        //将订单信息放入session中
+        session.setAttribute("orders", pages.getContent());
+        //将页面信息放入model中
+        model.addAttribute("page", page);
+        model.addAttribute("totalPage", pages.getTotalPages());
+
         return "customer/myorder";
     }
 

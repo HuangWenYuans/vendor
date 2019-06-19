@@ -5,62 +5,6 @@
     <title>订单页面</title>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/public.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/customer/myorder.css}"/>
-    <script type="text/javascript">
-        //跳转到预约安装界面的方法
-        function toInstall(vendorId) {
-            //    使用ajax提交表单数据
-            var loadingIndex = null;
-            console.log(vendorId);
-            $.ajax({
-                type: 'POST',
-                url: "/installer/createinfo",
-                data: {
-                    "vendorId": vendorId,
-                },
-                beforeSend: function () {
-                    loadingIndex = layer.msg('处理中', {icon: 16});
-                },
-                success: function (result) {
-                    //成功提交数据则将处理的图标关闭
-                    layer.close(loadingIndex);
-                    if (result.success) {
-                        window.location.href = "/createInstallInfo";
-                    } else {
-                        layer.msg("预约失败！", {time: 2000, icon: 2, shift: 6}, function () {
-                        });
-                    }
-                }
-            });
-        }
-
-        //跳转到预约界面的方法
-        function toRepair(vendorId) {
-            //    使用ajax提交表单数据
-            var loadingIndex = null;
-            console.log(vendorId);
-            $.ajax({
-                type: 'POST',
-                url: "/maintainer/warrantyList",
-                data: {
-                    "vendorId": vendorId,
-                },
-                beforeSend: function () {
-                    loadingIndex = layer.msg('处理中', {icon: 16});
-                },
-                success: function (result) {
-                    //成功提交数据则将处理的图标关闭
-                    layer.close(loadingIndex);
-                    if (result.success) {
-                        window.location.href = "/warranty";
-                    } else {
-                        layer.msg("预约失败！", {time: 2000, icon: 2, shift: 6}, function () {
-                        });
-                    }
-                }
-            });
-        }
-    </script>
-
 </head>
 <body>
 <!--引入页面头部-->
@@ -173,7 +117,7 @@
                         <a href="#">¥[[${orderitem.vendor.price}]]×[[${orderitem.count}]]</a>
                     </p>
                     <p class="fr">
-                        <a href="#">点击催单</a>
+                        <a href="#" id="remaind" onclick="remaind()">点击催单</a>
                         <a href="orderxq.html">订单详情</a>
                     </p>
                 </div>
@@ -233,13 +177,16 @@
                     </p>
                 </div>
             </div>
+
             <!--分页组件-->
             <div class="fenye clearfix">
-                <a href="#">
+                <a href="#" th:href="@{/customer/myorder/}+${page-1}"
+                   th:style="'display:'+@{(${page == 1 ? 'none':''})}">
                     <img th:src="@{/assets/img/customer/zuo.jpg}"/>
                 </a>
-                <a href="#">1</a>
-                <a href="#">
+                <a href="#">[[${page}]]</a>
+                <a href="#" th:href="@{/customer/myorder/}+${page+1}"
+                   th:style="'display:'+@{(${totalPage == page ? 'none':''})}">
                     <img th:src="@{/assets/img/customer/you.jpg}">
                 </a>
             </div>
@@ -251,9 +198,71 @@
 <!--引入页面底部-->
 <div th:replace="commons/bar::footerbar"></div>
 <script th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    //跳转到预约安装界面的方法
+    function toInstall(vendorId) {
+        //    使用ajax提交表单数据
+        var loadingIndex = null;
+        console.log(vendorId);
+        $.ajax({
+            type: 'POST',
+            url: "/installer/createinfo",
+            data: {
+                "vendorId": vendorId,
+            },
+            beforeSend: function () {
+                loadingIndex = layer.msg('处理中', {icon: 16});
+            },
+            success: function (result) {
+                //成功提交数据则将处理的图标关闭
+                layer.close(loadingIndex);
+                if (result.success) {
+                    window.location.href = "/createInstallInfo";
+                } else {
+                    layer.msg("预约失败！", {time: 2000, icon: 2, shift: 6}, function () {
+                    });
+                }
+            }
+        });
+    }
+
+    //跳转到预约界面的方法
+    function toRepair(vendorId) {
+        //    使用ajax提交表单数据
+        var loadingIndex = null;
+        console.log(vendorId);
+        $.ajax({
+            type: 'POST',
+            url: "/maintainer/warrantyList",
+            data: {
+                "vendorId": vendorId,
+            },
+            beforeSend: function () {
+                loadingIndex = layer.msg('处理中', {icon: 16});
+            },
+            success: function (result) {
+                //成功提交数据则将处理的图标关闭
+                layer.close(loadingIndex);
+                if (result.success) {
+                    window.location.href = "/warranty";
+                } else {
+                    layer.msg("预约失败！", {time: 2000, icon: 2, shift: 6}, function () {
+                    });
+                }
+            }
+        });
+    }
+
+    function remaind() {
+        $("#remaind").text("已催单");
+        $("#remaind").attr('disabled', 'true');
+    }
+</script>
+
 <script th:src="@{/assets/js/customer/public.js}" type="text/javascript" charset="utf-8"></script>
 <script th:src="@{/assets/js/customer/user.js}" type="text/javascript" charset="utf-8"></script>
 <!--引入公共头部的js-->
 <span th:replace="commons/js::js"></span>
+
 </body>
 </html>

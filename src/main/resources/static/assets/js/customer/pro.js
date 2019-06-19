@@ -120,7 +120,7 @@ $(function () {
         seconds--;
         $(".ok span").text(seconds);
         if (seconds == 0) {
-            window.location.href = "/customer/myorder";
+            window.location.href = "/customer/myorder/1";
         }
     }
 
