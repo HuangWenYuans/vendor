@@ -251,7 +251,7 @@ public class CustomerServiceImpl implements CustomerService {
         //定义排序规则，根据时间降序排序
         Sort sort = new Sort(Sort.Direction.DESC, "orderDate");
         //设置分页,显示第一页每页5条
-        PageRequest pageRequest = PageRequest.of(page, 3, sort);
+        PageRequest pageRequest = PageRequest.of(page, 5, sort);
 
         return orderRepository.findAll(specification, pageRequest);
     }

@@ -22,11 +22,11 @@ import java.util.List;
  */
 public interface SymbolRepository extends JpaRepository<Symbol, String>  {
     /***
-     * 根据vendorId和userId查询单个售货机
-     * @params venderId，userId
+     * 根据vendorId查询单个售货机
+     * @param venderId
      * @return  List<Symbol>
      */
 
-    List<Symbol> findByVendor_VendorIdAndUserid(Integer venderId,Integer userId);
+    List<Symbol> findByVendor_VendorId(Integer venderId);
 
 }

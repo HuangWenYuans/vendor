@@ -45,7 +45,7 @@ public class InstallServiceImpl implements InstallService {
      * @return List<Install>
      */
     @Override
-    public List<Install> getInstallInfo(Integer installerId,Integer installStatus,Integer  isDefault){
+    public List<Install> queryByInstallerIdAndInstallStatusAndUser_Consignees_IsDefault(Integer installerId,Integer installStatus,Integer  isDefault){
         return installRepository.findByInstallerIdAndInstallStatusAndUser_Consignees_IsDefault(installerId,installStatus, isDefault);
     }
 

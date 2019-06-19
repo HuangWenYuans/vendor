@@ -33,7 +33,7 @@ public interface InstallService {
      * @params installerId,installStatus, isDefault
      * @return List<Install>
      */
-     List<Install> getInstallInfo(Integer installerId,Integer installStatus,Integer  isDefault);
+     List<Install> queryByInstallerIdAndInstallStatusAndUser_Consignees_IsDefault(Integer installerId,Integer installStatus,Integer  isDefault);
 
     /***
      * 根据安装单号修改机器状态

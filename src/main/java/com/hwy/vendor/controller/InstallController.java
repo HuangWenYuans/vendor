@@ -12,7 +12,6 @@ package com.hwy.vendor.controller;
 import com.hwy.vendor.entity.*;
 import com.hwy.vendor.service.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -47,23 +46,20 @@ public class InstallController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping("/index")
-    public String test(Model model) {
-        List<Install> installs = installService.getInstallInfo(2, 0, 1);
-        //安装信息列表
-        model.addAttribute("installs", installs);
-        //标志位
-        model.addAttribute("flag", 0);
+    public String test(HttpSession session) {
+        System.out.println(1111);
+        List<Install> installs = installService.queryByInstallerIdAndInstallStatusAndUser_Consignees_IsDefault(3, 1, 1);
+        session.setAttribute("installs", installs);
+        session.setAttribute("flag", 1);
         return "installer/installInfo";
     }
 
     @GetMapping("/log")
-    public String log(Model model) {
+    public String log(HttpSession session) {
 
-        List<Install> installs = installService.getInstallInfo(2, 1, 1);
-        //安装信息列表
-        model.addAttribute("installs", installs);
-        //标志位
-        model.addAttribute("flag", 1);
+        List<Install> installs = installService.queryByInstallerIdAndInstallStatusAndUser_Consignees_IsDefault(3, 0, 1);
+        session.setAttribute("installs", installs);
+        session.setAttribute("flag", 0);
         return "installer/installInfo";
     }
 
@@ -77,7 +73,7 @@ public class InstallController {
         SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String installDate = tempDate.format(new java.util.Date());
         //重新封装install
-        install.setInstallStatus(1);
+        install.setInstallStatus(0);
         install.setInstallTime(installDate);
         installService.updateStatusById(install);
         vendorGoodsService.init(symbolid);
@@ -87,13 +83,23 @@ public class InstallController {
 
     @ResponseBody
     @PostMapping("/createinfo")
-    public Object createinfo(Integer vendorId, Integer userid,HttpSession session) {
+    public Object createinfo(Integer vendorId, HttpSession session) {
         AjaxResult result = new AjaxResult();
+
         try {
             //根据vendorId查询Symbol列表
-            List<Symbol> symbols = symbolService.findByVendor_VendorIdAndUserid(vendorId,userid);
+            List<Symbol> symbols = symbolService.findVendorByVendorId(vendorId);
+            List<Symbol> symbolList = symbolService.findSymbolByInstallStatus(1);
+            System.out.println(symbols.toString());
+            for (Symbol sb : symbolList) {
+                if (symbols.contains(sb)) {
+                    symbols.remove(sb);
+                }
+            }
+            System.out.println(symbols.toString());
+            logger.info(symbols.toString());
             session.setAttribute("symbols", symbols);
-            session.setAttribute("vendorId", vendorId);
+
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,34 +109,16 @@ public class InstallController {
         return result;
     }
 
-
-    /***
-     * 顾客可报修机器列表
-     * @param session
-     * @return List<Symbol>
-     */
-    @RequestMapping("/createinfoAgain")
-    public String warrantyListAgain(@RequestParam String vendorId,@RequestParam String userid,HttpSession session) {
-        logger.info("来了o");
-            //根据vendorId查询Symbol列表
-            List<Symbol> symbols = symbolService.findByVendor_VendorIdAndUserid(Integer.valueOf(vendorId),Integer.valueOf(userid));
-            List<Symbol> symbolList = symbolService.findSymbolByInstallStatus(0);
-            for (Symbol sb : symbolList) {
-                if (symbols.contains(sb)) {
-                    symbols.remove(sb);
-                }
-            }
-            session.setAttribute("symbols", symbols);
-            session.setAttribute("vendorId", vendorId);
-        return "installer/createInstallInfo";
-    }
-
     @ResponseBody
     @PostMapping("/doinfo")
     public Object doinfo(Install install) {
         AjaxResult result = new AjaxResult();
+
         //根据用户名密码查询用户
         try {
+            logger.info("用户ID:" + install.getUserId());
+            logger.info("售货机ID：" + install.getSymbolId());
+            logger.info("安装时间：" + install.getInstallTime());
             User user = new User();
             user.setUserid(install.getUserId());
             install.setUser(user);
@@ -142,9 +130,8 @@ public class InstallController {
             Random random = new Random();
             int num = random.nextInt(users.size());
             install.setInstallerId(users.get(num).getUserid());
-            install.setInstallStatus(0);
+            install.setInstallStatus(1);
             installService.addInstall(install);
-            logger.info("已添加");
             result.setSuccess(true);
         } catch (Exception e) {
             //    登录失败
@@ -162,6 +149,4 @@ public class InstallController {
         logger.info("vendor", vendor);
         return vendor + "";
     }
-
-
 }
