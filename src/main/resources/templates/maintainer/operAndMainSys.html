@@ -31,6 +31,42 @@
     <li class="layui-nav-item"><a th:href="@{/maintainer/patrolMain}">巡查详情</a></li>
     <li class="layui-nav-item" style="float: right"><a href="">返回主界面</a></li>
 </ul>
+
+
+
+<div th:if="${flag} eq 1">
+<table class="layui-table">
+    <colgroup>
+        <col width="200">
+        <col width="200">
+        <col width="200">
+        <col width="200">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>售货机编号</th>
+        <th>商品编号</th>
+        <th>补货时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="replenishment:${replenishments}" th:if="${replenishments}!= null">
+        <td th:text="${replenishment.symbolId}"></td>
+        <td th:text="${replenishment.goodsId}"></td>
+        <td th:text="${replenishment.replenishmentTime}"></td>
+        <td>
+            <a th:href="@{'/installer/install?installid='+${replenishment.symbolId}}">
+                <button class="layui-btn">补货</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+
+
+
 <div th:if="${session.flag} eq 2">
     <table class="layui-table">
         <colgroup>
@@ -66,6 +102,11 @@
         </tbody>
     </table>
 </div>
+
+
+
+
+
 <div th:if="${session.flag} eq 3">
     <table class="layui-table">
         <colgroup>

@@ -12,8 +12,10 @@ package com.hwy.vendor.controller;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.hwy.vendor.entity.*;
 import com.hwy.vendor.service.MaintainService;
+import com.hwy.vendor.service.ReplenishmentService;
 import com.hwy.vendor.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,6 +40,8 @@ public class MaintainController {
     private MaintainService maintainService;
     @Resource
     private UserService userService;
+    @Resource
+    private ReplenishmentService replenishmentService;
 
     /***
      * 实现运维人员登录显示未维修列表
@@ -140,6 +144,16 @@ public class MaintainController {
     }
 
 
+    /***
+     * 维修补货
+     */
+    @RequestMapping("/reple")
+    public String reple(Model model){
+       List<Replenishment> replenishments = replenishmentService.queryAll();
+       model.addAttribute("replenishments",replenishments);
+       model.addAttribute("flag",1);
+       return "maintainer/operAndMainSys";
+    }
 }
 
 
