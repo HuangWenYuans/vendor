@@ -40,8 +40,8 @@ public class SymbolServiceImpl implements SymbolService {
      * @return List<Symbol>
      */
     @Override
-    public List<Symbol> findVendorByVendorId(Integer venderId) {
-        return symbolRepository.findByVendor_VendorId(venderId);
+    public List<Symbol> findByVendor_VendorIdAndUserid(Integer venderId,Integer userId){
+        return symbolRepository.findByVendor_VendorIdAndUserid(venderId,userId);
     }
 
     /***

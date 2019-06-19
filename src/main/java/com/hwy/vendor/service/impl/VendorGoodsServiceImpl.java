@@ -10,6 +10,7 @@
 package com.hwy.vendor.service.impl;
 
 import com.hwy.vendor.entity.Goods;
+import com.hwy.vendor.entity.Replenishment;
 import com.hwy.vendor.entity.VendorGoods;
 import com.hwy.vendor.repository.GoodsRepository;
 import com.hwy.vendor.repository.VendorGoodsRepository;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +88,15 @@ public class VendorGoodsServiceImpl implements VendorGoodsService {
 
         /*库存不足*/
         if (count <= 5){
+            Replenishment replenishment = new Replenishment();
+            replenishment.setSymbolId(vendorId);
+            replenishment.setGoodsId(goodsId);
+            replenishment.setUserId(-1);
+            //生成补货时间
+            SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String reDate = tempDate.format(new java.util.Date());
+            replenishment.setReplenishmentTime(reDate);
+            replenishment.setReplenishmentStatus(0);
 
         }
         return true;
