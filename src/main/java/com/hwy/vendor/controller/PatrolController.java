@@ -11,7 +11,11 @@ package com.hwy.vendor.controller;
 
 import com.hwy.vendor.entity.AjaxResult;
 import com.hwy.vendor.entity.Symbol;
+import com.hwy.vendor.entity.User;
+import com.hwy.vendor.entity.VendorGoods;
+import com.hwy.vendor.service.MaintainService;
 import com.hwy.vendor.service.PatrolService;
+import com.hwy.vendor.service.VendorGoodsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +38,10 @@ import java.util.List;
 public class PatrolController {
     @Resource
     private PatrolService patrolService;
+    @Resource
+    private VendorGoodsService vendorGoodsService;
+    @Resource
+    private MaintainService maintainService;
 
     /***
      * 获取售货机列表
@@ -83,13 +91,36 @@ public class PatrolController {
      * @param session
      * @return List<Symbol>
      */
+    @ResponseBody
     @RequestMapping("/warrantyList")
-    public String warrantyList(Integer vendorId,HttpSession session) {
-        List<Symbol> symbols = patrolService.findByVendor_VendorId(vendorId);
-        session.setAttribute("Patrols", symbols);
-        return "warranty";
+    public Object warrantyList(Integer vendorId,HttpSession session) {
+        AjaxResult result = new AjaxResult();
+        try {
+            Integer userid = ((User) session.getAttribute("user")).getUserid();
+            List<Symbol> symbols = patrolService.findByVendor_VendorIdAndUserid(vendorId, userid);
+            for(int i=0;i < symbols.size();i++){
+                if(maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(),symbols.get(i).getSymbolId()) != null
+                        && maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(),symbols.get(i).getSymbolId()).getMaintainStatus()
+                        ==0){
+                    symbols.remove(i);
+                }
+            }
+            session.setAttribute("Patrols", symbols);
+            result.setSuccess(true);
+        }catch (Exception e){
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
     }
 
+    @RequestMapping("/goodList")
+    public String goodList(String symbolId,HttpSession session){
+        List<VendorGoods> vendorGoods = vendorGoodsService.getVendorGoodsById(symbolId);
+        session.setAttribute("goods",vendorGoods);
+        session.setAttribute("flag",5);
+        return "maintainer/operAndMainSys";
+    }
 }
 
     

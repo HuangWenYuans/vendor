@@ -216,7 +216,7 @@ public class CustomerServiceImpl implements CustomerService {
                 //生成uuid用于唯一标识每台售货机
                 UUID uuid = UUID.randomUUID();
                 symbol.setSymbolId(uuid.toString());
-                symbol.setUserid(user.getUserid());
+
                 //建立联系
                 vendor.getSymbols().add(symbol);
                 symbol.setVendor(vendor);
@@ -241,6 +241,45 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Order> getOrderByUser(User user) {
         return orderRepository.findOrdersByUser(user);
+    }
+
+
+    /***
+     * 获取所有
+     * @return
+     */
+    @Override
+    public List<Vendor> getAll() {
+        return vendorRepository.findAll();
+    }
+
+    /***
+     * 更新
+     * @param vendor
+     * @return
+     */
+    @Override
+    public Vendor update(Vendor vendor) {
+        return vendorRepository.saveAndFlush(vendor);
+    }
+
+    /***
+     * 根据id删除数据
+     * @param vendorId
+     */
+    @Override
+    public void deleteById(Integer vendorId) {
+        vendorRepository.deleteById(vendorId);
+    }
+
+    /***
+     * 插入新的数据
+     * @param vendor
+     * @return
+     */
+    @Override
+    public Vendor insert(Vendor vendor) {
+        return vendorRepository.save(vendor);
     }
 }
 

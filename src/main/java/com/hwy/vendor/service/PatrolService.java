@@ -40,7 +40,8 @@ public interface PatrolService {
     /***
      * 顾客可报修机器列表
      * @param vendorId
+     * @param userid
      * @return symbol列表
      */
-    List<Symbol> findByVendor_VendorId(int vendorId);
+    List<Symbol> findByVendor_VendorIdAndUserid(Integer vendorId, Integer userid);
 }

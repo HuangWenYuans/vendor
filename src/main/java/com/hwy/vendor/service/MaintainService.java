@@ -42,4 +42,6 @@ public interface MaintainService {
     Maintain getByMaintainId(Integer maintainId);
 
     void insertMaintain(Maintain maintain);
+
+    Maintain queryByUseridAndSymbolId(int userid,String symbolId);
 }

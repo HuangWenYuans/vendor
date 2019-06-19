@@ -53,11 +53,12 @@ public class PatrolServiceImpl implements PatrolService {
     /***
      * 顾客可报修机器列表
      * @param vendorId
+     * @param userid
      * @return List<Symbol>
      */
     @Override
-    public List<Symbol> findByVendor_VendorId(int vendorId) {
-        return patrolRespository.findByVendor_VendorId(vendorId);
+    public List<Symbol> findByVendor_VendorIdAndUserid(Integer vendorId,Integer userid) {
+        return patrolRespository.findByVendor_VendorIdAndUserid(vendorId,userid);
     }
 }
 

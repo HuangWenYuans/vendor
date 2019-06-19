@@ -44,7 +44,7 @@
             <td th:text="${Patrol.getVendor().getVendorType().getTypeName()}"></td>
             <td>
                 <button id="symbolId"  class="layui-btn layui-btn-warm layui-btn-radius"
-                        th:onclick="toSure([[${Patrol.getSymbolId()}]])">报修
+                        th:onclick="toSure([[${Patrol.getSymbolId()},${Patrol.getVendor().getVendorId()}]])">报修
                 </button>
             </td>
         </tr>
@@ -55,14 +55,15 @@
         charset="utf-8"></script>
 <script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-    function toSure(id) {
+    function toSure(id,vendorId) {
         layer.confirm("是否确认报修？", {icon: 3, title: '提示'}, function (cindex) {
             var loadingIndex = null;
             //确认修改
             $.ajax({
                 url: '/maintainer/doWarranty',
                 type: "POST",
-                data: {"symbolId": id},
+                data: {"symbolId": id,
+                        "vendorId": vendorId},
 
                 beforeSend: function () {
                     loadingIndex = layer.msg('处理中', {icon: 16});
@@ -71,14 +72,13 @@
                     //成功提交数据则将处理的图标关闭
                     layer.close(loadingIndex);
                     if (result.success) {
-                        window.location.href = "/operAndMainSys";
+                        window.location.href = "maintainer/warrantyList";
                     } else {
-                        window.location.href = "/operAndMainSys";
+                        window.location.href = "maintainer/warrantyList";
 
                         layer.msg("修改失败！", {time: 2000, icon: 2, shift: 6}, function () {
                         })
                     }
-                    ;
                 }
             });
 

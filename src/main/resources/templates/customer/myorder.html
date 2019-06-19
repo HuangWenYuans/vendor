@@ -52,7 +52,7 @@
                     //成功提交数据则将处理的图标关闭
                     layer.close(loadingIndex);
                     if (result.success) {
-                        window.location.href = "maintainer/warrantyList";
+                        window.location.href = "/warranty";
                     } else {
                         layer.msg("预约失败！", {time: 2000, icon: 2, shift: 6}, function () {
                         });
