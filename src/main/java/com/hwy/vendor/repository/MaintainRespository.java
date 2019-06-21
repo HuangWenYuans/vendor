@@ -9,7 +9,10 @@
 package com.hwy.vendor.repository;
 
 import com.hwy.vendor.entity.Maintain;
+import com.hwy.vendor.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
 import java.util.List;
 
 /**
@@ -18,14 +21,7 @@ import java.util.List;
  * @create 2019/6/11
  * @since 1.0.0
  */
-public interface MaintainRespository extends JpaRepository<Maintain, Integer> {
-    /***
-     * 根据运维成员编号,机子状态及默认地址查询运维人员的所需列表
-     * @param maintainerId
-     * @param maintainStatus
-     * @return List<Maintain>对象
-     */
-    List<Maintain> findByMaintainerIdAndMaintainStatus(Integer maintainerId, Integer maintainStatus);
+public interface MaintainRespository extends JpaRepository<Maintain, Integer> , JpaSpecificationExecutor<Maintain> {
 
      /***
      * 根据维修订单号查找机器
@@ -34,5 +30,11 @@ public interface MaintainRespository extends JpaRepository<Maintain, Integer> {
      */
      Maintain findByMaintainId(Integer maintainId);
 
-    Maintain findByUseridAndSymbolId(Integer userid,String symbolId);
+    /***
+     *
+     * @param userid
+     * @param symbolId
+     * @return
+     */
+    Maintain findByUseridAndSymbolId(Integer userid, String symbolId);
 }

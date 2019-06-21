@@ -9,6 +9,7 @@
 
 package com.hwy.vendor.service;
 
+import com.hwy.vendor.entity.Role;
 import com.hwy.vendor.entity.User;
 
 import java.util.List;
@@ -48,14 +49,12 @@ public interface UserService {
      */
     User getUserById(Integer userId);
 
-
-
     /***
-     * 根据用户类型查找用户
-     * @param type 用户类型
+     * 根据角色获取用户列表
+     * @param role 角色
      * @return 用户列表
      */
-    List<User> findByType(Integer type);
+    List<User> findUsersByRole(Role role);
 }
 
     

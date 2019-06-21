@@ -18,16 +18,16 @@
         <p></p>
         <div class="msg-warn hide"><b></b>请输入用户名和密码进行登录</div>
         <p><input type="text" id="username" name="username" value="" placeholder="用户名"></p>
-        <p><input type="text" id="password" name="password" value="" placeholder="密码"></p>
+        <p><input type="password" id="password" name="password" value="" placeholder="密码"></p>
         <p><input type="button" name="loginBtn" style="background: #C10000;color: white" value="登  录"
                   onclick="doLogin()"></p>
         <p class="txt"><a class="" href="/register">免费注册</a></p>
     </form>
 </div>
 <script th:src="@{/jquery-2.1.1.min.js}" type="text/javascript" charset="utf-8"></script>
-<script th:src="@{/layer/layer.js}" type="text/javascript"
+<script src="/vendor/vendor_main/layer/layer.js" th:src="@{/layer/layer.js}" type="text/javascript"
         charset="utf-8"></script>
-<script type="text/javascript" th:inline="javascript">
+<script type="text/javascript">
     function doLogin() {
         //用户名非空校验
         var username = $("#username").val();
@@ -61,12 +61,43 @@
                 //成功提交数据则将处理的图标关闭
                 layer.close(loadingIndex);
                 if (result.success) {
-                    window.location.href = "/index";
+                    console.log(result.msg);
+                    switch (result.msg) {
+                        case "厂商":
+                            window.location.href = "manufacturer/factory";
+                            break;
+                        case "顾客":
+                            window.location.href = "customer/index";
+                            break;
+                        case "运维人员":
+                            window.location.href = "maintainer/notRepair/1";
+                            break;
+                        case "安装人员":
+                            window.location.href = "installer/index";
+                            break;
+                        default:
+                    }
                 } else {
                     layer.msg("用户账号或密码错误！", {time: 2000, icon: 2, shift: 6}, function () {
                     });
                 }
             }
+            // success: function (data) {
+            //     if (data.code == 402) {
+            //         layer.alert("用户名不存在", function () {
+            //             window.location.href = "/"
+            //         });
+            //     }
+            //     if (data.code == 403) {
+            //         layer.alert(data.msg, function () {
+            //             window.location.href = "/"
+            //         });
+            //
+            //     }
+            //     if (data.code == 200) {
+            //         window.location.href = "customer/index";
+            //     }
+            // }
         });
     }
 

@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 功能描述: 售货机控制类
@@ -33,6 +32,7 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Controller
+
 public class VendorMachineController {
 
     @Autowired
@@ -51,7 +51,6 @@ public class VendorMachineController {
         List<VendorGoods> vgs = vendorGoodsService.getVendorGoodsById(vendorId);
         List<GoodsAndCount> gs = new ArrayList<>();
         for (VendorGoods vg : vgs){
-            System.out.println("goodid"+vg.getGoodsId());
             Goods goods = goodsService.getGoodsById(vg.getGoodsId());
             gs.add(new GoodsAndCount(goods, vg.getGoodsCount()));
         }

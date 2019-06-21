@@ -13,13 +13,16 @@ import ch.qos.logback.core.net.SyslogOutputStream;
 import com.hwy.vendor.entity.*;
 import com.hwy.vendor.service.MaintainService;
 import com.hwy.vendor.service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,14 +47,16 @@ public class MaintainController {
      * @param session
      * @return url
      */
-    @RequestMapping("/notRepair")
-    public String notRepair(HttpSession session) {
+    @RequestMapping("/notRepair/{page}")
+    public String notRepair(@PathVariable("page") Integer page,HttpSession session) {
         int userid = ((User) session.getAttribute("user")).getUserid();
 
         //查询该运维人员的所有待维修订单
-        List<Maintain> NotRepairs = maintainService.getMaintainByIdAndStatus(userid, 0);
-
-        session.setAttribute("NotRepairs", NotRepairs);
+        Page<Maintain> NotRepairs = maintainService.getMaintainPageAndSortByMaintian(userid,0,page-1);
+        int TotalPages = NotRepairs.getTotalPages();
+        session.setAttribute("page",page);
+        session.setAttribute("TotalPages",TotalPages);
+        session.setAttribute("NotRepairs", NotRepairs.getContent());
         session.setAttribute("flag", 2);
         return "maintainer/operAndMainSys";
     }
@@ -61,14 +66,16 @@ public class MaintainController {
      * @param session
      * @return url
      */
-    @RequestMapping("/repaired")
-    public String repaired(HttpSession session) {
+    @RequestMapping("/repaired/{page}")
+    public String repaired(@PathVariable("page") Integer page,HttpSession session) {
 
         int userid = ((User) session.getAttribute("user")).getUserid();
         //查询该运维人员的所有已维修订单
-        List<Maintain> Repairs = maintainService.getMaintainByIdAndStatus(userid, 1);
-
-        session.setAttribute("Repairs", Repairs);
+        Page<Maintain> Repairs = maintainService.getMaintainPageAndSortByMaintian(userid,1,page-1);
+        int TotalPages = Repairs.getTotalPages();
+        session.setAttribute("page",page);
+        session.setAttribute("TotalPages",TotalPages);
+        session.setAttribute("Repairs", Repairs.getContent());
         session.setAttribute("flag", 3);
         return "maintainer/operAndMainSys";
     }
@@ -81,14 +88,13 @@ public class MaintainController {
     @RequestMapping("/repair")
     public Object repair(int maintainId, HttpSession session) {
         AjaxResult result = new AjaxResult();
-
+        int userid = ((User) session.getAttribute("user")).getUserid();
         try {
             //读取当前时间
             SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String maintainDate = tempDate.format(new java.util.Date());
             System.out.println(maintainDate);
-            Maintain maintain = new Maintain();
-            maintain = maintainService.getByMaintainId(maintainId);
+            Maintain maintain = maintainService.getByMaintainId(maintainId);
 
             //改变机器的维修状态
             maintain.setMaintainDate(maintainDate);
@@ -96,9 +102,6 @@ public class MaintainController {
 
             maintainService.updateStatusById(maintain);
 
-            List<Maintain> Repair = maintainService.getMaintainByIdAndStatus(3, 1);
-            session.setAttribute("Repairs", Repair);
-            session.setAttribute("flag", 3);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,10 +124,12 @@ public class MaintainController {
         //根据售货机编号获取售货机信息
         try {
             //根据用户类型查找用户
-            List<User> users = userService.findByType(3);
+            Role role = new Role("运维人员");
+            System.out.println(role);
+            List<User> users = userService.findUsersByRole(role);
+            System.out.println(users);
            int randam = (int) (Math.random() * users.size());
             System.out.println("random:"+randam);
-            System.out.println(users);
             Maintain maintain = new Maintain();
             maintain.setMaintainerId(users.get(randam).getUserid());
             maintain.setSymbolId(symbolId);

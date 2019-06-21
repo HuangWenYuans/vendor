@@ -38,11 +38,20 @@ public interface InstallRepository extends JpaRepository<Install, Integer> {
      */
     List<Install> findByInstallerIdAndInstallStatusAndUser_Consignees_IsDefault(Integer installerId, Integer installStatus, Integer isDefault);
 
+//    /***
+//     * 根据安装状态返回安装列表
+//     * @param installStatus 安装状态
+//     * @return 安装列表
+//     */
+//    List<Install> findInstallsByInstallStatus(Integer installStatus);
+
+
     /***
-     * 根据安装状态返回安装列表
-     * @param installStatus 安装状态
+     * 根据用户Id返回安装列表
+     * @param userid 用户Id
      * @return 安装列表
      */
-    List<Install> findInstallsByInstallStatus(Integer installStatus);
+
+    List<Install> findByUser_Userid(Integer userid);
 
 }

@@ -9,9 +9,11 @@
 
 package com.hwy.vendor.service;
 
+import com.hwy.vendor.entity.Maintain;
 import com.hwy.vendor.entity.OrderItem;
 import com.hwy.vendor.entity.Symbol;
 import com.hwy.vendor.entity.Vendor;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -23,12 +25,6 @@ import java.util.List;
  * @since 1.0.0
  */
 public interface PatrolService {
-    /***
-     * 查询该运维人员的所有订单
-     * @return List<symbol>
-     */
-
-    List<Symbol> getPatrol();
 
     /***
      * 根据orderItemId查询该运维人员的所有订单
@@ -44,4 +40,8 @@ public interface PatrolService {
      * @return symbol列表
      */
     List<Symbol> findByVendor_VendorIdAndUserid(Integer vendorId, Integer userid);
+
+    Page<Symbol> getPatrolPageAndSort(int page);
+
+   Page<Symbol> getPatrolPageAndSortBySymbolId(String symbolId, int page);
 }

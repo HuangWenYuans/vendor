@@ -1,6 +1,6 @@
 package com.hwy.vendor.repository;
 
-import com.hwy.vendor.entity.Consignee;
+import com.hwy.vendor.entity.Role;
 import com.hwy.vendor.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -39,11 +39,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUserid(Integer userId);
 
     /***
-     * 根据用户类型查找用户
-     * @param type 用户类型
+     * 根据角色获取用户列表
+     * @param role 角色
      * @return 用户列表
      */
-
-    List<User> findByType(Integer type);
+    List<User> findUsersByRole(Role role);
 
 }

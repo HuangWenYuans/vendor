@@ -22,16 +22,24 @@ import java.util.List;
  */
 public interface SymbolService {
     /***
-     * 根据vendorId查询单个售货机
-     * @param venderId
+     * 根据vendorId和userId查询单个售货机
+     * @params venderId，userId
      * @return List<Symbol>
      */
-    List<Symbol> findVendorByVendorId(Integer venderId);
+    List<Symbol> findByVendor_VendorIdAndUserid(Integer venderId, Integer userId);
+
+
 
     /***
-     * 根据安装状态查询出售货机
-     * @param i 安装状态
+     * 根据用户Id查询出售货机
+     * @param userid 安装状态
      * @return 售货机列表
      */
-    List<Symbol> findSymbolByInstallStatus(int i);
+
+    List<Symbol> findSymbolByUserId(Integer userid);
+
+
+
+
+
 }

@@ -9,10 +9,12 @@
 
 package com.hwy.vendor.repository;
 
+import com.hwy.vendor.entity.Maintain;
 import com.hwy.vendor.entity.OrderItem;
 import com.hwy.vendor.entity.Symbol;
 import com.hwy.vendor.entity.Vendor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -24,13 +26,9 @@ import java.util.List;
  * @create 2019/6/15
  * @since 1.0.0
  */
-public interface PatrolRespository extends JpaRepository<Symbol,Integer> {
-    /***
-     * 查询该运维人员的所有订单
-     * @return  List<symbol>
-     */
-    @Override
-    List<Symbol> findAll();
+public interface PatrolRespository extends JpaRepository<Symbol,Integer>,JpaSpecificationExecutor<Symbol> {
+
+
     /***
      * 根据OrderItemId查询所有机器
      * @param symbolId

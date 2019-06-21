@@ -14,6 +14,7 @@ import com.hwy.vendor.entity.User;
 import com.hwy.vendor.entity.Vendor;
 import com.hwy.vendor.service.CustomerService;
 import com.hwy.vendor.service.UserService;
+import com.hwy.vendor.service.impl.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,8 @@ public class UserController {
     @Resource
     private UserService userService;
     @Resource
+    private UserServiceImpl userServiceImpl;
+    @Resource
     private CustomerService customerService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -51,31 +54,52 @@ public class UserController {
     public Object doLogin(User user, HttpSession session) {
         AjaxResult result = new AjaxResult();
         //根据用户名密码查询用户
+        //User user1 = (User) userServiceImpl.loadUserByUsername(user.getUsername());
+        //user1.setPassword(user.getPassword());
+        //System.out.println("=============================="+user1);
+
         User u = userService.queryForLogin(user);
         if (u != null) {
+            System.out.println("=====================" + u.getRole());
             logger.info("用户:" + u.getUsername() + "登录了");
             logger.info("登录用户信息：" + u.toString());
+            //判断用户类型
+            switch (u.getRole().getRoleId()) {
+                //厂商
+                case 1:
+                    result.setMsg("厂商");
+                    break;
+                case 2:
+                    result.setMsg("顾客");
+                    //查询出所有饮料机的信息
+                    List<Vendor> drinkVendors = customerService.getVendorsByType(1);
+                    logger.info("饮料机的信息" + drinkVendors);
+                    session.setAttribute("drinkVendors", drinkVendors);
+                    //查询出所有酸奶机的信息
+                    List<Vendor> yogurtVendors = customerService.getVendorsByType(2);
+                    logger.info("酸奶机的信息" + drinkVendors);
+                    session.setAttribute("yogurtVendors", yogurtVendors);
+                    //查询出所有盒饭机的信息
+                    List<Vendor> lunchVendors = customerService.getVendorsByType(3);
+                    session.setAttribute("lunchVendors", lunchVendors);
+                    //查询出所有冰淇淋机的信息
+                    List<Vendor> iceCreamVendors = customerService.getVendorsByType(4);
+                    session.setAttribute("iceCreamVendors", iceCreamVendors);
+                    //查询出所有综合机的信息
+                    List<Vendor> multipleVendors = customerService.getVendorsByType(5);
+                    session.setAttribute("multipleVendors", multipleVendors);
+                    break;
+                case 3:
+                    result.setMsg("安装人员");
+                    break;
+                case 4:
+                    result.setMsg("运维人员");
+                    break;
+                default:
+            }
+
             //将登录的用户的信息存入session
             session.setAttribute("user", u);
-
-            //查询出所有饮料机的信息
-            List<Vendor> drinkVendors = customerService.getVendorsByType(1);
-            logger.info("饮料机的信息" + drinkVendors);
-            session.setAttribute("drinkVendors", drinkVendors);
-            //查询出所有酸奶机的信息
-            List<Vendor> yogurtVendors = customerService.getVendorsByType(2);
-            logger.info("酸奶机的信息" + drinkVendors);
-            session.setAttribute("yogurtVendors", yogurtVendors);
-            //查询出所有盒饭机的信息
-            List<Vendor> lunchVendors = customerService.getVendorsByType(3);
-            session.setAttribute("lunchVendors", lunchVendors);
-            //查询出所有冰淇淋机的信息
-            List<Vendor> iceCreamVendors = customerService.getVendorsByType(4);
-            session.setAttribute("iceCreamVendors", iceCreamVendors);
-            //查询出所有综合机的信息
-            List<Vendor> multipleVendors = customerService.getVendorsByType(5);
-            session.setAttribute("multipleVendors", multipleVendors);
-
             result.setSuccess(true);
         } else {
             //    登录失败
@@ -140,6 +164,7 @@ public class UserController {
         }
         return result;
     }
+
 }
 
     

@@ -9,14 +9,25 @@
 
 package com.hwy.vendor.service.impl;
 
+import com.hwy.vendor.entity.Role;
 import com.hwy.vendor.entity.User;
+import com.hwy.vendor.repository.RoleRepository;
 import com.hwy.vendor.repository.UserRepository;
 import com.hwy.vendor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+import sun.security.validator.ValidatorException;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,7 +38,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     @Resource
     private UserRepository userRepository;
 
@@ -75,16 +86,36 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUserid(userId);
     }
 
+    @Override
+    @Transactional
+    @Rollback(false)
+    public List<User> findUsersByRole(Role role) {
+        return userRepository.findUsersByRole(role);
+    }
+
 
     /***
-     * 根据用户类型查找用户
-     * @param type 用户类型
-     * @return 用户列表
+     *
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
      */
     @Override
-    public List<User> findByType(Integer type){
-        return userRepository.findByType(type);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("我来了");
+        //根据用户名查询用户
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            try {
+                throw new ValidatorException("用户不存在");
+            } catch (ValidatorException e) {
+                e.printStackTrace();
+            }
+            //return new User();
+        }
+        return user;
     }
+
 }
 
     

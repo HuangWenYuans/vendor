@@ -11,6 +11,7 @@ package com.hwy.vendor.service;
 
 import com.hwy.vendor.entity.Maintain;
 import com.hwy.vendor.entity.User;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -21,13 +22,7 @@ import java.util.List;
  * @since 1.0.0
  */
 public interface MaintainService {
-    /***
-     * 根据运维员工编号获取待维修信息
-     * @param maintainStatus 售货机状态
-     * @param maintainerId 运维人员编号
-     * @return 待维修列表
-     */
-    List<Maintain> getMaintainByIdAndStatus(int maintainerId, int maintainStatus);
+
 
     /***
      * 根据维修订单号修改机器状态
@@ -41,7 +36,26 @@ public interface MaintainService {
      */
     Maintain getByMaintainId(Integer maintainId);
 
+    /***
+     * 分配维修任务
+     * @param maintain
+     */
     void insertMaintain(Maintain maintain);
 
-    Maintain queryByUseridAndSymbolId(int userid,String symbolId);
+    /***
+     *根据用户id与机器id查询
+     * @param userid
+     * @param symbolId
+     * @return
+     */
+    Maintain queryByUseridAndSymbolId(int userid, String symbolId);
+
+    /***
+     * 根据运维员工编号获取待维修信息
+     * @param maintainStatus 售货机状态
+     * @param maintainerId 运维人员编号
+     * @param page
+     * @return 待维修列表
+     */
+    Page<Maintain> getMaintainPageAndSortByMaintian(int maintainerId, int maintainStatus, int page);
 }

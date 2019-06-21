@@ -95,14 +95,13 @@ public class VendorGoodsServiceImpl implements VendorGoodsService {
      * 初始化售货机内的货物
      * @param vendorId
      */
-    private int[] listofgoods = {1,2,3};
+
+
     @Override
     public void init(String vendorId) {
-        System.out.println("!!!!!!!!!!");
-        for (int goodsId : listofgoods){
+        for (int goodsId = 1; goodsId <= 16; goodsId ++){
             VendorGoods vg = new VendorGoods();
             vg.setVendorId(vendorId);
-            System.out.println("!!!!!!!!!!" + vendorId);
             vg.setGoodsId(goodsId);
             vg.setGoodsCount(20);
             vendorGoodsRepository.save(vg);

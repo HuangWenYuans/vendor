@@ -12,8 +12,13 @@ package com.hwy.vendor.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -25,7 +30,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "t_user")
-public class User {
+public class User implements UserDetails {
     /***
      * 用户编号
      */
@@ -63,11 +68,7 @@ public class User {
     @Column(name = "gender")
     private int gender;
 
-    /***
-     * 用户类型
-     */
-    @Column(name = "type")
-    private int type;
+
 
     /***
      * 用户对应的购物车
@@ -91,19 +92,15 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
-    public User() {
-    }
+    /***
+     * 与角色表建立多对一关联
+     */
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-    public User(String username, String password, String realname, String birthday, int gender, int type, List<Cart> carts, List<Consignee> consignees, List<Order> orders) {
-        this.username = username;
-        this.password = password;
-        this.realname = realname;
-        this.birthday = birthday;
-        this.gender = gender;
-        this.type = type;
-        this.carts = carts;
-        this.consignees = consignees;
-        this.orders = orders;
+
+    public User() {
     }
 
     public Integer getUserid() {
@@ -114,14 +111,45 @@ public class User {
         this.userid = userid;
     }
 
+    @Override
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        //将用户对应的角色加入认证列表
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
+        return authorities;
+    }
+
+    @Override
     public String getPassword() {
         return password;
     }
@@ -154,13 +182,6 @@ public class User {
         this.gender = gender;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
 
     public List<Cart> getCarts() {
         return carts;
@@ -186,6 +207,14 @@ public class User {
         this.orders = orders;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -195,7 +224,7 @@ public class User {
                 ", realname='" + realname + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", gender=" + gender +
-                ", type=" + type +
+                ", role=" + role +
                 '}';
     }
 }

@@ -16,8 +16,10 @@ import com.hwy.vendor.entity.VendorGoods;
 import com.hwy.vendor.service.MaintainService;
 import com.hwy.vendor.service.PatrolService;
 import com.hwy.vendor.service.VendorGoodsService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,13 +49,15 @@ public class PatrolController {
     /***
      * 获取售货机列表
      */
-    @RequestMapping("/patrolMain")
-    public String patrolMain(HttpSession session) {
+    @RequestMapping("/patrolMain/{page}")
+    public String patrolMain(@PathVariable("page") Integer page,HttpSession session) {
 
         //查询该运维人员的所有订单
-        List<Symbol> patrol = patrolService.getPatrol();
-
-        session.setAttribute("Patrols", patrol);
+        Page<Symbol> patrol = patrolService.getPatrolPageAndSort(page-1);
+        int TotalPages = patrol.getTotalPages();
+        session.setAttribute("page",page);
+        session.setAttribute("TotalPages",TotalPages);
+        session.setAttribute("Patrols", patrol.getContent());
         session.setAttribute("flag", 4);
         return "maintainer/operAndMainSys";
     }
@@ -69,17 +73,21 @@ public class PatrolController {
     public Object doSearch(@RequestParam("symbolId") String symbolId, HttpSession session) {
         AjaxResult result = new AjaxResult();
         //根据售货机编号获取售货机信息
-        List<Symbol> symbols = new ArrayList<>();
 
-        symbols = patrolService.queryBySymbolId(symbolId);
-        if (symbols.size() != 0) {
-            session.setAttribute("Patrols", symbols);
+        Page<Symbol> symbols = patrolService.getPatrolPageAndSortBySymbolId(symbolId,0);
+        try{
+            int TotalPages = symbols.getTotalPages();
+
+            session.setAttribute("TotalPages",TotalPages);
+            session.setAttribute("Patrols", symbols.getContent());
             session.setAttribute("flag", 4);
             result.setSuccess(true);
-        } else {
-            List<Symbol> patrol = patrolService.getPatrol();
+        } catch (Exception e){
+            Page<Symbol> patrol = patrolService.getPatrolPageAndSort(0);
+            int TotalPages = symbols.getTotalPages();
 
-            session.setAttribute("Patrols", patrol);
+            session.setAttribute("TotalPages",TotalPages);
+            session.setAttribute("Patrols", patrol.getContent());
             session.setAttribute("flag", 4);
             result.setSuccess(false);
         }

@@ -40,18 +40,20 @@ public class SymbolServiceImpl implements SymbolService {
      * @return List<Symbol>
      */
     @Override
-    public List<Symbol> findVendorByVendorId(Integer venderId) {
-        return symbolRepository.findByVendor_VendorId(venderId);
+    public List<Symbol> findByVendor_VendorIdAndUserid(Integer venderId,Integer userId){
+        return symbolRepository.findByVendor_VendorIdAndUserid(venderId,userId);
     }
 
+
+
     /***
-     * 根据安装状态查询出售货机
-     * @param i 安装状态
+     * 根据用户Id查询出售货机
+     * @param userid 安装状态
      * @return 售货机列表
      */
     @Override
-    public List<Symbol> findSymbolByInstallStatus(int i) {
-        List<Install> installs = installRepository.findInstallsByInstallStatus(i);
+    public List<Symbol> findSymbolByUserId(Integer userid){
+        List<Install> installs = installRepository.findByUser_Userid(userid);
         List<Symbol> symbols = new ArrayList<>();
         for (Install install : installs) {
             symbols.add(install.getSymbol());

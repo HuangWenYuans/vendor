@@ -11,6 +11,10 @@ package com.hwy.vendor.service.impl;
 
 import com.hwy.vendor.entity.Maintain;
 import com.hwy.vendor.service.MaintainService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import com.hwy.vendor.repository.MaintainRespository;
 
@@ -28,16 +32,6 @@ public class MaintainServiceImpl implements MaintainService {
     @Resource
     private MaintainRespository maintainRespository;
 
-    /***
-     * 根据运维成员编号查询运维人员的
-     * @param maintainerId
-     * @param maintainStatus
-     * @return Maintain对象
-     */
-    @Override
-    public List<Maintain> getMaintainByIdAndStatus(int maintainerId, int maintainStatus) {
-        return maintainRespository.findByMaintainerIdAndMaintainStatus(maintainerId,maintainStatus);
-    }
 
     /***
      * 根据维修订单号修改机器状态
@@ -58,15 +52,47 @@ public class MaintainServiceImpl implements MaintainService {
     }
 
 
-
+    /***
+     * 分配维修任务
+     * @param maintain
+     */
     @Override
     public void insertMaintain(Maintain maintain) {
         maintainRespository.save(maintain);
     }
 
+    /***
+     *根据用户id与机器id查询
+     * @param userid
+     * @param symbolId
+     * @return
+     */
     @Override
     public Maintain queryByUseridAndSymbolId(int userid, String symbolId) {
         return maintainRespository.findByUseridAndSymbolId(userid,symbolId);
+    }
+
+    /***
+     *查询当前页面数据
+     * @param maintainerId
+     * @param maintainStatus
+     * @param page
+     * @return
+     */
+    @Override
+    public Page<Maintain> getMaintainPageAndSortByMaintian(int maintainerId,int maintainStatus, int page) {
+
+        //定义查询条件,查询出属于特定用户的订单
+        Specification<Maintain> specification = (Specification<Maintain>)
+                (root, query, criteriaBuilder) ->
+                        criteriaBuilder.and(criteriaBuilder.equal(root.get("maintainerId"), maintainerId),
+                                criteriaBuilder.equal(root.get("maintainStatus"), maintainStatus));
+        //定义排序规则，根据时间降序排序
+        Sort sort = new Sort(Sort.Direction.DESC, "maintainDate");
+        //设置分页,显示第一页每页5条
+        PageRequest pageRequest = PageRequest.of(page, 8,sort);
+
+        return maintainRespository.findAll(specification, pageRequest);
     }
 }
 

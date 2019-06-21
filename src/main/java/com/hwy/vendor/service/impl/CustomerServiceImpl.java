@@ -71,6 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public Vendor getVendorById(Integer vendorId) {
+
         return vendorRepository.findByVendorId(vendorId);
     }
 
@@ -223,6 +224,7 @@ public class CustomerServiceImpl implements CustomerService {
                 //建立联系
                 vendor.getSymbols().add(symbol);
                 symbol.setVendor(vendor);
+                symbol.setUserid(user.getUserid());
                 symbolRepository.save(symbol);
             }
         }

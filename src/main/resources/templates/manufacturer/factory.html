@@ -23,17 +23,18 @@
 </head>
 <body>
 <ul class="layui-nav">
-    <li class="layui-nav-item"><a href="">欢迎管理员某某某</a></li>
-    <li class="layui-nav-item"><a href="">返回主界面</a></li>
+    <li class="layui-nav-item"><a href="">欢迎管理员</a></li>
+    <li class="layui-nav-item"><a href="/logout">退出订单</a></li>
 </ul>
 
-<form class="layui-form" action="/vendorQuery" method="post" target="_blank" lay-filter="example">
-    <input type="text" name="vendorId" required="" lay-verify="required" placeholder="请输入售货机ID" autocomplete="off" class="layui-input">
+<form class="layui-form" action="/manufacturer/vendorQuery" method="post" target="_blank" lay-filter="example">
+    <input type="text" name="vendorId" required="" lay-verify="required" placeholder="请输入售货机ID" autocomplete="off"
+           class="layui-input">
     <button class="layui-btn" lay-submit="" lay-filter="demo1">查询</button>
 </form>
 
 <div style="text-align: right">
-    <a target="_blank" th:href="@{'/vendorAdd'}">
+    <a target="_blank" th:href="@{'/manufacturer/vendorAdd'}">
         <button class="layui-btn layui-btn-normal">新增售货机</button>
     </a>
 </div>
@@ -61,36 +62,30 @@
         <td>[[${vendor.detail}]]</td>
         <td>[[${vendor.stock}]]</td>
         <td>
-            <a target="_blank" th:href="@{'/vendorInfo/?vendorId=' + ${vendor.vendorId}}">
+            <a target="_blank" th:href="@{'/manufacturer/vendorInfo/?vendorId=' + ${vendor.vendorId}}">
                 <button class="layui-btn layui-btn-normal">详细信息</button>
             </a>
-            <a target="_blank" th:href="@{'/vendorInfoUpdate/?vendorId=' + ${vendor.vendorId}}">
+            <a target="_blank" th:href="@{'/manufacturer/vendorInfoUpdate/?vendorId=' + ${vendor.vendorId}}">
                 <button class="layui-btn">修改</button>
             </a>
-            <a target="_blank" th:href="@{'/vendorDelete/?vendorId=' + ${vendor.vendorId}}">
+            <a target="_blank" th:href="@{'/manufacturer/vendorDelete/?vendorId=' + ${vendor.vendorId}}">
                 <button class="layui-btn layui-btn-danger">删除</button>
             </a>
         </td>
     </tr>
     </tbody>
 </table>
-<div id="demo1" style="text-align: center"><div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-1"><a href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="0">上一页</a><span class="layui-laypage-curr"><em class="layui-laypage-em"></em><em>1</em></span><a href="javascript:;" data-page="2">2</a><a href="javascript:;" data-page="3">3</a><a href="javascript:;" data-page="4">4</a><a href="javascript:;" data-page="5">5</a><span class="layui-laypage-spr">…</span><a href="javascript:;" class="layui-laypage-last" title="尾页" data-page="7">7</a><a href="javascript:;" class="layui-laypage-next" data-page="2">下一页</a></div></div>
-<script src="../res/layui/layui.js"></script>
-<script>
-    layui.use(['laypage', 'layer'], function(){
-        var laypage = layui.laypage
-            ,layer = layui.layer;
-
-        //总页数大于页码总数
-        laypage.render({
-            elem: 'demo1'
-            ,count: 70 //数据总数
-            ,jump: function(obj){
-                console.log(obj)
-            }
-        });
-    });
-</script>
-
+<!--分页组件-->
+<div class="fenye clearfix">
+    <a href="#" th:href="@{'/manufacturer/factory/' + ${page - 1}}"
+       th:style="'display:'+@{(${page == 1 ? 'none':''})}">
+        <img th:src="@{/assets/img/customer/zuo.jpg}"/>
+    </a>
+    <a href="#">[[${page}]]</a>
+    <a href="#" th:href="@{'/manufacturer/factory/' + ${page + 1}}"
+       th:style="'display:'+@{(${totalPage == page ? 'none':''})}">
+        <img th:src="@{/assets/img/customer/you.jpg}">
+    </a>
+</div>
 </body>
 </html>

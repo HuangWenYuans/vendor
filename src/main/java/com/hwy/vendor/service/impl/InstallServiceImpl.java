@@ -45,7 +45,7 @@ public class InstallServiceImpl implements InstallService {
      * @return List<Install>
      */
     @Override
-    public List<Install> queryByInstallerIdAndInstallStatusAndUser_Consignees_IsDefault(Integer installerId,Integer installStatus,Integer  isDefault){
+    public List<Install> getInstallInfo(Integer installerId,Integer installStatus,Integer  isDefault){
         return installRepository.findByInstallerIdAndInstallStatusAndUser_Consignees_IsDefault(installerId,installStatus, isDefault);
     }
 
@@ -67,4 +67,16 @@ public class InstallServiceImpl implements InstallService {
     public void addInstall(Install install){
         installRepository.save(install);
     }
+
+
+    /***
+     * 根据用户Id返回安装列表
+     * @param userid 用户Id
+     * @return 安装列表
+     */
+    @Override
+    public List<Install> queryByUser_Userid(Integer userid){
+        return installRepository.findByUser_Userid(userid);
+    }
+
 }
