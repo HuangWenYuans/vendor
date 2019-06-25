@@ -36,5 +36,5 @@ public interface MaintainRespository extends JpaRepository<Maintain, Integer> , 
      * @param symbolId
      * @return
      */
-    Maintain findByUseridAndSymbolId(Integer userid, String symbolId);
+    List<Maintain> findByUseridAndSymbolId(Integer userid, String symbolId);
 }

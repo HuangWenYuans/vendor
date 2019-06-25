@@ -49,7 +49,7 @@
         var loadingIndex = null;
         $.ajax({
             type: 'POST',
-            url: "/doLogin",
+            url: "/user/login",
             data: {
                 "username": username,
                 "password": password
@@ -57,47 +57,40 @@
             beforeSend: function () {
                 loadingIndex = layer.msg('处理中', {icon: 16});
             },
-            success: function (result) {
-                //成功提交数据则将处理的图标关闭
-                layer.close(loadingIndex);
-                if (result.success) {
-                    console.log(result.msg);
-                    switch (result.msg) {
-                        case "厂商":
-                            window.location.href = "manufacturer/factory";
-                            break;
-                        case "顾客":
-                            window.location.href = "customer/index";
-                            break;
-                        case "运维人员":
-                            window.location.href = "maintainer/notRepair/1";
-                            break;
-                        case "安装人员":
-                            window.location.href = "installer/index";
-                            break;
-                        default:
-                    }
-                } else {
-                    layer.msg("用户账号或密码错误！", {time: 2000, icon: 2, shift: 6}, function () {
-                    });
-                }
-            }
-            // success: function (data) {
-            //     if (data.code == 402) {
-            //         layer.alert("用户名不存在", function () {
-            //             window.location.href = "/"
+            // success: function (result) {
+            //     //成功提交数据则将处理的图标关闭
+            //     layer.close(loadingIndex);
+            //     if (result.success) {
+            //         console.log(result.msg);
+            //         switch (result.msg) {
+            //             case "厂商":
+            //                 window.location.href = "manufacturer/factory";
+            //                 break;
+            //             case "顾客":
+            //                 window.location.href = "customer/index";
+            //                 break;
+            //             case "运维人员":
+            //                 window.location.href = "maintainer/notRepair/1";
+            //                 break;
+            //             case "安装人员":
+            //                 window.location.href = "installer/index";
+            //                 break;
+            //             default:
+            //         }
+            //     } else {
+            //         layer.msg("用户账号或密码错误！", {time: 2000, icon: 2, shift: 6}, function () {
             //         });
-            //     }
-            //     if (data.code == 403) {
-            //         layer.alert(data.msg, function () {
-            //             window.location.href = "/"
-            //         });
-            //
-            //     }
-            //     if (data.code == 200) {
-            //         window.location.href = "customer/index";
             //     }
             // }
+            success: function (result) {
+                //登录成功
+                window.location.href = "user/index";
+            },
+            error: function (result) {
+                //登录失败
+                layer.msg("用户账号或密码错误！", {time: 2000, icon: 2, shift: 6}, function () {
+                });
+            }
         });
     }
 

@@ -11,23 +11,16 @@ package com.hwy.vendor.service.impl;
 
 import com.hwy.vendor.entity.Role;
 import com.hwy.vendor.entity.User;
-import com.hwy.vendor.repository.RoleRepository;
 import com.hwy.vendor.repository.UserRepository;
 import com.hwy.vendor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import sun.security.validator.ValidatorException;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -38,7 +31,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
     @Resource
     private UserRepository userRepository;
 
@@ -58,9 +51,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
      */
     @Override
     public void register(User user) {
+        //使用算法对用户注册的密码进行加密
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
+        user.setPassword(encoder.encode(user.getPassword().trim()));
 
         //设置性别为男
         user.setGender(1);
+        user.setRole(new Role(2, "顾客"));
         userRepository.save(user);
     }
 
@@ -93,28 +90,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findUsersByRole(role);
     }
 
-
-    /***
-     *
-     * @param username
-     * @return
-     * @throws UsernameNotFoundException
-     */
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("我来了");
-        //根据用户名查询用户
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            try {
-                throw new ValidatorException("用户不存在");
-            } catch (ValidatorException e) {
-                e.printStackTrace();
-            }
-            //return new User();
-        }
-        return user;
-    }
 
 }
 

@@ -9,10 +9,7 @@
 
 package com.hwy.vendor.controller;
 
-import com.hwy.vendor.entity.AjaxResult;
-import com.hwy.vendor.entity.Symbol;
-import com.hwy.vendor.entity.User;
-import com.hwy.vendor.entity.VendorGoods;
+import com.hwy.vendor.entity.*;
 import com.hwy.vendor.service.MaintainService;
 import com.hwy.vendor.service.PatrolService;
 import com.hwy.vendor.service.VendorGoodsService;
@@ -26,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,13 +48,13 @@ public class PatrolController {
      * 获取售货机列表
      */
     @RequestMapping("/patrolMain/{page}")
-    public String patrolMain(@PathVariable("page") Integer page,HttpSession session) {
+    public String patrolMain(@PathVariable("page") Integer page, HttpSession session) {
 
         //查询该运维人员的所有订单
-        Page<Symbol> patrol = patrolService.getPatrolPageAndSort(page-1);
+        Page<Symbol> patrol = patrolService.getPatrolPageAndSort(page - 1);
         int TotalPages = patrol.getTotalPages();
-        session.setAttribute("page",page);
-        session.setAttribute("TotalPages",TotalPages);
+        session.setAttribute("page", page);
+        session.setAttribute("TotalPages", TotalPages);
         session.setAttribute("Patrols", patrol.getContent());
         session.setAttribute("flag", 4);
         return "maintainer/operAndMainSys";
@@ -74,19 +72,19 @@ public class PatrolController {
         AjaxResult result = new AjaxResult();
         //根据售货机编号获取售货机信息
 
-        Page<Symbol> symbols = patrolService.getPatrolPageAndSortBySymbolId(symbolId,0);
-        try{
+        Page<Symbol> symbols = patrolService.getPatrolPageAndSortBySymbolId(symbolId, 0);
+        try {
             int TotalPages = symbols.getTotalPages();
 
-            session.setAttribute("TotalPages",TotalPages);
+            session.setAttribute("TotalPages", TotalPages);
             session.setAttribute("Patrols", symbols.getContent());
             session.setAttribute("flag", 4);
             result.setSuccess(true);
-        } catch (Exception e){
+        } catch (Exception e) {
             Page<Symbol> patrol = patrolService.getPatrolPageAndSort(0);
-            int TotalPages = symbols.getTotalPages();
+            int totalPages = symbols.getTotalPages();
 
-            session.setAttribute("TotalPages",TotalPages);
+            session.setAttribute("TotalPages", totalPages);
             session.setAttribute("Patrols", patrol.getContent());
             session.setAttribute("flag", 4);
             result.setSuccess(false);
@@ -102,24 +100,30 @@ public class PatrolController {
      */
     @ResponseBody
     @RequestMapping("/warrantyList")
-    public Object warrantyList(Integer vendorId,HttpSession session) {
+    public Object warrantyList(Integer vendorId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        System.out.println(user);
         AjaxResult result = new AjaxResult();
         try {
             Integer userid = ((User) session.getAttribute("user")).getUserid();
+            System.out.println("======================================" + userid);
             List<Symbol> symbols = patrolService.findByVendor_VendorIdAndUserid(vendorId, userid);
-            for(int i=0;i < symbols.size();i++){
-                if(maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(),symbols.get(i).getSymbolId()) != null
-                        && maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(),symbols.get(i).getSymbolId()).getMaintainStatus()
-                        ==0){
-                    System.out.println(maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(),symbols.get(i).getSymbolId()).toString());
-                    symbols.remove(i);
-                    i--;
+            List<Maintain> maintains;
+            for (int i = 0; i < symbols.size(); i++) {
+                maintains = maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(), symbols.get(i).getSymbolId());
+                int j = 0;
+                while (maintains.size() != 0 && j < maintains.size()) {
+                    if (maintains.get(j).getMaintainStatus() == 0) {
+                        symbols.remove(i);
+                        i--;
+                        break;
+                    }
+                    j++;
                 }
             }
-            System.out.println(symbols.size());
             session.setAttribute("Patrols", symbols);
             result.setSuccess(true);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             result.setSuccess(false);
         }
@@ -132,22 +136,26 @@ public class PatrolController {
      * @return List<Symbol>
      */
     @RequestMapping("/warrantyListAgain")
-    public String warrantyListAgain(@RequestParam String vendorId,HttpSession session) {
-            int vendorId1 = Integer.parseInt(vendorId);
-            Integer userid = ((User) session.getAttribute("user")).getUserid();
-            List<Symbol> symbols = patrolService.findByVendor_VendorIdAndUserid(vendorId1, userid);
-            for(int i=0;i < symbols.size();i++){
-                if(maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(),symbols.get(i).getSymbolId()) != null
-                        && maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(),symbols.get(i).getSymbolId()).getMaintainStatus()
-                        ==0){
-                    System.out.println(maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(),symbols.get(i).getSymbolId()).toString());
+    public String warrantyListAgain(@RequestParam String vendorId, HttpSession session) {
+        int vendorId1 = Integer.parseInt(vendorId);
+        Integer userid = ((User) session.getAttribute("user")).getUserid();
+        List<Symbol> symbols = patrolService.findByVendor_VendorIdAndUserid(vendorId1, userid);
+        List<Maintain> maintains = new ArrayList<>();
+        for (int i = 0; i < symbols.size(); i++) {
+            maintains = maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(), symbols.get(i).getSymbolId());
+            int j = 0;
+            while (maintains.size() != 0 && j < maintains.size()) {
+                if (maintains.get(j).getMaintainStatus() == 0) {
                     symbols.remove(i);
                     i--;
+                    break;
                 }
+                j++;
             }
-            System.out.println(symbols.size());
-            session.setAttribute("Patrols", symbols);
-            return "maintainer/warranty";
+        }
+        System.out.println(symbols.size());
+        session.setAttribute("Patrols", symbols);
+        return "maintainer/warranty";
     }
 
     /***
@@ -156,8 +164,8 @@ public class PatrolController {
      * @return
      */
     @RequestMapping("/goodList")
-    public String goodList(@RequestParam String symbolId,Model model){
-        return "redirect:/replenishment/"+symbolId;
+    public String goodList(@RequestParam String symbolId, Model model) {
+        return "redirect:/replenishment/" + symbolId;
     }
 }
 

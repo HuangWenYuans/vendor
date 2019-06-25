@@ -13,10 +13,9 @@
 <body>
 <ul class="layui-nav">
     <li class="layui-nav-item">
-        欢迎安装人员:[[${session.user.username}]]
     </li>
-    <li class="layui-nav-item"><a href="/installer/index">安装任务</a></li>
-    <li class="layui-nav-item"><a href="/installer/log">安装历史</a></li>
+    <li class="layui-nav-item"><a href="/installer/index/1">安装任务</a></li>
+    <li class="layui-nav-item"><a href="/installer/log/1">安装历史</a></li>
     <li class="layui-nav-item" style="float: right"><a href="/logout">点击退出</a></li>
 </ul>
 <!----------------------------安装任务---------------------------->
@@ -41,21 +40,33 @@
         </thead>
         <tbody>
         <tr th:each="install:${installs}" th:if="${installs}!= null">
-            <td th:text="${install.getSymbol().getSymbolId()}"></td>
-            <td th:text="${install.getUser().getConsignees().get(0).getConsigneeName()}">
-            </td>
-            <td th:text="${install.getUser().getConsignees().get(0).getConsigneePhone()}">
-            </td>
-            <td th:text="${install.getUser().getConsignees().get(0).getConsigneeAddress()}"></td>
+            <td th:text="${install.symbolId}"></td>
+            <td th:each="consignee:${install.getUser().getConsignees()}" th:if="${consignee.getIsDefault()==1}"
+                th:text="${consignee.getConsigneeName()}"></td>
+            <td th:each="consignee:${install.getUser().getConsignees()}" th:if="${consignee.getIsDefault()==1}"
+                th:text="${consignee.getConsigneePhone()}"></td>
+            <td th:each="consignee:${install.getUser().getConsignees()}" th:if="${consignee.getIsDefault()==1}"
+                th:text="${consignee.getConsigneeAddress()}"></td>
             <td th:text="${install.installTime}"></td>
             <td>
-                <a th:href="@{'/installer/install?installid='+${install.installId} + '&symbolid='+${install.getSymbol().getSymbolId()}}">
+                <a th:href="@{'/installer/install?installid='+${install.installId} + '&symbolid='+${install.symbolId}}">
                     <button class="layui-btn">安装</button>
                 </a>
             </td>
         </tr>
         </tbody>
     </table>
+    <div class="layui-box layui-laypage layui-laypage-default"th:if="${TotalPages}!=0" >
+        <a th:class="${page==1}?'layui-disabled' : 'layui-laypage-prev '"th:href="${page!=1}?'@{/installer/index/} + ${page-1}':'#'">上一页</a></li>
+        <a th:if="${page-3 >=1}" th:class="page-link"th:href="@{/installer/index/} + ${page-3}" th:text="${page -3}" >1</a></li>
+        <a th:if="${page-2 >=1}"th:class="page-link"th:href="@{/installer/index//} + ${page-2}" th:text="${page -2}" >1</a></li>
+        <a th:if="${page-1 >=1}"th:class="page-link"th:href="@{/installer/index/} + ${page-1}" th:text="${page -1}" >1</a></li>
+        <span class="layui-laypage-curr"><em class="layui-laypage-em"style="background-color:#1E9FFF;"></em><em>[[${page}]]</em></span>
+        <a th:if="${page+1 <=TotalPages}"th:class="page-link"th:href="@{/installer/index/} + ${page+1}" th:text="${page +1}" >1</a></li>
+        <a th:if="${page+2 <=TotalPages}" th:class="page-link"th:href="@{/installer/index/} + ${page+2}" th:text="${page +2}" >1</a></li>
+        <a th:if="${page+3 <=TotalPages}" th:class="page-link"th:href="@{/installer/index/} + ${page+3}" th:text="${page +3}" >1</a></li>
+        <a th:class="${page >=TotalPages}?'layui-disabled' : 'layui-laypage-next'"th:href="${page != TotalPages}?'@{/installer/index/} + ${page+1}':'#'">下一页</a></li>
+    </div>
 </div>
 <!----------------------------安装历史---------------------------->
 <div th:if="${flag} eq 1">
@@ -77,30 +88,36 @@
         </thead>
         <tbody>
         <tr th:each="install:${installs}" th:if="${installs}!= null">
-            <td th:text="${install.getSymbol().getSymbolId()}"></td>
-            <td th:text="${install.getUser().getConsignees().get(0).getConsigneeName()}"></td>
-            <td th:text="${install.getUser().getConsignees().get(0).getConsigneePhone()}"></td>
-            <td th:text="${install.getUser().getConsignees().get(0).getConsigneeAddress()}"></td>
+            <td th:text="${install.symbolId}"></td>
+            <td th:each="consignee:${install.getUser().getConsignees()}" th:if="${consignee.getIsDefault()==1}"
+                th:text="${consignee.getConsigneeName()}"></td>
+            <td th:each="consignee:${install.getUser().getConsignees()}" th:if="${consignee.getIsDefault()==1}"
+                th:text="${consignee.getConsigneePhone()}"></td>
+            <td th:each="consignee:${install.getUser().getConsignees()}" th:if="${consignee.getIsDefault()==1}"
+                th:text="${consignee.getConsigneeAddress()}"></td>
             <td th:text="${install.installTime}"></td>
         </tr>
         </tbody>
     </table>
+    <div class="layui-box layui-laypage layui-laypage-default"th:if="${TotalPages}!=0" >
+        <a th:class="${page==1}?'layui-disabled' : 'layui-laypage-prev '"th:href="${page!=1}?'@{/installer/log/} + ${page-1}':'#'">上一页</a></li>
+        <a th:if="${page-3 >=1}" th:class="page-link"th:href="@{/installer/log/} + ${page-3}" th:text="${page -3}" >1</a></li>
+        <a th:if="${page-2 >=1}"th:class="page-link"th:href="@{/installer/log//} + ${page-2}" th:text="${page -2}" >1</a></li>
+        <a th:if="${page-1 >=1}"th:class="page-link"th:href="@{/installer/log/} + ${page-1}" th:text="${page -1}" >1</a></li>
+        <span class="layui-laypage-curr"><em class="layui-laypage-em"style="background-color:#1E9FFF;"></em><em>[[${page}]]</em></span>
+        <a th:if="${page+1 <=TotalPages}"th:class="page-link"th:href="@{/installer/log/} + ${page+1}" th:text="${page +1}" >1</a></li>
+        <a th:if="${page+2 <=TotalPages}" th:class="page-link"th:href="@{/installer/log/} + ${page+2}" th:text="${page +2}" >1</a></li>
+        <a th:if="${page+3 <=TotalPages}" th:class="page-link"th:href="@{/installer/log/} + ${page+3}" th:text="${page +3}" >1</a></li>
+        <a th:class="${page >=TotalPages}?'layui-disabled' : 'layui-laypage-next'"th:href="${page != TotalPages}?'@{/installer/log/} + ${page+1}':'#'">下一页</a></li>
+    </div>
 </div>
-<div id="demo1" style="text-align: center"></div>
+
 <script src="/vendor/vendor_main/static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
 <script>
-    layui.use(['laypage', 'layer'], function () {
-        var laypage = layui.laypage
-            , layer = layui.layer;
-
-        //总页数大于页码总数
-        laypage.render({
-            elem: 'demo1'
-            , count: 70 //数据总数
-            , jump: function (obj) {
-                console.log(obj)
-            }
-        });
+    layui.use('element', function () {
+        var element = layui.element;
+        element.init();
+        //…
     });
 
 </script>

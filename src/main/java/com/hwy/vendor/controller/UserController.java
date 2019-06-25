@@ -14,7 +14,6 @@ import com.hwy.vendor.entity.User;
 import com.hwy.vendor.entity.Vendor;
 import com.hwy.vendor.service.CustomerService;
 import com.hwy.vendor.service.UserService;
-import com.hwy.vendor.service.impl.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -38,75 +37,9 @@ public class UserController {
     @Resource
     private UserService userService;
     @Resource
-    private UserServiceImpl userServiceImpl;
-    @Resource
     private CustomerService customerService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    /***
-     * 实现用户登录
-     * @param user
-     * @param session
-     * @return ajax对象
-     */
-    @ResponseBody
-    @RequestMapping("/doLogin")
-    public Object doLogin(User user, HttpSession session) {
-        AjaxResult result = new AjaxResult();
-        //根据用户名密码查询用户
-        //User user1 = (User) userServiceImpl.loadUserByUsername(user.getUsername());
-        //user1.setPassword(user.getPassword());
-        //System.out.println("=============================="+user1);
-
-        User u = userService.queryForLogin(user);
-        if (u != null) {
-            System.out.println("=====================" + u.getRole());
-            logger.info("用户:" + u.getUsername() + "登录了");
-            logger.info("登录用户信息：" + u.toString());
-            //判断用户类型
-            switch (u.getRole().getRoleId()) {
-                //厂商
-                case 1:
-                    result.setMsg("厂商");
-                    break;
-                case 2:
-                    result.setMsg("顾客");
-                    //查询出所有饮料机的信息
-                    List<Vendor> drinkVendors = customerService.getVendorsByType(1);
-                    logger.info("饮料机的信息" + drinkVendors);
-                    session.setAttribute("drinkVendors", drinkVendors);
-                    //查询出所有酸奶机的信息
-                    List<Vendor> yogurtVendors = customerService.getVendorsByType(2);
-                    logger.info("酸奶机的信息" + drinkVendors);
-                    session.setAttribute("yogurtVendors", yogurtVendors);
-                    //查询出所有盒饭机的信息
-                    List<Vendor> lunchVendors = customerService.getVendorsByType(3);
-                    session.setAttribute("lunchVendors", lunchVendors);
-                    //查询出所有冰淇淋机的信息
-                    List<Vendor> iceCreamVendors = customerService.getVendorsByType(4);
-                    session.setAttribute("iceCreamVendors", iceCreamVendors);
-                    //查询出所有综合机的信息
-                    List<Vendor> multipleVendors = customerService.getVendorsByType(5);
-                    session.setAttribute("multipleVendors", multipleVendors);
-                    break;
-                case 3:
-                    result.setMsg("安装人员");
-                    break;
-                case 4:
-                    result.setMsg("运维人员");
-                    break;
-                default:
-            }
-
-            //将登录的用户的信息存入session
-            session.setAttribute("user", u);
-            result.setSuccess(true);
-        } else {
-            //    登录失败
-            result.setSuccess(false);
-        }
-        return result;
-    }
 
     /***
      *  查询用户名是否已经被注册
@@ -131,19 +64,6 @@ public class UserController {
         return result;
     }
 
-
-    /***
-     * 退出账号
-     * @return 登录页面
-     */
-    @RequestMapping("/logout")
-    public String logout(HttpSession session) {
-        //将session失效
-        session.invalidate();
-
-        return "redirect:/login";
-    }
-
     /***
      * 实现用户注册
      * @param user
@@ -164,6 +84,54 @@ public class UserController {
         }
         return result;
     }
+
+    @RequestMapping("/user/index")
+    public String index(HttpSession session) {
+        User u = (User) session.getAttribute("user");
+        logger.info("用户:" + u.getUsername() + "登录了");
+        logger.info("登录用户信息：" + u.toString());
+        //查询出所有饮料机的信息
+        List<Vendor> drinkVendors = customerService.getVendorsByType(1);
+        logger.info("饮料机的信息" + drinkVendors);
+        session.setAttribute("drinkVendors", drinkVendors);
+        //查询出所有酸奶机的信息
+        List<Vendor> yogurtVendors = customerService.getVendorsByType(2);
+        logger.info("酸奶机的信息" + drinkVendors);
+        session.setAttribute("yogurtVendors", yogurtVendors);
+        //查询出所有盒饭机的信息
+        List<Vendor> lunchVendors = customerService.getVendorsByType(3);
+        session.setAttribute("lunchVendors", lunchVendors);
+        //查询出所有冰淇淋机的信息
+        List<Vendor> iceCreamVendors = customerService.getVendorsByType(4);
+        session.setAttribute("iceCreamVendors", iceCreamVendors);
+        //查询出所有综合机的信息
+        List<Vendor> multipleVendors = customerService.getVendorsByType(5);
+        session.setAttribute("multipleVendors", multipleVendors);
+
+        String path = null;
+        switch (u.getRole().getRoleName()) {
+            case "厂商":
+                //跳转到厂商主页controller中
+                path = "redirect:/manufacturer/factory";
+                break;
+            case "顾客":
+                //跳转到顾客主页html中
+                path = "customer/index";
+                break;
+            case "安装人员":
+                //跳转到安装人员主页controller中
+                path = "redirect:/installer/index/1";
+                break;
+            case "运维人员":
+                //跳转到运维人员主页controller中
+                path = "redirect:/maintainer/notRepair/1";
+                break;
+            default:
+        }
+
+        return path;
+    }
+
 
 }
 

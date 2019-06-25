@@ -48,7 +48,7 @@ public interface MaintainService {
      * @param symbolId
      * @return
      */
-    Maintain queryByUseridAndSymbolId(int userid, String symbolId);
+    List<Maintain> queryByUseridAndSymbolId(int userid, String symbolId);
 
     /***
      * 根据运维员工编号获取待维修信息

@@ -34,4 +34,11 @@ public interface ReplenishmentService {
      * void
      */
      void addReplenishment(Replenishment replenishment);
+
+
+    /**
+     * 通過id刪除補貨信息
+     * @param id
+     */
+    void deleteReplenishment(Integer id);
 }

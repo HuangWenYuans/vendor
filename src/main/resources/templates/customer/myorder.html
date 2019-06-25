@@ -12,7 +12,7 @@
 <!------------------------------idea------------------------------>
 <div class="address mt">
     <div class="wrapper clearfix">
-        <a href="#" th:href="@{/index}" class="fl">首页</a>
+        <a href="#" th:href="@{/user/index}" class="fl">首页</a>
         <span>/</span>
         <a href="personalcenter.html" th:href="@{/personalcenter}">个人中心</a>
         <span>/</span>
@@ -247,7 +247,7 @@
                 if (result.success) {
                     window.location.href = "/warranty";
                 } else {
-                    layer.msg("预约失败！", {time: 2000, icon: 2, shift: 6}, function () {
+                    layer.msg("预约报修失败！", {time: 2000, icon: 2, shift: 6}, function () {
                     });
                 }
             }

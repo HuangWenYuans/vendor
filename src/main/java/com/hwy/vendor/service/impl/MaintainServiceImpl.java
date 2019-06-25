@@ -68,7 +68,7 @@ public class MaintainServiceImpl implements MaintainService {
      * @return
      */
     @Override
-    public Maintain queryByUseridAndSymbolId(int userid, String symbolId) {
+    public List<Maintain> queryByUseridAndSymbolId(int userid, String symbolId) {
         return maintainRespository.findByUseridAndSymbolId(userid,symbolId);
     }
 

@@ -10,6 +10,7 @@
 package com.hwy.vendor.service;
 
 import com.hwy.vendor.entity.Install;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -28,12 +29,6 @@ public interface InstallService {
      */
      Install queryByInstallId(Integer installId);
 
-    /***
-     * 根据安装人员Id，安装状态，收获人默认地址标志位查询按安装信息列表
-     * @params installerId,installStatus, isDefault
-     * @return List<Install>
-     */
-     List<Install> getInstallInfo(Integer installerId, Integer installStatus, Integer isDefault);
 
     /***
      * 根据安装单号修改机器状态
@@ -56,5 +51,15 @@ public interface InstallService {
      */
 
     List<Install> queryByUser_Userid(Integer userid);
+
+
+    /**
+     * 分页查询安装任务
+     * @param installerId
+     * @param installStatus
+     * @param page
+     * @return  Page<Install>
+     */
+    Page<Install> getInstallPageAndSortByInstall(int installerId, int installStatus, int page);
 
 }

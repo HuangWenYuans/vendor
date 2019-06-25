@@ -12,6 +12,10 @@ package com.hwy.vendor.service.impl;
 import com.hwy.vendor.entity.Install;
 import com.hwy.vendor.repository.InstallRepository;
 import com.hwy.vendor.service.InstallService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -39,15 +43,7 @@ public class InstallServiceImpl implements InstallService {
         return installRepository.findByInstallId(installId);
     }
 
-    /***
-     * 根据安装人员Id，安装状态，收获人默认地址标志位查询按安装信息列表
-     * @params installerId,installStatus, isDefault
-     * @return List<Install>
-     */
-    @Override
-    public List<Install> getInstallInfo(Integer installerId,Integer installStatus,Integer  isDefault){
-        return installRepository.findByInstallerIdAndInstallStatusAndUser_Consignees_IsDefault(installerId,installStatus, isDefault);
-    }
+
 
     /***
      * 根据安装单号修改机器状态
@@ -77,6 +73,29 @@ public class InstallServiceImpl implements InstallService {
     @Override
     public List<Install> queryByUser_Userid(Integer userid){
         return installRepository.findByUser_Userid(userid);
+    }
+
+
+    /**
+     * 分页查询安装任务
+     * @param installerId
+     * @param installStatus
+     * @param page
+     * @return  Page<Install>
+     */
+    @Override
+    public Page<Install> getInstallPageAndSortByInstall(int installerId, int installStatus, int page){
+        //定义查询条件,查询出属于特定用户的订单
+        Specification<Install> specification = (Specification<Install>)
+                (root, query, criteriaBuilder) ->
+                        criteriaBuilder.and(criteriaBuilder.equal(root.get("installerId"), installerId),
+                                criteriaBuilder.equal(root.get("installStatus"), installStatus));
+        //定义排序规则，根据时间降序排序
+        Sort sort = new Sort(Sort.Direction.DESC, "installTime");
+        //设置分页,显示第一页每页5条
+        PageRequest pageRequest = PageRequest.of(page, 2,sort);
+
+        return installRepository.findAll(specification, pageRequest);
     }
 
 }

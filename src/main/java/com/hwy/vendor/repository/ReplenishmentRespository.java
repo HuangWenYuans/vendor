@@ -20,10 +20,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @since 1.0.0
  */
 public interface ReplenishmentRespository extends JpaRepository<Replenishment, Integer> {
-    /***
-     * 根据安装信息Id查询按安装信息
-     * @param installId
-     * @return Install
-     */
+
 
 }

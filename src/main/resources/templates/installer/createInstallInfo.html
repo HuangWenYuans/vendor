@@ -14,6 +14,10 @@
     <li class="layui-nav-item">欢迎用户:[[${session.user.username}]]</li>
     <li class="layui-nav-item" style="float: right"><a th:href="@{/customer/myorder/1}">返回</a></li>
 </ul>
+
+<div th:if="${session.isOrder} eq 1" >
+    <span style="font-size: 25px;color: red;margin-left: 120px">已全部完成安装</span>
+</div>
 <form type="post">
     <div class="layui-form-item" hidden>
         <label class="layui-form-label">vendorId:</label>
@@ -51,7 +55,8 @@
 
     <div class="layui-form-item" style="margin-left: 220px">
         <div class="layui-inline">
-            <input type="button" class="layui-btn" onclick="doinfo()" value="预约安装">
+            <span th:if="${session.isOrder} eq 1"><input type="button" class="layui-btn layui-btn-danger"  value="完成安装"></span>
+            <span th:if="${session.isOrder} eq 0"><input type="button" class="layui-btn" onclick="doinfo()" value="预约安装"></span>
         </div>
     </div>
 </form>
@@ -87,11 +92,11 @@
             },
             beforeSend: function () {
                 loadingIndex = layer.msg('处理中', {icon: 16});
-                 alert("预约成功");
             },
             success: function (result) {
                 //成功提交数据则将处理的图标关闭
                 layer.close(loadingIndex);
+                alert("预约成功");
                 if (result.success) {
                     window.location.href = "/installer/createinfoAgain?vendorId="+vendorId+"&userid="+userId;
                 } else {

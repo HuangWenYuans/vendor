@@ -11,12 +11,14 @@ package com.hwy.vendor.controller;
 
 import com.hwy.vendor.entity.*;
 import com.hwy.vendor.service.*;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Random;
@@ -46,29 +48,56 @@ public class InstallController {
     private UserService userService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @GetMapping("/index")
-    public String test(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        List<Install> installs = installService.getInstallInfo(user.getUserid(), 0, 1);
-        //安装信息列表
-        model.addAttribute("installs", installs);
-        //标志位
+
+    /**
+     * 展示安装任务
+     * @param page
+     * @param session
+     * @param model
+     * @return
+     */
+    @RequestMapping("/index/{page}")
+    public String index(@PathVariable("page") Integer page,HttpSession session,Model model) {
+       int userid = ((User) session.getAttribute("user")).getUserid();
+
+        Page<Install> installs = installService.getInstallPageAndSortByInstall(userid,0,page-1);
+        int TotalPages = installs.getTotalPages();
+        logger.info(installs.getContent().toString());
+        model.addAttribute("page",page);
+        model.addAttribute("TotalPages",TotalPages);
+        model.addAttribute("installs", installs.getContent());
         model.addAttribute("flag", 0);
         return "installer/installInfo";
     }
 
-    @GetMapping("/log")
-    public String log(Model model) {
 
-        List<Install> installs = installService.getInstallInfo(2, 1, 1);
-        //安装信息列表
-        model.addAttribute("installs", installs);
-        //标志位
+    /**
+     * 展示安装日志
+     * @param page
+     * @param session
+     * @param model
+     * @return
+     */
+    @RequestMapping("/log/{page}")
+    public String log(@PathVariable("page") Integer page,HttpSession session,Model model) {
+        int userid = ((User) session.getAttribute("user")).getUserid();
+
+        Page<Install> installs = installService.getInstallPageAndSortByInstall(userid,1,page-1);
+        int TotalPages = installs.getTotalPages();
+        logger.info(installs.getContent().toString());
+        model.addAttribute("page",page);
+        model.addAttribute("TotalPages",TotalPages);
+        model.addAttribute("installs", installs.getContent());
         model.addAttribute("flag", 1);
         return "installer/installInfo";
     }
 
-
+    /**
+     * 模拟安装
+     * @param installid
+     * @param symbolid
+     * @return
+     */
     @GetMapping("/install")
     public String install(Integer installid, String symbolid) {
 
@@ -82,17 +111,35 @@ public class InstallController {
         install.setInstallTime(installDate);
         installService.updateStatusById(install);
         vendorGoodsService.init(symbolid);
-        return "redirect:/installer/log";
+        return "redirect:/installer/log/1";
     }
 
 
+    /**
+     * 进入预约安装
+     * @param vendorId
+     * @param userid
+     * @param session
+     * @return
+     */
     @ResponseBody
     @PostMapping("/createinfo")
     public Object createinfo(Integer vendorId, Integer userid, HttpSession session) {
         AjaxResult result = new AjaxResult();
         try {
             //根据vendorId查询Symbol列表
-            List<Symbol> symbols = symbolService.findByVendor_VendorIdAndUserid(vendorId, userid);
+            List<Symbol> symbols = symbolService.findByVendor_VendorIdAndUserid(Integer.valueOf(vendorId), Integer.valueOf(userid));
+            List<Symbol> symbolList = symbolService.findSymbolByUserId(Integer.valueOf(userid));
+            for (Symbol sb : symbolList) {
+                if (symbols.contains(sb)) {
+                    symbols.remove(sb);
+                }
+            }
+            Integer isOrder = 0;
+            if(symbols.size() == 0){
+                isOrder = 1;
+            }
+            session.setAttribute("isOrder",isOrder);
             session.setAttribute("symbols", symbols);
             session.setAttribute("vendorId", vendorId);
             result.setSuccess(true);
@@ -104,11 +151,12 @@ public class InstallController {
         return result;
     }
 
-
-    /***
-     * 顾客可报修机器列表
+    /**
+     * 再次进入预约安装
+     * @param vendorId
+     * @param userid
      * @param session
-     * @return List<Symbol>
+     * @return
      */
     @RequestMapping("/createinfoAgain")
     public String warrantyListAgain(@RequestParam String vendorId, @RequestParam String userid, HttpSession session) {
@@ -120,11 +168,21 @@ public class InstallController {
                 symbols.remove(sb);
             }
         }
+        Integer isOrder = 0;
+        if(symbols.size() == 0){
+            isOrder = 1;
+        }
+        session.setAttribute("isOrder",isOrder);
         session.setAttribute("symbols", symbols);
         session.setAttribute("vendorId", vendorId);
         return "installer/createInstallInfo";
     }
 
+    /**
+     * 处理预约安装
+     * @param install
+     * @return
+     */
     @ResponseBody
     @PostMapping("/doinfo")
     public Object doinfo(Install install) {
@@ -134,19 +192,21 @@ public class InstallController {
             User user = new User();
             user.setUserid(install.getUserId());
             install.setUser(user);
-
             Symbol symbol = new Symbol();
             symbol.setSymbolId(install.getSymbolId());
-            install.setSymbol(symbol);
-            Role role = new Role("安装人员");
+            Role role = new Role(3,"安装人员");
+            logger.info("before:",1);
             List<User> users = userService.findUsersByRole(role);
+            logger.info(users.toString());
+            //随机分配安装人员
             Random random = new Random();
             int num = random.nextInt(users.size());
             install.setInstallerId(users.get(num).getUserid());
             install.setInstallStatus(0);
             installService.addInstall(install);
-
-            logger.info("已添加");
+            logger.info("已添加预约安装信息");
+            //symbolService.daleteSymbolById(install.getSymbolId());
+            //logger.info("已删除symbol");
             result.setSuccess(true);
         } catch (Exception e) {
             //    登录失败
@@ -157,13 +217,13 @@ public class InstallController {
         return result;
     }
 
+
     @ResponseBody
     @GetMapping("/test")
     public String test() {
-        Vendor vendor = vendorService.getVendorById(3);
-        logger.info("vendor", vendor);
-        return vendor + "";
-    }
 
+        Page<Install> NotRepairs = installService.getInstallPageAndSortByInstall(3,0,1);
+        return NotRepairs.toString();
+    }
 
 }

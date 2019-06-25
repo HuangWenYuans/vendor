@@ -20,7 +20,7 @@
 <body>
 <ul class="layui-nav">
     <li class="layui-nav-item"><a href="">欢迎维修人员×××</a></li>
-    <li class="layui-nav-item"><a href="supplyGoods.html">售货机补货</a></li>
+    <li class="layui-nav-item"><a th:href="@{/maintainer/reple}">售货机补货</a></li>
     <li class="layui-nav-item">
         <a th:href="@{/maintainer/notRepair/1}">维修订单<span class="layui-nav-more"></span></a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
@@ -31,6 +31,41 @@
     <li class="layui-nav-item"><a th:href="@{/maintainer/patrolMain/1}">巡查详情</a></li>
     <li class="layui-nav-item" style="float: right"><a href="/logout">返回主界面</a></li>
 </ul>
+
+
+<!------------------------------------------补货----------------------------------------->
+<div th:if="${session.flag} eq 1">
+    <table class="layui-table">
+        <colgroup>
+            <col width="200">
+            <col width="200">
+            <col width="200">
+            <col width="200">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>售货机ID</th>
+            <th>商品ID</th>
+            <th>补货时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="replenishment:${session.replenishments}" th:if="${session.replenishments}!= null">
+            <td th:text="${replenishment.symbolId}"></td>
+            <td th:text="${replenishment.goodsId}"></td>
+            <td th:text="${replenishment.replenishmentTime}"></td>
+            <td>
+                <!--<a th:href="@{'/installer/install?installid='+${install.installId} + '&symbolid='+${install.symbolId}}">-->
+                <!--<button class="layui-btn layui-btn-warm layui-btn-radius">安装</button>-->
+                <!--</a>-->
+                <button class="layui-btn layui-btn-warm layui-btn-radius">去补货</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 <div th:if="${session.flag} eq 2">
     <table class="layui-table">
         <colgroup>
@@ -65,8 +100,8 @@
         </tr>
         </tbody>
     </table>
-    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-1">
-        <a th:class="${session.page==1}?'layui-disabled' : 'layui-laypage-prev '"th:href="@{/maintainer/notRepair/} + ${session.page-1}">上一页</a></li>
+    <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-1" th:if="${session.TotalPages}!=0">
+        <a th:class="${session.page==1}?'layui-disabled' : 'layui-laypage-prev '"th:href="${session.page!=1}?'@{/maintainer/notRepair/} + ${session.page-1}':'#'">上一页</a></li>
         <a th:if="${session.page-3 >=1}" th:class="page-link"th:href="@{/maintainer/notRepair/} + ${session.page-3}" th:text="${session.page -3}" >1</a></li>
         <a th:if="${session.page-2 >=1}"th:class="page-link"th:href="@{/maintainer/notRepair/} + ${session.page-2}" th:text="${session.page -2}" >1</a></li>
         <a th:if="${session.page-1 >=1}"th:class="page-link"th:href="@{/maintainer/notRepair/} + ${session.page-1}" th:text="${session.page -1}" >1</a></li>
@@ -74,7 +109,7 @@
         <a th:if="${session.page+1 <=session.TotalPages}"th:class="page-link"th:href="@{/maintainer/notRepair/} + ${session.page+1}" th:text="${session.page +1}" >1</a></li>
         <a th:if="${session.page+2 <=session.TotalPages}" th:class="page-link"th:href="@{/maintainer/notRepair/} + ${session.page+2}" th:text="${session.page +2}" >1</a></li>
         <a th:if="${session.page+3 <=session.TotalPages}" th:class="page-link"th:href="@{/maintainer/notRepair/} + ${session.page+3}" th:text="${session.page +3}" >1</a></li>
-        <a th:class="${session.page >=session.TotalPages}?'layui-disabled' : 'layui-laypage-next'"th:href="@{/maintainer/notRepair/} + ${session.page+1}">下一页</a></li>
+        <a th:class="${session.page >=session.TotalPages}?'layui-disabled' : 'layui-laypage-next'"th:href="${session.page != session.TotalPages}?'@{/maintainer/notRepair/} + ${session.page+1}':'#'">下一页</a></li>
     </div>
 </div>
 
@@ -111,8 +146,8 @@
         </tr>
         </tbody>
     </table>
-    <div class="layui-box layui-laypage layui-laypage-default">
-        <a th:class="${session.page==1}?'layui-disabled' : 'layui-laypage-prev '"th:href="@{/maintainer/repaired/} + ${session.page-1}">上一页</a></li>
+    <div class="layui-box layui-laypage layui-laypage-default"th:if="${session.TotalPages}!=0">
+        <a th:class="${session.page==1}?'layui-disabled' : 'layui-laypage-prev '"th:href="${session.page!=1}?'@{/maintainer/repaired/} + ${session.page-1}':'#'">上一页</a></li>
         <a th:if="${session.page-3 >=1}" th:class="page-link"th:href="@{/maintainer/repaired/} + ${session.page-3}" th:text="${session.page -3}" >1</a></li>
         <a th:if="${session.page-2 >=1}"th:class="page-link"th:href="@{/maintainer/repaired/} + ${session.page-2}" th:text="${session.page -2}" >1</a></li>
         <a th:if="${session.page-1 >=1}"th:class="page-link"th:href="@{/maintainer/repaired/} + ${session.page-1}" th:text="${session.page -1}" >1</a></li>
@@ -120,7 +155,7 @@
         <a th:if="${session.page+1 <=session.TotalPages}"th:class="page-link"th:href="@{/maintainer/repaired/} + ${session.page+1}" th:text="${session.page +1}" >1</a></li>
         <a th:if="${session.page+2 <=session.TotalPages}" th:class="page-link"th:href="@{/maintainer/repaired/} + ${session.page+2}" th:text="${session.page +2}" >1</a></li>
         <a th:if="${session.page+3 <=session.TotalPages}" th:class="page-link"th:href="@{/maintainer/repaired/} + ${session.page+3}" th:text="${session.page +3}" >1</a></li>
-        <a th:class="${session.page >=session.TotalPages}?'layui-disabled' : 'layui-laypage-next'"th:href="@{/maintainer/repaired/} + ${session.page+1}">下一页</a></li>
+        <a th:class="${session.page >=session.TotalPages}?'layui-disabled' : 'layui-laypage-next'"th:href="${session.page != session.TotalPages}?'@{/maintainer/repaired/} + ${session.page+1}':'#'">下一页</a></li>
     </div>
 </div>
 <div th:if="${session.flag} eq 4">
@@ -158,8 +193,8 @@
         </tr>
         </tbody>
     </table>
-    <div class="layui-box layui-laypage layui-laypage-default">
-        <a th:class="${session.page==1}?'layui-disabled' : 'layui-laypage-prev '"th:href="@{/maintainer/patrolMain/} + ${session.page-1}">上一页</a></li>
+    <div class="layui-box layui-laypage layui-laypage-default"th:if="${session.TotalPages}!=0">
+        <a th:class="${session.page==1}?'layui-disabled' : 'layui-laypage-prev '"th:href="${session.page!=1}?'@{/maintainer/patrolMain/} + ${session.page-1}':'#'">上一页</a></li>
         <a th:if="${session.page-3 >=1}" th:class="page-link"th:href="@{/maintainer/patrolMain/} + ${session.page-3}" th:text="${session.page -3}" >1</a></li>
         <a th:if="${session.page-2 >=1}"th:class="page-link"th:href="@{/maintainer/patrolMain/} + ${session.page-2}" th:text="${session.page -2}" >1</a></li>
         <a th:if="${session.page-1 >=1}"th:class="page-link"th:href="@{/maintainer/patrolMain/} + ${session.page-1}" th:text="${session.page -1}" >1</a></li>
@@ -167,7 +202,7 @@
         <a th:if="${session.page+1 <=session.TotalPages}"th:class="page-link"th:href="@{/maintainer/patrolMain/} + ${session.page+1}" th:text="${session.page +1}" >1</a></li>
         <a th:if="${session.page+2 <=session.TotalPages}" th:class="page-link"th:href="@{/maintainer/patrolMain/} + ${session.page+2}" th:text="${session.page +2}" >1</a></li>
         <a th:if="${session.page+3 <=session.TotalPages}" th:class="page-link"th:href="@{/maintainer/patrolMain/} + ${session.page+3}" th:text="${session.page +3}" >1</a></li>
-        <a th:class="${session.page >=session.TotalPages}?'layui-disabled' : 'layui-laypage-next'"th:href="@{/maintainer/patrolMain/} + ${session.page+1}">下一页</a></li>
+        <a th:class="${session.page >=session.TotalPages}?'layui-disabled' : 'layui-laypage-next'"th:href="${session.page != session.TotalPages}?'@{/maintainer/patrolMain/} + ${session.page+1}':'#'">下一页</a></li>
     </div>
 </div>
 

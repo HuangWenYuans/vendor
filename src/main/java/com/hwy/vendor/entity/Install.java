@@ -44,7 +44,7 @@ public class Install {
     /***
      * 单个售货机编号
      */
-    @Transient
+//    @Transient
     @Column(name = "symbol_id")
     private String symbolId;
 
@@ -68,13 +68,6 @@ public class Install {
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
     private User user;
-
-    /***
-     * 与售货机实现一对一映射
-     */
-    @OneToOne
-    @JoinColumn(name = "symbol_id", unique = true)
-    private Symbol symbol;
 
     public Integer getInstallId() {
         return installId;
@@ -132,13 +125,6 @@ public class Install {
         this.user = user;
     }
 
-    public Symbol getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(Symbol symbol) {
-        this.symbol = symbol;
-    }
 
     @Override
     public String toString() {

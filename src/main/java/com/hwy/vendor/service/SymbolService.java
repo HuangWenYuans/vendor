@@ -10,6 +10,7 @@
 package com.hwy.vendor.service;
 
 import com.hwy.vendor.entity.Symbol;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * @create 2019/6/17
  * @since 1.0.0
  */
+@Transactional
 public interface SymbolService {
     /***
      * 根据vendorId和userId查询单个售货机
@@ -27,7 +29,6 @@ public interface SymbolService {
      * @return List<Symbol>
      */
     List<Symbol> findByVendor_VendorIdAndUserid(Integer venderId, Integer userId);
-
 
 
     /***
@@ -39,6 +40,20 @@ public interface SymbolService {
     List<Symbol> findSymbolByUserId(Integer userid);
 
 
+    /***
+     * 根据symbolId删除数据
+     * @params symbolId
+     * void
+     */
+   void daleteSymbolById(String symbolId);
+
+
+    /***
+     * 根据symbolId查询
+     * @paramsymbolId
+     * void
+     */
+    Symbol findBySymbolId(String symbolId);
 
 
 

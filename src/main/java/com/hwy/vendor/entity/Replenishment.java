@@ -17,6 +17,8 @@ import javax.persistence.*;
  * @since 1.0.0
  */
 
+
+
 @Entity
 @Table(name = "t_replenishment_prompt")
 public class Replenishment {
@@ -114,4 +116,6 @@ public class Replenishment {
                 ", replenishmentStatus=" + replenishmentStatus +
                 '}';
     }
+
+
 }

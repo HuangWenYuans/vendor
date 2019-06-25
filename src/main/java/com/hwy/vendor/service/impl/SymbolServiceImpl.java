@@ -34,6 +34,7 @@ public class SymbolServiceImpl implements SymbolService {
     @Resource
     private InstallRepository installRepository;
 
+
     /***
      * 根据vendorId查询单个售货机
      * @param venderId
@@ -54,11 +55,36 @@ public class SymbolServiceImpl implements SymbolService {
     @Override
     public List<Symbol> findSymbolByUserId(Integer userid){
         List<Install> installs = installRepository.findByUser_Userid(userid);
+        System.out.println(installs.toString());
         List<Symbol> symbols = new ArrayList<>();
         for (Install install : installs) {
-            symbols.add(install.getSymbol());
+            symbols.add(symbolRepository.findBySymbolId(install.getSymbolId()));
         }
         return symbols;
+    }
+
+
+
+    /***
+     * 根据symbolId删除数据
+     * @params symbolId
+     * void
+     */
+    @Override
+    public void daleteSymbolById(String symbolId){
+        symbolRepository.deleteBySymbolId(symbolId);
+    }
+
+
+
+    /***
+     * 根据symbolId查询
+     * @paramsymbolId
+     * void
+     */
+    @Override
+    public Symbol findBySymbolId(String symbolId){
+        return symbolRepository.findBySymbolId(symbolId);
     }
 }
 

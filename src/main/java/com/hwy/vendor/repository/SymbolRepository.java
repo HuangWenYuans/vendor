@@ -29,4 +29,21 @@ public interface SymbolRepository extends JpaRepository<Symbol, String>  {
 
     List<Symbol> findByVendor_VendorIdAndUserid(Integer venderId, Integer userId);
 
+
+
+    /***
+     * 根据symbolId删除数据
+     * @params symbolId
+     * void
+     */
+    void deleteBySymbolId(String symbolId);
+
+
+    /***
+     * 根据symbolId查询
+     * @paramsymbolId
+     * void
+     */
+    Symbol findBySymbolId(String symbolId);
+
 }

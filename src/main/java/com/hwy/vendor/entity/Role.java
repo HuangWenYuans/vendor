@@ -47,8 +47,9 @@ public class Role {
     public Role() {
     }
 
-    public Role(String roleName) {
 
+    public Role(Integer roleId, String roleName) {
+        this.roleId = roleId;
         this.roleName = roleName;
     }
 

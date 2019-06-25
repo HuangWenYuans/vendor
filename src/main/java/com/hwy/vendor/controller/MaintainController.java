@@ -12,9 +12,12 @@ package com.hwy.vendor.controller;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.hwy.vendor.entity.*;
 import com.hwy.vendor.service.MaintainService;
+import com.hwy.vendor.service.ReplenishmentService;
 import com.hwy.vendor.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,6 +44,8 @@ public class MaintainController {
     private MaintainService maintainService;
     @Resource
     private UserService userService;
+    @Resource
+    private ReplenishmentService replenishmentService;
 
     /***
      * 实现运维人员登录显示未维修列表
@@ -118,14 +123,14 @@ public class MaintainController {
      */
     @ResponseBody
     @RequestMapping("/doWarranty")
-    public Object doWarranty(String symbolId,Integer vendorId,HttpSession session) {
+    public Object doWarranty(String symbolId,HttpSession session) {
         AjaxResult result = new AjaxResult();
         User user = (User) session.getAttribute("user");
         //根据售货机编号获取售货机信息
         try {
             //根据用户类型查找用户
-            Role role = new Role("运维人员");
-            System.out.println(role);
+            Role role = new Role(4,"运维人员");
+            System.out.println(role.getRoleId());
             List<User> users = userService.findUsersByRole(role);
             System.out.println(users);
            int randam = (int) (Math.random() * users.size());
@@ -143,6 +148,15 @@ public class MaintainController {
         }
         return result;
     }
+
+
+   @GetMapping("/reple")
+    public String reple(HttpSession session){
+        List<Replenishment> replenishments = replenishmentService.queryAll();
+        session.setAttribute("replenishments",replenishments);
+        session.setAttribute("flag",1);
+        return "maintainer/operAndMainSys";
+   }
 
 
 }

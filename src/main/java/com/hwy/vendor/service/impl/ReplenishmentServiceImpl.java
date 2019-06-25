@@ -48,4 +48,14 @@ public class ReplenishmentServiceImpl implements ReplenishmentService {
         replenishmentRespository.save(replenishment);
     }
 
+
+    /**
+     * 通過id刪除補貨信息
+     * @param id
+     */
+    @Override
+    public void deleteReplenishment(Integer id){
+        replenishmentRespository.deleteById(id);
+    }
+
 }
