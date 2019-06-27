@@ -56,10 +56,10 @@
             <td th:text="${replenishment.goodsId}"></td>
             <td th:text="${replenishment.replenishmentTime}"></td>
             <td>
-                <!--<a th:href="@{'/installer/install?installid='+${install.installId} + '&symbolid='+${install.symbolId}}">-->
-                <!--<button class="layui-btn layui-btn-warm layui-btn-radius">安装</button>-->
-                <!--</a>-->
+                <a th:href="@{'/replenishment/'+${replenishment.symbolId} }">
                 <button class="layui-btn layui-btn-warm layui-btn-radius">去补货</button>
+            </a>
+                <!--<button class="layui-btn layui-btn-warm layui-btn-radius">去补货</button>-->
             </td>
         </tr>
         </tbody>

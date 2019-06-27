@@ -10,16 +10,14 @@
 package com.hwy.vendor.controller;
 
 import com.hwy.vendor.entity.*;
+import com.hwy.vendor.service.CustomerService;
 import com.hwy.vendor.service.MaintainService;
 import com.hwy.vendor.service.PatrolService;
 import com.hwy.vendor.service.VendorGoodsService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -43,6 +41,8 @@ public class PatrolController {
     private VendorGoodsService vendorGoodsService;
     @Resource
     private MaintainService maintainService;
+    @Resource
+    private CustomerService customerService;
 
     /***
      * 获取售货机列表
@@ -100,7 +100,7 @@ public class PatrolController {
      */
     @ResponseBody
     @RequestMapping("/warrantyList")
-    public Object warrantyList(Integer vendorId, HttpSession session) {
+    public Object warrantyList(Integer vendorId, Integer orderId, HttpSession session) {
         User user = (User) session.getAttribute("user");
         System.out.println(user);
         AjaxResult result = new AjaxResult();
@@ -121,6 +121,11 @@ public class PatrolController {
                     j++;
                 }
             }
+            if (symbols.size() == 0) {
+                System.out.println(orderId);
+                customerService.modifyRepairStatusByOrderId(orderId);
+            }
+
             session.setAttribute("Patrols", symbols);
             result.setSuccess(true);
         } catch (Exception e) {
@@ -140,7 +145,8 @@ public class PatrolController {
         int vendorId1 = Integer.parseInt(vendorId);
         Integer userid = ((User) session.getAttribute("user")).getUserid();
         List<Symbol> symbols = patrolService.findByVendor_VendorIdAndUserid(vendorId1, userid);
-        List<Maintain> maintains = new ArrayList<>();
+        List<Maintain> maintains;
+
         for (int i = 0; i < symbols.size(); i++) {
             maintains = maintainService.queryByUseridAndSymbolId(symbols.get(i).getUserid(), symbols.get(i).getSymbolId());
             int j = 0;
@@ -153,10 +159,12 @@ public class PatrolController {
                 j++;
             }
         }
+
         System.out.println(symbols.size());
         session.setAttribute("Patrols", symbols);
         return "maintainer/warranty";
     }
+
 
     /***
      * 处理货物列表
@@ -165,7 +173,7 @@ public class PatrolController {
      */
     @RequestMapping("/goodList")
     public String goodList(@RequestParam String symbolId, Model model) {
-        return "redirect:/replenishment/" + symbolId;
+        return "redirect:/patrolGoods/" + symbolId;
     }
 }
 

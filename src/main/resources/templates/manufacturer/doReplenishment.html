@@ -23,7 +23,7 @@
 </head>
 <body>
     <form class="layui-form" action="/doReplenishment" method="post">
-        <input type="text" name="reCount" required  lay-verify="required" placeholder="请输入补货数量" autocomplete="off" class="layui-input">
+        <input type="text" name="reCount" required  lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
         <input type="hidden" name="vendorId" th:value="${vendorId}">
         <input type="hidden" name="goodsId" th:value="${goodsId}">
         <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>

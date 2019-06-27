@@ -226,7 +226,6 @@ public class Vendor {
                 ", price=" + price +
                 ", stock=" + stock +
                 ", detail='" + detail + '\'' +
-                ", carts=" + carts +
                 '}';
     }
 }

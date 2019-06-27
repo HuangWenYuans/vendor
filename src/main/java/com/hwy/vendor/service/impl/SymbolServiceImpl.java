@@ -11,8 +11,11 @@ package com.hwy.vendor.service.impl;
 
 import com.hwy.vendor.entity.Install;
 import com.hwy.vendor.entity.Symbol;
+import com.hwy.vendor.entity.Vendor;
 import com.hwy.vendor.repository.InstallRepository;
 import com.hwy.vendor.repository.SymbolRepository;
+import com.hwy.vendor.repository.VendorRepository;
+import com.hwy.vendor.service.CustomerService;
 import com.hwy.vendor.service.SymbolService;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,8 @@ public class SymbolServiceImpl implements SymbolService {
     private SymbolRepository symbolRepository;
     @Resource
     private InstallRepository installRepository;
+    @Resource
+    private VendorRepository vendorRepository;
 
 
     /***
@@ -41,10 +46,10 @@ public class SymbolServiceImpl implements SymbolService {
      * @return List<Symbol>
      */
     @Override
-    public List<Symbol> findByVendor_VendorIdAndUserid(Integer venderId,Integer userId){
-        return symbolRepository.findByVendor_VendorIdAndUserid(venderId,userId);
+    public List<Symbol> findByVendor_VendorIdAndUserid(Integer venderId, Integer userId) {
+        Vendor vendor = vendorRepository.findByVendorId(venderId);
+        return symbolRepository.findSymbolsByVendorAndUserid(vendor, userId);
     }
-
 
 
     /***
@@ -53,7 +58,7 @@ public class SymbolServiceImpl implements SymbolService {
      * @return 售货机列表
      */
     @Override
-    public List<Symbol> findSymbolByUserId(Integer userid){
+    public List<Symbol> findSymbolByUserId(Integer userid) {
         List<Install> installs = installRepository.findByUser_Userid(userid);
         System.out.println(installs.toString());
         List<Symbol> symbols = new ArrayList<>();
@@ -64,17 +69,15 @@ public class SymbolServiceImpl implements SymbolService {
     }
 
 
-
     /***
      * 根据symbolId删除数据
      * @params symbolId
      * void
      */
     @Override
-    public void daleteSymbolById(String symbolId){
+    public void daleteSymbolById(String symbolId) {
         symbolRepository.deleteBySymbolId(symbolId);
     }
-
 
 
     /***
@@ -83,7 +86,7 @@ public class SymbolServiceImpl implements SymbolService {
      * void
      */
     @Override
-    public Symbol findBySymbolId(String symbolId){
+    public Symbol findBySymbolId(String symbolId) {
         return symbolRepository.findBySymbolId(symbolId);
     }
 }

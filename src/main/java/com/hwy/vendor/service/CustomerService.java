@@ -11,6 +11,8 @@ package com.hwy.vendor.service;
 
 import com.hwy.vendor.entity.*;
 import org.springframework.data.domain.Page;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -137,5 +139,21 @@ public interface CustomerService {
      * @return
      */
     Page<Order> getOrderPageAndSortByUser(User user, int page);
+
+    /***
+     * 根据订单号修改订单状态
+     * @param orderId
+     */
+    @Transactional
+    @Rollback(false)
+    void modifyStatusByOrderId(Integer orderId);
+
+    /***
+     * 根据订单号修改维修订单的状态
+     * @param orderId
+     */
+    @Transactional
+    @Rollback(false)
+    void modifyRepairStatusByOrderId(Integer orderId);
 }
 

@@ -296,5 +296,24 @@ public class CustomerServiceImpl implements CustomerService {
     public Vendor insert(Vendor vendor) {
         return vendorRepository.save(vendor);
     }
+
+    /***
+     * 根据订单号修改订单状态
+     * @param orderId
+     */
+    @Override
+    public void modifyStatusByOrderId(Integer orderId) {
+        orderRepository.modifyStatusByOrderId(orderId);
+    }
+
+
+    /***
+     * 根据订单号修改维修订单的状态
+     * @param orderId
+     */
+    @Override
+    public void modifyRepairStatusByOrderId(Integer orderId) {
+        orderRepository.modifyRepairStatusByOrderId(orderId);
+    }
 }
 

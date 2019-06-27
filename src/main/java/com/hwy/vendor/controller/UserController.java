@@ -10,6 +10,7 @@
 package com.hwy.vendor.controller;
 
 import com.hwy.vendor.entity.AjaxResult;
+import com.hwy.vendor.entity.Consignee;
 import com.hwy.vendor.entity.User;
 import com.hwy.vendor.entity.Vendor;
 import com.hwy.vendor.service.CustomerService;
@@ -90,6 +91,8 @@ public class UserController {
         User u = (User) session.getAttribute("user");
         logger.info("用户:" + u.getUsername() + "登录了");
         logger.info("登录用户信息：" + u.toString());
+        List<Consignee> consignees = customerService.getConsigneesByUser(u);
+        session.setAttribute("consignees", consignees);
         //查询出所有饮料机的信息
         List<Vendor> drinkVendors = customerService.getVendorsByType(1);
         logger.info("饮料机的信息" + drinkVendors);

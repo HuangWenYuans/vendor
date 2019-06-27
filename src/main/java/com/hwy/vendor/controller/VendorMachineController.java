@@ -93,6 +93,19 @@ public class VendorMachineController {
         return "manufacturer/replenishment";
     }
 
+    @GetMapping("/patrolGoods/{vendorId}")
+    public String patrolGoods(@PathVariable("vendorId") String vendorId, Model model){
+        List<VendorGoods> vgs = vendorGoodsService.getVendorGoodsById(vendorId);
+        List<VendorMachineController.GoodsAndCount> gs = new ArrayList<>();
+        for (VendorGoods vg : vgs){
+            Goods goods = goodsService.getGoodsById(vg.getGoodsId());
+            gs.add(new VendorMachineController.GoodsAndCount(goods, vg.getGoodsCount()));
+        }
+        model.addAttribute("gs",gs);
+        model.addAttribute("vendorId", vendorId);
+        return "maintainer/patrolGoods";
+    }
+
     private class GoodsAndCount{
         private Goods goods;
         private int count;

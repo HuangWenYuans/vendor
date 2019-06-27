@@ -9,12 +9,21 @@
 
 package com.hwy.vendor;
 
+import com.hwy.vendor.entity.User;
+import com.hwy.vendor.entity.Vendor;
+import com.hwy.vendor.repository.CartRepository;
+import com.hwy.vendor.repository.UserRepository;
+import com.hwy.vendor.repository.VendorRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.annotation.Resource;
+
+import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
 
@@ -29,6 +38,15 @@ import static junit.framework.TestCase.assertTrue;
 @SpringBootTest
 @ContextConfiguration
 public class MyTest {
+    @Resource
+    private VendorRepository vendorRepostory;
+
+    @Resource
+    private CartRepository cartRepository;
+
+    @Resource
+    private UserRepository userRepository;
+
     /***
      * 测试密码加密算法
      */
@@ -39,8 +57,29 @@ public class MyTest {
         System.out.println(result);
         assertTrue(encoder.matches("admin", result));
 
-
     }
+
+    @Test
+    public void findByVendorId() {
+        Vendor vendor = vendorRepostory.findByVendorId(1);
+        System.out.println(vendor);
+    }
+
+    @Test
+    public void findAllVendor() {
+        List<Vendor> vendors = vendorRepostory.findAll();
+        for (Vendor v : vendors) {
+            System.out.println(v);
+        }
+    }
+
+    @Test
+    public void findCartByUser() {
+        User user = userRepository.findByUserid(7);
+        System.out.println(user);
+        System.out.println(cartRepository.findCartsByUser(user));
+    }
+
 }
 
     

@@ -13,6 +13,8 @@ import com.hwy.vendor.entity.Order;
 import com.hwy.vendor.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -32,6 +34,22 @@ public interface OrderRepository extends JpaRepository<Order, Integer>, JpaSpeci
      */
     List<Order> findOrdersByUser(User user);
 
+
+    /***
+     * 根据订单编号修改订单状态
+     * @param orderId
+     */
+    @Query(value = "update t_order set status = 4 where order_id = ?", nativeQuery = true)
+    @Modifying
+    void modifyStatusByOrderId(Integer orderId);
+
+    /***
+     * 根据订单编号修改维修订单状态
+     * @param orderId
+     */
+    @Query(value = "update t_order set status = 2 where order_id = ?", nativeQuery = true)
+    @Modifying
+    void modifyRepairStatusByOrderId(Integer orderId);
 }
 
     

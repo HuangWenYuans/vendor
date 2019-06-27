@@ -32,36 +32,19 @@
                 <div class="list-cont" cont="tuangou">
                     <div class="item-box layui-clear">
                         <div th:each="gds:${gs}" class="item">
-                            <img src="/vendor/vendor_main/static/assets/img/manufacturer/tuan_img1.jpg"
-                                 th:src="@{/assets/img/manufacturer/tuan_img1.jpg}" alt="">
+                            <img th:src="@{${gds.goods.img}}"/>
                             <div class="text-box">
                                 <p class="title">[[${gds.goods.goodsName}]]</p>
                                 <p class="plic">
                                     <span class="ciur-pic">单价：[[${gds.goods.goodsPrice}]]元</span>
                                     <span class="ciur-pic">库存：[[${gds.count}]]</span>
-                                    <a target="_blank" th:href="@{'/goReplenishment/?vendorId=' + ${vendorId} + '&goodsId=' + ${gds.goods.goodsId}}">
-                                        <button class="layui-btn layui-btn-normal" >编辑</button>
+                                    <a target="_blank" th:href="@{'/goReplenishment/?vendorId=' + ${vendorId} + '&goodsId=' + ${gds.goods.goodsId}}" >
+                                        <button class="layui-btn layui-btn-normal">编辑 </button>
                                     </a>
                                 </p>
                             </div>
                         </div>
 
-                        <div id="demo0" style="text-align: center;">
-                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-1">
-                                <a href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="0">上一页</a>
-                                <span class="layui-laypage-curr">
-                                        <em class="layui-laypage-em"></em>
-                                        <em>1</em>
-                                    </span>
-                                <a href="javascript:;" data-page="2">2</a>
-                                <a href="javascript:;" data-page="3">3</a>
-                                <a href="javascript:;" data-page="4">4</a>
-                                <a href="javascript:;" data-page="5">5</a>
-                                <span class="layui-laypage-spr">…</span>
-                                <a href="javascript:;" class="layui-laypage-last" title="尾页" data-page="10">10</a>
-                                <a href="javascript:;" class="layui-laypage-next" data-page="2">下一页</a>
-                            </div>
-                        </div>
                     </div>
 
                 </div>

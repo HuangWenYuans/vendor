@@ -10,6 +10,7 @@
 package com.hwy.vendor.repository;
 
 import com.hwy.vendor.entity.Symbol;
+import com.hwy.vendor.entity.Vendor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface SymbolRepository extends JpaRepository<Symbol, String>  {
      * @return  List<Symbol>
      */
 
-    List<Symbol> findByVendor_VendorIdAndUserid(Integer venderId, Integer userId);
+    List<Symbol> findSymbolsByVendorAndUserid(Vendor vendor, Integer userId);
 
 
 

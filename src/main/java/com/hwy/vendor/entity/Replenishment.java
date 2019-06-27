@@ -105,6 +105,22 @@ public class Replenishment {
         this.replenishmentStatus = replenishmentStatus;
     }
 
+    public Replenishment() {
+    }
+
+    public Replenishment(Integer userId, String symbolId, Integer goodsId, String replenishmentTime, Integer replenishmentStatus) {
+        this.userId = userId;
+        this.symbolId = symbolId;
+        this.goodsId = goodsId;
+        this.replenishmentTime = replenishmentTime;
+        this.replenishmentStatus = replenishmentStatus;
+    }
+
+
+
+
+
+
     @Override
     public String toString() {
         return "ReplenishmentRespository{" +

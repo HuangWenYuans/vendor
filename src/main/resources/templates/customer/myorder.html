@@ -14,9 +14,9 @@
     <div class="wrapper clearfix">
         <a href="#" th:href="@{/user/index}" class="fl">首页</a>
         <span>/</span>
-        <a href="personalcenter.html" th:href="@{/personalcenter}">个人中心</a>
+        <a href="personalcenter.html" th:href="@{/customer/personalcenter}">个人中心</a>
         <span>/</span>
-        <a href="myorder.html" th:href="@{/myorder}" class="on">我的订单</a>
+        <a href="myorder.html" th:href="@{/customer/myorder}" class="on">我的订单</a>
     </div>
 </div>
 
@@ -32,17 +32,17 @@
                 <h4>我的交易</h4>
                 <ul>
                     <li><a href="cart.html" th:href="@{/cart}">我的购物车</a></li>
-                    <li><a href="myorder.html" th:href="@{/myorder}">我的订单</a></li>
+                    <li><a href="myorder.html" th:href="@{/customer/myorder/1}">我的订单</a></li>
                 </ul>
                 <h4>个人中心</h4>
                 <ul>
-                    <li><a href="personalcenter.html" th:href="@{/personalcenter}">我的中心</a></li>
-                    <li><a href="address.html" th:href="@{/address}">地址管理</a></li>
+                    <li><a href="personalcenter.html" th:href="@{/customer/personalcenter}">我的中心</a></li>
+                    <li><a href="address.html" th:href="@{/customer/address}">地址管理</a></li>
                 </ul>
                 <h4>账户管理</h4>
                 <ul>
-                    <li class="on"><a href="information.html" th:href="@{/information}">个人信息</a></li>
-                    <li><a href="modifypassword.html" th:href="@{/modifypassword}">修改密码</a></li>
+                    <li class="on"><a href="information.html" th:href="@{/customer/information}">个人信息</a></li>
+                    <li><a href="modifypassword.html" th:href="@{/customer/modifypassword}">修改密码</a></li>
                 </ul>
             </div>
         </div>
@@ -88,7 +88,7 @@
                         <a href="#">¥[[${orderitem.vendor.price}]]×[[${orderitem.count}]]</a>
                     </p>
                     <p class="fr">
-                        <a href="javascript:void(0)" th:onclick="toInstall([[${orderitem.vendor.vendorId}]],[[${session.user.userid}]])">预约安装</a>
+                        <a href="javascript:void(0)" th:onclick="toInstall([[${orderitem.vendor.vendorId}]],[[${session.user.userid}]],[[${orderitem.order.orderId}]])">预约安装</a>
                         <a href="orderxq.html">订单详情</a>
                     </p>
                 </div>
@@ -122,10 +122,10 @@
                     </p>
                 </div>
             </div>
-            <!--已安装部分-->
+            <!--已预约安装部分-->
             <div class="dkuang clearfix" style="display: block" th:each="order,n:${session.orders}"
-                 th:if="${order.status == 1}">
-                <p class="one">已安装</p>
+                 th:if="${order.status == 4}">
+                <p class="one">已预约安装</p>
                 <div class="word clearfix">
                     <ul class="fl clearfix">
                         <li>[[${order.orderDate}]]</li>
@@ -144,7 +144,7 @@
                         <a href="#">¥[[${orderitem.vendor.price}]]×[[${orderitem.count}]]</a>
                     </p>
                     <p class="fr">
-                        <a href="javascript:void(0)" th:onclick="toRepair([[${orderitem.vendor.vendorId}]])"
+                        <a href="javascript:void(0)" th:onclick="toRepair([[${orderitem.vendor.vendorId}]],[[${orderitem.order.orderId}]])"
                            style="background: #A10000;color: #fff">点击报修</a>
                         <a href="orderxq.html">订单详情</a>
                     </p>
@@ -200,7 +200,7 @@
 <script th:src="@{/assets/js/customer/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     //跳转到预约安装界面的方法
-    function toInstall(vendorId,userid) {
+    function toInstall(vendorId,userid,orderId) {
         //    使用ajax提交表单数据
         var loadingIndex = null;
         console.log(vendorId);
@@ -209,7 +209,8 @@
             url: "/installer/createinfo",
             data: {
                 "vendorId": vendorId,
-                "userid":userid
+                "userid":userid,
+                "orderId":orderId
             },
             beforeSend: function () {
                 loadingIndex = layer.msg('处理中', {icon: 16});
@@ -228,7 +229,7 @@
     }
 
     //跳转到预约界面的方法
-    function toRepair(vendorId) {
+    function toRepair(vendorId,orderId) {
         //    使用ajax提交表单数据
         var loadingIndex = null;
         console.log(vendorId);
@@ -237,6 +238,7 @@
             url: "/maintainer/warrantyList",
             data: {
                 "vendorId": vendorId,
+                "orderId":orderId
             },
             beforeSend: function () {
                 loadingIndex = layer.msg('处理中', {icon: 16});
